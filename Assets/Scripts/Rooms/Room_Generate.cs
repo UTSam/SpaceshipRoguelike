@@ -16,7 +16,7 @@ public class Room_Generate : MonoBehaviour
 
     private void ObjectFromTilemap(Tilemap tilemap)
     {
-        List<TileBase> tiles = new List<TileBase>();
+        List<Tile> tiles = new List<Tile>();
         List<Vector3Int> pos = new List<Vector3Int>();
 
         // Add tiles to list
