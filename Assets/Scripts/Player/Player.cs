@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MovingEntity
 {
-    void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
     void Update()
     {

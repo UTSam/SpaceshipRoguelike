@@ -7,9 +7,9 @@ public class MovingEntity : BasicEntity
     public float MaxSpeed;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-
+        base.Start();
     }
 
     // Update is called once per frame
@@ -21,17 +21,18 @@ public class MovingEntity : BasicEntity
     public void move(Vector2 displacementValue)
     {
         if (displacementValue.magnitude < MaxSpeed)
-            RigidBody.velocity = displacementValue;
+        {
+            rigidBody.velocity = displacementValue;
+        }
         else
         {
             displacementValue.Normalize();
-            RigidBody.velocity = displacementValue * MaxSpeed;
+            rigidBody.velocity = displacementValue * MaxSpeed;
         }
     }
 
     public void rotate(float rotateValue)
     {
-        RigidBody.SetRotation(RigidBody.rotation + rotateValue);
+        rigidBody.SetRotation(rigidBody.rotation + rotateValue);
     }
-
 }

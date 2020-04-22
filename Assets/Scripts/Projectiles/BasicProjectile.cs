@@ -10,7 +10,7 @@ public class BasicProjectile : MovingEntity
 
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         lifeTime = LifeSpan;
     }
