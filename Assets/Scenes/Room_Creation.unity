@@ -285,21 +285,22 @@ Tilemap:
       e20: 1.04e-43
       e21: 0
       e22: 0
-      e23: -4.659988e-10
-      e30: 2.55e-43
+      e23: 4.686136e-10
+      e30: 3e-45
       e31: NaN
       e32: 0
-      e33: 6.85e-43
+      e33: 4.22e-43
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: -5.138687, g: -5.138687, b: -5.138687, a: -5.138687}
   - m_RefCount: 0
-    m_Data: {r: -5.5650787, g: -5.5650787, b: -5.5650787, a: -5.5650787}
+    m_Data: {r: -0.0000000010459047, g: -0.0000000010459047, b: -0.0000000010459047,
+      a: -0.0000000010459047}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -12, y: -8, z: 0}
-  m_Size: {x: 26, y: 16, z: 1}
+  m_Origin: {x: -17, y: -8, z: 0}
+  m_Size: {x: 31, y: 16, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -576,15 +577,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592849515}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba75bcbaa10e7f240b477b08ffdd9724, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bdc1cc249b30de4bac2999f216d164f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  area:
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 20, y: 20, z: 20}
-  tilemap: {fileID: 482537471}
+  tilemap_walls: {fileID: 0}
 --- !u!4 &1592849517
 Transform:
   m_ObjectHideFlags: 0
