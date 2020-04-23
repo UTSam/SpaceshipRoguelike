@@ -147,12 +147,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 247470192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef0d64c62b9301c4e85832e4a7044122, type: 3}
+  m_Script: {fileID: 11500000, guid: a7120527cc0ec5f40bc649bf2b8cc16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingRoom: {fileID: 7369787668644928461, guid: 90b85e2f7abbf3f4eb35ca6f715c3284,
+  boardRows: 100
+  boardColumns: 100
+  minRoomSize: 14
+  maxRoomSize: 23
+  floorTile: {fileID: 4600435053234990780, guid: c12eb0e76d7a71542b1e92d3a49fa695,
     type: 3}
-  rooms: []
+  corridorTile: {fileID: 4600435053234990780, guid: c12eb0e76d7a71542b1e92d3a49fa695,
+    type: 3}
 --- !u!4 &247470194
 Transform:
   m_ObjectHideFlags: 0
@@ -165,7 +170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &482537468
 GameObject:
@@ -285,21 +290,22 @@ Tilemap:
       e20: 1.04e-43
       e21: 0
       e22: 0
-      e23: -4.659988e-10
-      e30: 2.55e-43
+      e23: -4.7324544e-10
+      e30: 1.56e-43
       e31: NaN
       e32: 0
-      e33: 6.85e-43
+      e33: 8.73e-43
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: -5.138687, g: -5.138687, b: -5.138687, a: -5.138687}
   - m_RefCount: 0
-    m_Data: {r: -5.5650787, g: -5.5650787, b: -5.5650787, a: -5.5650787}
+    m_Data: {r: 0.0000000011455015, g: 0.0000000011455015, b: 0.0000000011455015,
+      a: 0.0000000011455015}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -12, y: -8, z: 0}
-  m_Size: {x: 26, y: 16, z: 1}
+  m_Origin: {x: -33, y: -43, z: 0}
+  m_Size: {x: 107, y: 77, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -388,7 +394,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 50
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -450,6 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c47373ce936d040b1967ca10391d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 5
   rb: {fileID: 1159342980}
 --- !u!50 &1159342980
 Rigidbody2D:
@@ -552,53 +559,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!1 &1592849515
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1592849517}
-  - component: {fileID: 1592849516}
-  m_Layer: 0
-  m_Name: RoomGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1592849516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592849515}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba75bcbaa10e7f240b477b08ffdd9724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  area:
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 20, y: 20, z: 20}
-  tilemap: {fileID: 482537471}
---- !u!4 &1592849517
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592849515}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1888038341
 GameObject:
   m_ObjectHideFlags: 0
