@@ -5,6 +5,8 @@ using UnityEngine;
 public class MovingEntity : BasicEntity
 {
     public float MaxSpeed;
+    public Vector2 Speed;
+    public float Deceleration = 0.0f;
 
     // Start is called before the first frame update
     public override void Start()
@@ -12,10 +14,10 @@ public class MovingEntity : BasicEntity
         base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdatePosition()
     {
-
+        Speed -= Speed * Deceleration * Time.deltaTime;
+        move(Speed);
     }
 
     public void move(Vector2 displacementValue)

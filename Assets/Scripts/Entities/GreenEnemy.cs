@@ -13,6 +13,6 @@ public class GreenEnemy : BasicEnemy
     // Update is called once per frame
     void Update()
     {
-        rotate(1.0f);
+
     }
 }

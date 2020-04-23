@@ -13,6 +13,6 @@ public class BasicEnemy : MovingEntity  {
     // Update is called once per frame
     void Update()
     {
-
+        UpdatePosition();
     }
 }

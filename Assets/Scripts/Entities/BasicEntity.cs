@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public class BasicEntity : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class BasicEntity : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         
     }
