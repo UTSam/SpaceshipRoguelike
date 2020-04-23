@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8040685041335693567}
   - component: {fileID: 3678157755980009384}
   - component: {fileID: 4643556024010951618}
-  - component: {fileID: 7464107938809107478}
+  - component: {fileID: 825993889192316490}
   m_Layer: 0
   m_Name: RedEnemy
   m_TagString: Untagged
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0.0013111891, y: 0}
   serializedVersion: 2
   m_Radius: 0.08754407
---- !u!114 &7464107938809107478
+--- !u!114 &825993889192316490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,11 +130,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8440686152668171201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c3f3098482723c4d83e19f76751def3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2817104c5b550ef4488325c60d335bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RigidBody: {fileID: 8040685041335693567}
-  Collider: {fileID: 0}
-  health: 1
   MaxSpeed: 50
-  Direction: {x: -1, y: -1}
+  Speed: {x: -1, y: -1}
+  Deceleration: 0.005

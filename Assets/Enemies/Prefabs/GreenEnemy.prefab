@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7786273473214142752}
   - component: {fileID: 7855793943253561101}
   - component: {fileID: 2496109141150863430}
+  - component: {fileID: 1785904802364002397}
   m_Layer: 0
   m_Name: GreenEnemy
   m_TagString: Untagged
@@ -117,10 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cc3ca30020b7f42a146b2303774c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RigidBody: {fileID: 3500236942181459575}
-  Collider: {fileID: 2496109141150863430}
-  health: 1
   MaxSpeed: 0
+  Speed: {x: 0, y: 0}
+  Deceleration: 0
 --- !u!61 &2496109141150863430
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,3 +147,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &1785904802364002397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037187362089655625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939936384dc235a4b96cdd294785efb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectilePrefab: {fileID: 2607782460055521708, guid: 93dcad9cefd2e5c41b6f1f4e8938f945,
+    type: 3}
+  Target: {fileID: 0}
+  Muzzle: {fileID: 2800104448951566651}
+  FireRate: 3

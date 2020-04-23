@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Player : MovingEntity
 {
-    void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        move(new Vector2(horizontalInput, verticalInput)*5); 
+        Speed = new Vector2(horizontalInput*10.0f, verticalInput*10.0f);
+        UpdatePosition();
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }

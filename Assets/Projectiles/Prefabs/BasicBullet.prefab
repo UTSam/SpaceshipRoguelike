@@ -46,11 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfb244ec1020884c87e21a89de82fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RigidBody: {fileID: 2607782460055521709}
-  Collider: {fileID: 2607782460055521697}
   MaxSpeed: 250
+  Speed: {x: 0, y: 0}
+  Deceleration: 0.2
   DamageValue: 5
-  LifeSpan: 7
+  LifeSpan: 2
+  InitialSpeed: 10
 --- !u!212 &2607782460055521710
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,7 +122,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!61 &2607782460055521697
 BoxCollider2D:
   m_ObjectHideFlags: 0

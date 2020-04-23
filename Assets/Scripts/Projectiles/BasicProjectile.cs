@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class BasicProjectile : MovingEntity
 {
-    public int DamageValue;
-    public float LifeSpan;
-    private float lifeTime;
+    public int DamageValue = 1;
+    public float LifeSpan = 3.0f;
+    public float InitialSpeed = 10.0f;
 
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        lifeTime = LifeSpan;
+        base.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        lifeTime = LifeSpan - Time.time;
-        if (lifeTime <= 0.0f)
+        UpdatePosition();
+        LifeSpan -= Time.deltaTime;
+
+        if (LifeSpan <= 0.0f)
         {
             Destroy(this.gameObject);
         }
