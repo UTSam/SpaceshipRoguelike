@@ -19,9 +19,8 @@ public class DungeonGenerator : MonoBehaviour
         List<Door> AvailableSpawnLocations = new List<Door>();
 
         Room startingRoom = Instantiate(StartingRoom, new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-        startingRoom.SetPosition(Vector3Int.zero);
-        startingRoom.CreateRoom();
-        startingRoom.name = "StartingRoom";
+        startingRoom.SetPosition(Vector2Int.zero);
+        startingRoom.DrawRoom();
 
         RecursiveMakeRooms(startingRoom);
     }
@@ -33,43 +32,54 @@ public class DungeonGenerator : MonoBehaviour
             if (currentRooms >= maxRooms)
                 return;
 
-            Vector3Int currentPosition = room.offsetPosition;
-
-            Vector3Int addToPosition = Vector3Int.zero;
             Room spawnedRoom = null;
+            Vector2Int addToPosition = Vector2Int.zero;
+            int paddingBetweenRooms = 10;
 
             if (door.Direction == direction.Down)
             {
-                spawnedRoom = Instantiate(RoomsEntranceUp[Random.Range(0, RoomsEntranceUp.Length)], new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-                addToPosition = new Vector3Int(0, -(room.height + 15), 0);
+                if (RoomsEntranceUp.Length == 0)
+                    continue;
+
+                spawnedRoom = Instantiate(RoomsEntranceUp[Random.Range(0, RoomsEntranceUp.Length)], Vector3Int.zero, Quaternion.identity) as Room;
+                addToPosition.y = -(spawnedRoom.height + paddingBetweenRooms);
                 spawnedRoom.RemoveDoor(direction.Up);
             }
 
             if (door.Direction == direction.Up)
             {
-                spawnedRoom = Instantiate(RoomsEntranceDown[Random.Range(0, RoomsEntranceDown.Length)], new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-                addToPosition = new Vector3Int(0, room.height + 15, 0);
+                if (RoomsEntranceDown.Length == 0)
+                    continue;
+
+                spawnedRoom = Instantiate(RoomsEntranceDown[Random.Range(0, RoomsEntranceDown.Length)], Vector3Int.zero, Quaternion.identity) as Room;
+                addToPosition.y = room.height + paddingBetweenRooms;
                 spawnedRoom.RemoveDoor(direction.Down);
             }
 
             if (door.Direction == direction.Left)
             {
-                spawnedRoom = Instantiate(RoomsEntranceRight[Random.Range(0, RoomsEntranceRight.Length)], new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-                addToPosition = new Vector3Int(-(room.width + 15), 0, 0);
+                if (RoomsEntranceRight.Length == 0)
+                    continue;
+
+                spawnedRoom = Instantiate(RoomsEntranceRight[Random.Range(0, RoomsEntranceRight.Length)], Vector3Int.zero, Quaternion.identity) as Room;
+                addToPosition.x = -(spawnedRoom.width + paddingBetweenRooms);
                 spawnedRoom.RemoveDoor(direction.Right);
             }
 
             if (door.Direction == direction.Right)
             {
-                spawnedRoom = Instantiate(RoomsEntranceLeft[Random.Range(0, RoomsEntranceLeft.Length)], new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-                addToPosition = new Vector3Int(room.width + 15, 0, 0);
+                if (RoomsEntranceLeft.Length == 0)
+                    continue;
+
+                spawnedRoom = Instantiate(RoomsEntranceLeft[Random.Range(0, RoomsEntranceLeft.Length)], Vector3Int.zero, Quaternion.identity) as Room;
+                addToPosition.x = room.width + paddingBetweenRooms;
                 spawnedRoom.RemoveDoor(direction.Left);
             }
 
             spawnedRoom.name = room.name + "-" + door.Direction;
 
-            spawnedRoom.SetPosition(currentPosition + addToPosition);
-            spawnedRoom.CreateRoom();
+            spawnedRoom.SetPosition(room.offsetPosition + addToPosition);
+            spawnedRoom.DrawRoom();
             currentRooms++;
 
             RecursiveMakeRooms(spawnedRoom);
