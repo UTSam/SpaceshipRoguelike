@@ -1,78 +1,87 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class DungeonGenerator : MonoBehaviour
-//{
-//    public Room StartingRoom;
-//    public Room[] RoomsEntranceDown;
-//    public Room[] RoomsEntranceUp;
-//    public Room[] RoomsEntranceLeft;
-//    public Room[] RoomsEntranceRight;
+public class DungeonGenerator : MonoBehaviour
+{
+    public Room startingRoom;
+    public Room[] roomsEntranceDown;
+    public Room[] roomsEntranceUp;
+    public Room[] roomsEntranceLeft;
+    public Room[] roomsEntranceRight;
 
-//    private int maxRooms = 8;
-//    private int currentRooms = 0;
+    public int paddingBetweenRooms = 10;
+    private int maxRooms = 8;
+    private int currentRooms = 0;
 
-//    // Start is called before the first frame update
-//    void Start()
-//    {
-//        List<Door> AvailableSpawnLocations = new List<Door>();
+    // Start is called before the first frame update
+    void Start()
+    {
+        List<Door> AvailableSpawnLocations = new List<Door>();
 
-//        Room startingRoom = Instantiate(StartingRoom, new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-//        startingRoom.SetPosition(Vector3Int.zero);
-//        startingRoom.CreateRoom();
-//        startingRoom.name = "StartingRoom";
+        Room newStartingRoom = Instantiate(startingRoom, new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
+        newStartingRoom.SetPosition(Vector2Int.zero);
+        newStartingRoom.DrawRoom();
 
-//        RecursiveMakeRooms(startingRoom);
-//    }
+        RecursiveMakeRooms(newStartingRoom);
+    }
 
-//    void RecursiveMakeRooms(Room room)
-//    {
-//        foreach (Door door in room.GetDoorPositions())
-//        {
-//            if (currentRooms >= maxRooms)
-//                return;
+    void RecursiveMakeRooms(Room room)
+    {
+        foreach (Door door in room.GetDoorPositions())
+        {
+            if (currentRooms >= maxRooms)
+                return;
 
-//            Vector3Int currentPosition = room.offsetPosition;
+            Room spawnedRoom = null;
+            Vector2Int addToPosition = Vector2Int.zero;
 
-//            Vector3Int addToPosition = Vector3Int.zero;
-//            Room spawnedRoom = null;
+            if (door.Direction == direction.Down)
+            {
+                if (roomsEntranceUp.Length == 0)
+                    continue;
 
-//            if (door.Direction == direction.Down)
-//            {
-//                spawnedRoom = Instantiate(RoomsEntranceUp[Random.Range(0, RoomsEntranceUp.Length)], new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-//                addToPosition = new Vector3Int(0, -(room.height + 15), 0);
-//                spawnedRoom.RemoveDoor(direction.Up);
-//            }
+                spawnedRoom = Instantiate(roomsEntranceUp[Random.Range(0, roomsEntranceUp.Length)], Vector3Int.zero, Quaternion.identity) as Room;
+                addToPosition.y = -(spawnedRoom.height + paddingBetweenRooms);
+                spawnedRoom.RemoveDoor(direction.Up);
+            }
 
-//            if (door.Direction == direction.Up)
-//            {
-//                spawnedRoom = Instantiate(RoomsEntranceDown[Random.Range(0, RoomsEntranceDown.Length)], new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-//                addToPosition = new Vector3Int(0, room.height + 15, 0);
-//                spawnedRoom.RemoveDoor(direction.Down);
-//            }
+            if (door.Direction == direction.Up)
+            {
+                if (roomsEntranceDown.Length == 0)
+                    continue;
 
-//            if (door.Direction == direction.Left)
-//            {
-//                spawnedRoom = Instantiate(RoomsEntranceRight[Random.Range(0, RoomsEntranceRight.Length)], new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-//                addToPosition = new Vector3Int(-(room.width + 15), 0, 0);
-//                spawnedRoom.RemoveDoor(direction.Right);
-//            }
+                spawnedRoom = Instantiate(roomsEntranceDown[Random.Range(0, roomsEntranceDown.Length)], Vector3Int.zero, Quaternion.identity) as Room;
+                addToPosition.y = room.height + paddingBetweenRooms;
+                spawnedRoom.RemoveDoor(direction.Down);
+            }
 
-//            if (door.Direction == direction.Right)
-//            {
-//                spawnedRoom = Instantiate(RoomsEntranceLeft[Random.Range(0, RoomsEntranceLeft.Length)], new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-//                addToPosition = new Vector3Int(room.width + 15, 0, 0);
-//                spawnedRoom.RemoveDoor(direction.Left);
-//            }
+            if (door.Direction == direction.Left)
+            {
+                if (roomsEntranceRight.Length == 0)
+                    continue;
 
-//            spawnedRoom.name = room.name + "-" + door.Direction;
+                spawnedRoom = Instantiate(roomsEntranceRight[Random.Range(0, roomsEntranceRight.Length)], Vector3Int.zero, Quaternion.identity) as Room;
+                addToPosition.x = -(spawnedRoom.width + paddingBetweenRooms);
+                spawnedRoom.RemoveDoor(direction.Right);
+            }
 
-//            spawnedRoom.SetPosition(currentPosition + addToPosition);
-//            spawnedRoom.CreateRoom();
-//            currentRooms++;
+            if (door.Direction == direction.Right)
+            {
+                if (roomsEntranceLeft.Length == 0)
+                    continue;
 
-//            RecursiveMakeRooms(spawnedRoom);
-//        }
-//    }
-//}
+                spawnedRoom = Instantiate(roomsEntranceLeft[Random.Range(0, roomsEntranceLeft.Length)], Vector3Int.zero, Quaternion.identity) as Room;
+                addToPosition.x = room.width + paddingBetweenRooms;
+                spawnedRoom.RemoveDoor(direction.Left);
+            }
+
+            spawnedRoom.name = room.name + "-" + door.Direction;
+            spawnedRoom.SetPosition(room.offsetPosition + addToPosition);
+            spawnedRoom.DrawRoom();
+
+            currentRooms++;
+            RecursiveMakeRooms(spawnedRoom);
+        }
+    }
+}
