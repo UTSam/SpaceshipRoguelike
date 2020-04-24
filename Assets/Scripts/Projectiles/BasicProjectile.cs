@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BasicProjectile : MovingEntity
 {
@@ -32,6 +33,9 @@ public class BasicProjectile : MovingEntity
         if (other.GetComponentInParent<Player>())
         {
             other.GetComponentInParent<HealthComponent>().Damage(DamageValue);
+            Destroy(this.gameObject);
+        } if (other.GetComponentInParent<TilemapCollider2D>())
+        {
             Destroy(this.gameObject);
         }
     }

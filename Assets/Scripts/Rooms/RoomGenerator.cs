@@ -42,7 +42,7 @@ public class RoomGenerator : MonoBehaviour
         Room room = newObj.AddComponent<Room>();
         room.tiles = tiles.ToArray();
         room.positions = pos.ToArray();
-        room.tilemap_walls = tilemap_walls;
-        room.bounds = new BoundsInt();
+        /*room.tilemap_walls = tilemap_walls;
+        room.bounds = new BoundsInt();*/
     }
 }
