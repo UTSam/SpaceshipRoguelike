@@ -54,14 +54,13 @@ public class RoomGeneratorEditor : Editor
     GUIStyle error;
     private void InitializeCss()
     {
-
         Header = new GUIStyle();
         Header.fontSize = 15;
         Header.fontStyle = FontStyle.Bold;
         Header.alignment = TextAnchor.MiddleCenter;
 
         SubHeader = new GUIStyle();
-        SubHeader.fontSize = 14;
+        SubHeader.fontSize = 15;
 
         error = new GUIStyle();
         error.alignment = TextAnchor.UpperRight;
@@ -87,8 +86,7 @@ public class RoomGeneratorEditor : Editor
         GUILayout.Space(10f);
 
         drawNewSection();
-
-        GUILayout.Space(10f);
+        GUILayout.Space(15f);
 
         drawEditingSection();
 
@@ -108,12 +106,13 @@ public class RoomGeneratorEditor : Editor
     private void drawNewSection()
     {
         GUILayout.Label("New room", SubHeader);
-        GUILayout.Space(2f);
+        DrawUILine(Color.grey, 1, 0);
+        GUILayout.Space(4f);
 
         newRoom = EditorGUILayout.TextField("room naam", newRoom);
         if (newRoom != "")
         {
-            if (GUILayout.Button("Generate new asset - OVERRIDES FILES"))
+            if (GUILayout.Button("Generate new room prefab"))
             {
                 saveTilemapAsAsset(gen, newRoom);
             }
@@ -130,6 +129,8 @@ public class RoomGeneratorEditor : Editor
     private void drawEditingSection()
     {
         GUILayout.Label("Editing room", SubHeader);
+        DrawUILine(Color.grey, 1, 0);
+        GUILayout.Space(4f);
 
         roomObject = EditorGUILayout.ObjectField("Select room to place", roomObject, typeof(Room), true) as Room;
 
