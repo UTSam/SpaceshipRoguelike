@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Player : MovingEntity
 {
-<<<<<<< Updated upstream
-    public override void Start()
-    {
-        base.Start();
-=======
+
     // Forces variables
     private Vector2 acceleration;
     public float accelerationFactor = 0.6f;
@@ -26,11 +22,11 @@ public class Player : MovingEntity
 
     // Dash & looping variables
     public float movementCouldownDefault = 3;
-    public float movementCouldown;
+    private float movementCouldown;
     public float dashFactor = 50f;
     public bool specialMovementActivated = false;
     public float loopingDoubleTapCooldownDefault = 0.3f;
-    public float loopingDoubleTapCooldown;
+    private float loopingDoubleTapCooldown;
     public string inputType, prevInputType;
     public bool loopTrigerActivated = false;
     public float loopBoostFactor = 5.0f;
@@ -41,18 +37,27 @@ public class Player : MovingEntity
     public override void Start()
     {
        base.Start();
-        movementCouldown = movementCouldownDefault;
-        loopingDoubleTapCooldown = loopingDoubleTapCooldownDefault;
->>>>>>> Stashed changes
+       movementCouldown = movementCouldownDefault;
+       loopingDoubleTapCooldown = loopingDoubleTapCooldownDefault;
     }
     void Update()
     {
+        // model Rotation
+        if (aimType == aimTypeList.keyboard)
+        {
+            KeyboardAim();
+        }
+        else
+        {
+            MouseAim();
+        }
+
+
+        // Acceleration computation
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-<<<<<<< Updated upstream
-        Speed = new Vector2(horizontalInput*10.0f, verticalInput*10.0f);
-=======
-        acceleration.Set(horizontalInput, verticalInput);
+
+        Speed = new Vector2(horizontalInput * 10.0f, verticalInput * 10.0f); acceleration.Set(horizontalInput, verticalInput);
         acceleration *= accelerationFactor;
 
         // Fore back computation
@@ -67,7 +72,6 @@ public class Player : MovingEntity
         Speed += acceleration;
         Speed += forceBack;
 
->>>>>>> Stashed changes
         UpdatePosition();
     }
 
@@ -75,8 +79,6 @@ public class Player : MovingEntity
     {
         
     }
-<<<<<<< Updated upstream
-=======
 
 
     public void OrientModel()
@@ -135,6 +137,45 @@ public class Player : MovingEntity
         }
     }
 
+    public void MouseAim()
+    {
+        Vector2 objectPosition = transform.position;
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition -= objectPosition;
+
+        Vector3 eulerRotation = transform.rotation.eulerAngles;
+        eulerRotation.z = Mathf.Atan2(mousePosition.y, mousePosition.x) * Mathf.Rad2Deg - 90;
+        transform.rotation = Quaternion.Euler(eulerRotation);
+    }
+
+
+    public void KeyboardAim()
+    {
+        {
+            Vector2 targetPosition = Vector2.zero;
+
+            if (Input.GetKey(KeyCode.Keypad5))
+                targetPosition += Vector2.up;
+
+            if (Input.GetKey(KeyCode.Keypad2))
+                targetPosition += Vector2.down;
+
+            if (Input.GetKey(KeyCode.Keypad1))
+                targetPosition += Vector2.left;
+
+            if (Input.GetKey(KeyCode.Keypad3))
+                targetPosition += Vector2.right;
+
+            if (targetPosition != Vector2.zero)
+            {
+                Vector3 eulerRotation = transform.rotation.eulerAngles;
+                eulerRotation.z = Mathf.Atan2(targetPosition.y, targetPosition.x) * Mathf.Rad2Deg - 90;
+                transform.rotation = Quaternion.Euler(eulerRotation);
+            }
+
+
+        }
+    }
 
     public void LoopingFunction()
     {
@@ -183,5 +224,4 @@ public class Player : MovingEntity
             prevInputType = "none";
         }        
     }
->>>>>>> Stashed changes
 }
