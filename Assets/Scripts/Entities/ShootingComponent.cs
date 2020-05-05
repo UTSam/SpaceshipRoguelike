@@ -24,7 +24,7 @@ public class ShootingComponent : MonoBehaviour
         {
             GameObject projectile = Instantiate(ProjectilePrefab) as GameObject;
             projectile.transform.position = Muzzle.position;
-            projectile.GetComponent<MovingEntity>().Speed = (Target.position - Muzzle.position).normalized * projectile.GetComponent<BasicProjectile>().InitialSpeed;
+            projectile.GetComponent<MovingEntity>().speed = (Target.position - Muzzle.position).normalized * projectile.GetComponent<BasicProjectile>().InitialSpeed;
 
             Vector3 lookPos = Target.position - Muzzle.position;
             float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
