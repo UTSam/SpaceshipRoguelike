@@ -6,26 +6,49 @@ using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
-    [SerializeField]private int Health = 1;
-    public int MaxHealth = 100;
-    public Text HealthText;
+    [SerializeField] private float Health = 1;
+    [SerializeField] private float Shield = 1;
 
+    public float MaxHealth = 100;
+    public float MaxShield = 100;
+
+    [SerializeField] private LifeBar bar;
+
+    void Start()
+    {
+        Health = MaxHealth;
+        Shield = MaxShield;
+        UpdateBar();
+    }
     public virtual void OnDeath()
     {
         Destroy(this.gameObject);
     }
 
-    public virtual void Damage(int damageValue)
+    public virtual void Damage(float damageValue)
     {
-        if (Health > 0)
+        float damageToLife = damageValue;
+        if (Shield > 0f)
+        {
+            Shield -= damageValue;
+            if (Shield < 0f)
+            {
+                damageToLife = -Shield;
+                Shield = 0f;
+            }
+            else
+                damageToLife = 0f;
+        }
+
+        if (damageToLife > 0f)
         {
             Health -= damageValue;
-            if (Health <= 0)
+            if (Health <= 0f)
             {
                 OnDeath();
             }
-            UpdateText();
         }
+        UpdateBar();
     }
 
     public virtual bool Heal(int healValue)
@@ -36,25 +59,39 @@ public class HealthComponent : MonoBehaviour
             if (Health > MaxHealth)
                 Health = MaxHealth;
 
-            UpdateText();
+            UpdateBar();
             return true;
         } else
             return false;        
     }
 
+    public virtual bool RestoreShield(int restoreValue)
+    {
+        if (Shield < MaxShield)
+        {
+            Shield += restoreValue;
+            if (Shield > MaxShield)
+                Shield = MaxShield;
+
+            UpdateBar();
+            return true;
+        }
+        else
+            return false;
+    }
+
     // Start is called before the first frame update
-    void Start()
-    {
-        Health = MaxHealth;
-    }
 
-    private void Update()
-    {
-        
-    }
 
-    private void UpdateText()
+    private void UpdateBar()
     {
-        //HealthText.text = Health.ToString() + " / " + MaxHealth.ToString();
+        if (bar != null)
+        {
+            bar.SetHealthValue(Health / MaxHealth);
+            if (MaxShield > 0f)
+                bar.SetShieldValue(Shield / MaxShield);
+            else
+                bar.SetShieldValue(0f);
+        }
     }
 }
