@@ -185,16 +185,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0d64c62b9301c4e85832e4a7044122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingRoom: {fileID: 3650649222982175071, guid: 87c8d2260fdf04043b1d6827827d0c0c,
+  startingRoom: {fileID: 7524745880969985766, guid: d40ab606de4f3b146b2de790f1d92613,
     type: 3}
-  RoomsEntranceDown:
-  - {fileID: 7653113020676271798, guid: f300e064922ac2344904c133a5b44447, type: 3}
-  RoomsEntranceUp:
-  - {fileID: 1756934516426776133, guid: 0c271502c70a9914a8e575ba3ca29541, type: 3}
-  RoomsEntranceLeft:
-  - {fileID: 1313903669780240811, guid: 59faa587d04615a4cbf1c3c22687a67d, type: 3}
-  RoomsEntranceRight:
-  - {fileID: 1785798530698856331, guid: 0f589a4250ee7814eaf4bee3d740c1ba, type: 3}
+  roomsEntranceDown: []
+  roomsEntranceUp: []
+  roomsEntranceLeft: []
+  roomsEntranceRight: []
+  paddingBetweenRooms: 10
 --- !u!1 &482537468
 GameObject:
   m_ObjectHideFlags: 0

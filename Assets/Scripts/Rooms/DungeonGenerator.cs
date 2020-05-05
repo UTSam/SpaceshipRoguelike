@@ -20,7 +20,7 @@ public class DungeonGenerator : MonoBehaviour
         List<Door> AvailableSpawnLocations = new List<Door>();
 
         Room newStartingRoom = Instantiate(startingRoom, new Vector3Int(0, 0, 0), Quaternion.identity) as Room;
-        newStartingRoom.SetPosition(Vector2Int.zero);
+        newStartingRoom.position = Vector2Int.zero;
         newStartingRoom.DrawRoom();
 
         RecursiveMakeRooms(newStartingRoom);
@@ -36,48 +36,48 @@ public class DungeonGenerator : MonoBehaviour
             Room spawnedRoom = null;
             Vector2Int addToPosition = Vector2Int.zero;
 
-            if (door.Direction == direction.Down)
+            if (door.Direction == Direction.Down)
             {
                 if (roomsEntranceUp.Length == 0)
                     continue;
 
                 spawnedRoom = Instantiate(roomsEntranceUp[Random.Range(0, roomsEntranceUp.Length)], Vector3Int.zero, Quaternion.identity) as Room;
                 addToPosition.y = -(spawnedRoom.height + paddingBetweenRooms);
-                spawnedRoom.RemoveDoor(direction.Up);
+                spawnedRoom.RemoveDoor(Direction.Up);
             }
 
-            if (door.Direction == direction.Up)
+            if (door.Direction == Direction.Up)
             {
                 if (roomsEntranceDown.Length == 0)
                     continue;
 
                 spawnedRoom = Instantiate(roomsEntranceDown[Random.Range(0, roomsEntranceDown.Length)], Vector3Int.zero, Quaternion.identity) as Room;
                 addToPosition.y = room.height + paddingBetweenRooms;
-                spawnedRoom.RemoveDoor(direction.Down);
+                spawnedRoom.RemoveDoor(Direction.Down);
             }
 
-            if (door.Direction == direction.Left)
+            if (door.Direction == Direction.Left)
             {
                 if (roomsEntranceRight.Length == 0)
                     continue;
 
                 spawnedRoom = Instantiate(roomsEntranceRight[Random.Range(0, roomsEntranceRight.Length)], Vector3Int.zero, Quaternion.identity) as Room;
                 addToPosition.x = -(spawnedRoom.width + paddingBetweenRooms);
-                spawnedRoom.RemoveDoor(direction.Right);
+                spawnedRoom.RemoveDoor(Direction.Right);
             }
 
-            if (door.Direction == direction.Right)
+            if (door.Direction == Direction.Right)
             {
                 if (roomsEntranceLeft.Length == 0)
                     continue;
 
                 spawnedRoom = Instantiate(roomsEntranceLeft[Random.Range(0, roomsEntranceLeft.Length)], Vector3Int.zero, Quaternion.identity) as Room;
                 addToPosition.x = room.width + paddingBetweenRooms;
-                spawnedRoom.RemoveDoor(direction.Left);
+                spawnedRoom.RemoveDoor(Direction.Left);
             }
 
             spawnedRoom.name = room.name + "-" + door.Direction;
-            spawnedRoom.SetPosition(room.offsetPosition + addToPosition);
+            spawnedRoom.AddToPosition(addToPosition);
             spawnedRoom.DrawRoom();
 
             currentRooms++;

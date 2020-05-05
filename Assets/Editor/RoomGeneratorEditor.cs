@@ -142,7 +142,7 @@ public class RoomGeneratorEditor : Editor
 
                 tempRoonObject = (Room)Instantiate(roomObject, new Vector3(0, 0, 0), Quaternion.identity) as Room;
                 PreviousRoomName = tempRoonObject.name;
-                tempRoonObject.SetTileMap(gen.tilemap);
+                tempRoonObject.tilemap = gen.tilemap;
                 tempRoonObject.DrawRoom();
 
                 DestroyImmediate(tempRoonObject.gameObject);

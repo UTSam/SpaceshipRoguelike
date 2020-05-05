@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum direction
+public enum Direction
 {
     Up,
     Down,
@@ -14,35 +14,35 @@ public enum direction
 
 public struct Door
 {
-    public Door(Vector2Int position, direction dir)
-    {
-        Position = position;
-        Direction = dir;
-    }
-
     public Vector2Int Position { get; set; }
 
-    public direction Direction { get; }
+    public Direction Direction { get; }
+
+    public Door(Vector2Int position, Direction direction)
+    {
+        Position = position;
+        Direction = direction;
+    }
 }
 
 public class Room : MonoBehaviour
 {
-    public Tile[] tiles;
-
-    public Vector2Int[] positions;
-    public Vector2Int offsetPosition;
-
     public Tilemap tilemap;
 
-    public int width = 0;
-    public int height = 0;
+    public Tile[] tiles;
+    public Vector2Int[] tilePositions;
 
-    private List<direction> ignoredDoors;
+    public Vector2Int position;
+
+    public int width;
+    public int height;
+
+    private List<Direction> ignoredDoors;
 
     // Start is called before the first frame update
     void Awake()
     {
-        ignoredDoors = new List<direction>();
+        ignoredDoors = new List<Direction>();
         tilemap = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
     }
 
@@ -51,12 +51,12 @@ public class Room : MonoBehaviour
         if(tilemap == null)
             return;
 
-        if (offsetPosition == null)
+        if (position == null)
             return;
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            tilemap.SetTile((Vector3Int)(positions[i] + offsetPosition), tiles[i]);
+            tilemap.SetTile((Vector3Int)(tilePositions[i] + position), tiles[i]);
         }
     }
 
@@ -66,42 +66,28 @@ public class Room : MonoBehaviour
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            if (tiles[i].sprite.name == "DoorUp" && !ignoredDoors.Contains(direction.Up))
-                tempPos.Add(new Door(positions[i], direction.Up));
+            if (tiles[i].sprite.name == "DoorUp" && !ignoredDoors.Contains(Direction.Up))
+                tempPos.Add(new Door(tilePositions[i], Direction.Up));
 
-            else if (tiles[i].sprite.name == "DoorDown" && !ignoredDoors.Contains(direction.Down))
-                tempPos.Add(new Door(positions[i], direction.Down));
+            else if (tiles[i].sprite.name == "DoorDown" && !ignoredDoors.Contains(Direction.Down))
+                tempPos.Add(new Door(tilePositions[i], Direction.Down));
 
-            else if (tiles[i].sprite.name == "DoorLeft" && !ignoredDoors.Contains(direction.Left))
-                tempPos.Add(new Door(positions[i], direction.Left));
+            else if (tiles[i].sprite.name == "DoorLeft" && !ignoredDoors.Contains(Direction.Left))
+                tempPos.Add(new Door(tilePositions[i], Direction.Left));
 
-            else if (tiles[i].sprite.name == "DoorRight" && !ignoredDoors.Contains(direction.Right))
-                tempPos.Add(new Door(positions[i], direction.Right));
+            else if (tiles[i].sprite.name == "DoorRight" && !ignoredDoors.Contains(Direction.Right))
+                tempPos.Add(new Door(tilePositions[i], Direction.Right));
         }
         return tempPos;
     }
 
-    internal void RemoveDoor(direction dir)
+    internal void RemoveDoor(Direction dir)
     {
         ignoredDoors.Add(dir);
     }
-    internal void SetWidth(int v)
-    {
-        width = v;
-    }
 
-    internal void SetHeight(int v)
+    internal void AddToPosition(Vector2Int addToPosition)
     {
-        height = v;
-    }
-
-    public void SetPosition(Vector2Int pos)
-    {
-        offsetPosition = pos;
-    }
-
-    public  void SetTileMap(Tilemap _tilemap) 
-    {
-        tilemap = _tilemap;
+        position += addToPosition;
     }
 }
