@@ -131,7 +131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 247470194}
   - component: {fileID: 247470193}
-  - component: {fileID: 247470195}
   m_Layer: 0
   m_Name: DungeonGenerator
   m_TagString: Untagged
@@ -146,19 +145,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247470192}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7120527cc0ec5f40bc649bf2b8cc16d, type: 3}
+  m_Script: {fileID: 11500000, guid: ef0d64c62b9301c4e85832e4a7044122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardRows: 100
-  boardColumns: 100
-  minRoomSize: 14
-  maxRoomSize: 23
-  floorTile: {fileID: 4600435053234990780, guid: c12eb0e76d7a71542b1e92d3a49fa695,
-    type: 3}
-  corridorTile: {fileID: 4600435053234990780, guid: c12eb0e76d7a71542b1e92d3a49fa695,
-    type: 3}
+  availableRooms:
+  - {fileID: 7524745880969985766, guid: d40ab606de4f3b146b2de790f1d92613, type: 3}
+  roomCount: 10
+  seed: 0
+  additionalDistance: 10
+  maxOffset: 20
 --- !u!4 &247470194
 Transform:
   m_ObjectHideFlags: 0
@@ -173,25 +170,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &247470195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 247470192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef0d64c62b9301c4e85832e4a7044122, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingRoom: {fileID: 7524745880969985766, guid: d40ab606de4f3b146b2de790f1d92613,
-    type: 3}
-  roomsEntranceDown: []
-  roomsEntranceUp: []
-  roomsEntranceLeft: []
-  roomsEntranceRight: []
-  paddingBetweenRooms: 10
 --- !u!1 &482537468
 GameObject:
   m_ObjectHideFlags: 0
