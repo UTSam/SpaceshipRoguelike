@@ -1,38 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
-    public int Health = 10;
+    [SerializeField]private int Health = 1;
+    public int MaxHealth = 100;
+    public Text HealthText;
 
-    public void OnDeath()
+    public virtual void OnDeath()
     {
         Destroy(this.gameObject);
     }
 
     public virtual void Damage(int damageValue)
     {
-        Health -= damageValue;
+        if (Health > 0)
+        {
+            Health -= damageValue;
+            if (Health <= 0)
+            {
+                OnDeath();
+            }
+            UpdateText();
+        }
     }
 
-    public virtual void Heal(int damageValue)
+    public virtual bool Heal(int healValue)
     {
-        Health -= damageValue;
+        if (Health < MaxHealth)
+        {
+            Health += healValue;
+            if (Health > MaxHealth)
+                Health = MaxHealth;
+
+            UpdateText();
+            return true;
+        } else
+            return false;        
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        Health = MaxHealth;
+    }
+
+    private void Update()
+    {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateText()
     {
-        if (Health <= 0)
-        {
-            OnDeath();
-        }
+        //HealthText.text = Health.ToString() + " / " + MaxHealth.ToString();
     }
 }
