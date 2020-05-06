@@ -12,6 +12,10 @@ public class HealthComponent : MonoBehaviour
     public float MaxHealth = 100;
     public float MaxShield = 100;
 
+    [SerializeField] private float FireWeakeness = 3f;
+    [SerializeField] private float ElecWeakness = 3f;
+    [SerializeField] private float NormalWeakness = 3f;
+
     [SerializeField] private LifeBar bar;
 
     void Start()
@@ -23,6 +27,58 @@ public class HealthComponent : MonoBehaviour
     public virtual void OnDeath()
     {
         Destroy(this.gameObject);
+    }
+
+    public virtual void Damage(float damageValue, ElementType elem)
+    {
+        float damageToLife = damageValue;
+        if (Shield > 0f)
+        {
+            if (elem == ElementType.Elec)
+            {
+                Debug.Log("Damage to shield : " + damageValue * (1f + ElecWeakness));
+                Shield -= damageValue * (1f + ElecWeakness);
+            }
+                
+            else
+            {
+                Shield -= damageValue;
+                Debug.Log("Damage to shield : " + damageValue);
+            }
+            Shield = Mathf.Round(Shield);
+            
+            if (Shield < 0f)
+            {
+                if (elem == ElementType.Elec)
+                    damageToLife = -Shield / (1f + ElecWeakness);
+                else
+                    damageToLife = -Shield;
+                Shield = 0f;
+            }
+            else
+                damageToLife = 0f;
+        }
+
+        if (damageToLife > 0f)
+        {
+            if (elem == ElementType.Fire)
+            {
+                Health -= damageToLife * (1f + FireWeakeness);
+                Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
+            }
+            else
+            {
+                Health -= damageToLife;
+                Debug.Log("Damage to life : " + damageToLife);
+            }
+
+            Health = Mathf.Round(Health);
+            if (Health <= 0f)
+            {
+                OnDeath();
+            }
+        }
+        UpdateBar();
     }
 
     public virtual void Damage(float damageValue)
@@ -42,7 +98,7 @@ public class HealthComponent : MonoBehaviour
 
         if (damageToLife > 0f)
         {
-            Health -= damageValue;
+            Health -= damageToLife;
             if (Health <= 0f)
             {
                 OnDeath();
@@ -79,9 +135,6 @@ public class HealthComponent : MonoBehaviour
         else
             return false;
     }
-
-    // Start is called before the first frame update
-
 
     private void UpdateBar()
     {
