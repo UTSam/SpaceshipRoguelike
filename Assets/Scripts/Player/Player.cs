@@ -57,7 +57,7 @@ public class Player : MovingEntity
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        speed = new Vector2(horizontalInput * 10.0f, verticalInput * 10.0f); acceleration.Set(horizontalInput, verticalInput);
+        speed = new Vector3(horizontalInput * 10.0f, verticalInput * 10.0f); acceleration.Set(horizontalInput, verticalInput);
         acceleration *= accelerationFactor;
 
         // Fore back computation

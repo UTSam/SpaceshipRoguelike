@@ -10,10 +10,7 @@ public class BasicMovingEnemy : MovingEntity
     {
         base.Start();
         steering = GetComponent<SteeringBehaviours>();
-        this.speed = Vector2.zero;
-        this.deceleration = 0.0f;
-        this.heading = Vector2.zero;
-        this.perpendicular = Perpendicular(heading);
+        this.mass = 1;
     }
 
     // Update is called once per frame
