@@ -1,20 +1,33 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Rooms;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
+    private List<Room> availableRooms;
 
-    public Room[] availableRooms;
+    public int count = 0;
     public int roomCount = 10;
     public int seed;
     public int additionalDistance = 10;
     public int maxOffset = 20;
+    readonly Vector3Int[] directions =
+    {
+        Vector3Int.down,
+        Vector3Int.left,
+        Vector3Int.right,
+        Vector3Int.up
+    };
 
     private List<Room> placedRooms = new List<Room>();
 
     public void Start()
     {
+        availableRooms = LoadAllPrefabsOfType<Room>("Assets/Rooms");
+
         StartCoroutine("GenerateDungeon");
     }
 
@@ -22,115 +35,150 @@ public class DungeonGenerator : MonoBehaviour
     {
         System.Random rand = new System.Random(seed);
 
-        int count = 0;
-
         // Place starting room
-        int roomIndex = rand.Next(availableRooms.Length);
-        Room spawnRoom = Instantiate(availableRooms[roomIndex], this.transform);
+        Room spawnRoom = Instantiate(GetAndRemoveStartingRoom(), this.transform);
         placedRooms.Add(spawnRoom);
 
         // Keep placing rooms until roomCount
         while (count < roomCount)
         {
             // Pick random room from placed rooms
-            int i = rand.Next(placedRooms.Count);
-            Room toAddTo = placedRooms[i];
+            Room toAddTo = placedRooms[rand.Next(placedRooms.Count)];
 
             // Pick random room to add
-            Room toAdd = availableRooms[rand.Next(availableRooms.Length)];
+            Room toAdd = availableRooms[rand.Next(availableRooms.Count)];
 
-            // Pick random dir
-            Vector2Int[] directions =
-            {
-                Vector2Int.down,
-                Vector2Int.left,
-                Vector2Int.right,
-                Vector2Int.up
-            };
-            Vector2Int dir = directions[rand.Next(directions.Length)];
+            // Pick random direction
+            Vector3Int newRoomPosition = directions[rand.Next(directions.Length)];
 
-            int whatever = rand.Next(maxOffset) - (maxOffset / 2);
+            int randomOffset = rand.Next(maxOffset * 2) - maxOffset;
 
-            // Get right distance from dir
-            if (dir == Vector2Int.down)
+            // Get right distance from direction
+            if (newRoomPosition == Vector3Int.down)
             {
-                dir -= new Vector2Int(0, -toAddTo.roomBorders.yMin);
-                dir -= new Vector2Int(0, toAdd.roomBorders.yMax);
-                dir -= new Vector2Int(whatever, additionalDistance);
+                newRoomPosition -= new Vector3Int(0, -toAddTo.roomBorders.yMin, 0);
+                newRoomPosition -= new Vector3Int(0, toAdd.roomBorders.yMax, 0);
+                newRoomPosition -= new Vector3Int(randomOffset, additionalDistance, 0);
             }
-            else if (dir == Vector2Int.left)
+            else if (newRoomPosition == Vector3Int.left)
             {
-                dir -= new Vector2Int(-toAddTo.roomBorders.xMin, 0);
-                dir -= new Vector2Int(toAdd.roomBorders.xMax, 0);
-                dir -= new Vector2Int(additionalDistance, whatever);
+                newRoomPosition -= new Vector3Int(-toAddTo.roomBorders.xMin, 0, 0);
+                newRoomPosition -= new Vector3Int(toAdd.roomBorders.xMax, 0, 0);
+                newRoomPosition -= new Vector3Int(additionalDistance, randomOffset, 0);
             }
-            else if (dir == Vector2Int.right)
+            else if (newRoomPosition == Vector3Int.right)
             {
-                dir += new Vector2Int(toAddTo.roomBorders.xMax, 0);
-                dir += new Vector2Int(-toAdd.roomBorders.xMin, 0);
-                dir += new Vector2Int(additionalDistance, whatever);
+                newRoomPosition += new Vector3Int(toAddTo.roomBorders.xMax, 0, 0);
+                newRoomPosition += new Vector3Int(-toAdd.roomBorders.xMin, 0, 0);
+                newRoomPosition += new Vector3Int(additionalDistance, randomOffset, 0);
             }
-            else if (dir == Vector2Int.up)
+            else if (newRoomPosition == Vector3Int.up)
             {
-                dir += new Vector2Int(0, toAddTo.roomBorders.yMax);
-                dir += new Vector2Int(0, -toAdd.roomBorders.yMin);
-                dir += new Vector2Int(whatever, additionalDistance);
+                newRoomPosition += new Vector3Int(0, toAddTo.roomBorders.yMax, 0);
+                newRoomPosition += new Vector3Int(0, -toAdd.roomBorders.yMin, 0);
+                newRoomPosition += new Vector3Int(randomOffset, additionalDistance, 0);
             }
 
-            // Find new pos
-            Vector3Int newPos = toAddTo.pos + new Vector3Int(dir.x, dir.y, 0);
+            // Find new position
+            Vector3Int newPos = toAddTo.position + newRoomPosition;
             Room newRoom = Instantiate(toAdd, newPos, Quaternion.identity, this.transform);
-            newRoom.pos = newPos;
+            newRoom.position = newPos;
 
-            // Check if toAdd intersects with another room
-            bool intersects = false;
-            foreach (Room r in placedRooms)
-            {
-                if (roomsIntersect(newRoom, r, additionalDistance))
-                {
-                    intersects = true;
-                }
-            }
-
-            if (intersects)
+            if (RoomInteractsWithPlacedRooms(newRoom, additionalDistance))
             {
                 Destroy(newRoom.gameObject);
             }
             else
             {
                 placedRooms.Add(newRoom);
+                newRoom.previousRoom = toAddTo;
                 count++;
             }
 
             yield return null;
-
         }
 
         // Draw all rooms
         foreach (Room r in placedRooms)
         {
             r.DrawRoom();
+
+            foreach (Door door in r.doors)
+                Debug.Log(door.Position);
         }
     }
-
-    private bool roomsIntersect(Room r1, Room r2, int additionalDistance)
+    private bool RoomInteractsWithPlacedRooms(Room placedRoom, int additionalDistance)
     {
-        // Check if either room is completely left of the other
-        if (
-            r1.pos.x + r1.roomBorders.xMin - additionalDistance >= r2.pos.x + r2.roomBorders.xMax ||
-            r2.pos.x + r2.roomBorders.xMin - additionalDistance >= r1.pos.x + r1.roomBorders.xMax)
+        foreach (Room roomToCheck in placedRooms)
         {
-            return false;
+            // Check if either room is completely left of the other
+            if (
+                placedRoom.position.x + placedRoom.roomBorders.xMin - additionalDistance >= roomToCheck.position.x + roomToCheck.roomBorders.xMax ||
+                roomToCheck.position.x + roomToCheck.roomBorders.xMin - additionalDistance >= placedRoom.position.x + placedRoom.roomBorders.xMax)
+            {
+                continue;
+            }
+
+            // Check if either room is completely above the other
+            if (
+                placedRoom.position.y + placedRoom.roomBorders.yMin - additionalDistance >= roomToCheck.position.y + roomToCheck.roomBorders.yMax ||
+                roomToCheck.position.y + roomToCheck.roomBorders.yMin - additionalDistance >= placedRoom.position.y + placedRoom.roomBorders.yMax)
+            {
+                continue;
+            }
+
+            return true;
         }
 
-        // Check if either room is completely above the other
-        if (
-            r1.pos.y + r1.roomBorders.yMin - additionalDistance >= r2.pos.y + r2.roomBorders.yMax ||
-            r2.pos.y + r2.roomBorders.yMin - additionalDistance >= r1.pos.y + r1.roomBorders.yMax)
+        return false;
+    }
+
+    private static List<T> LoadAllPrefabsOfType<T>(string path) where T : MonoBehaviour
+    {
+        if (path != "")
         {
-            return false;
+            if (path.EndsWith("/"))
+            {
+                path = path.TrimEnd('/');
+            }
         }
 
-        return true;
+        DirectoryInfo dirInfo = new DirectoryInfo(path);
+        FileInfo[] fileInf = dirInfo.GetFiles("*.prefab");
+
+        //loop through directory loading the game object and checking if it has the component you want
+        List<T> prefabComponents = new List<T>();
+        foreach (FileInfo fileInfo in fileInf)
+        {
+            string fullPath = fileInfo.FullName.Replace(@"\", "/");
+            string assetPath = "Assets" + fullPath.Replace(Application.dataPath, "");
+            GameObject prefab = AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject)) as GameObject;
+
+            if (prefab != null)
+            {
+                T hasT = prefab.GetComponent<T>();
+                if (hasT != null)
+                {
+                    prefabComponents.Add(hasT);
+                }
+            }
+        }
+        return prefabComponents;
+    }
+
+    private Room GetAndRemoveStartingRoom()
+    {
+        Room startingRoom = null;
+
+        foreach (Room room in availableRooms)
+        {
+            if (room.name == "start")
+            {
+                startingRoom = room;
+            }
+        }
+
+        availableRooms.Remove(startingRoom);
+        return startingRoom;
     }
 }

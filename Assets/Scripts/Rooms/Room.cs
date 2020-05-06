@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Rooms;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,18 +13,6 @@ public enum Direction
     Left
 }
 
-public struct Door
-{
-    public Vector2Int Position { get; set; }
-
-    public Direction Direction { get; }
-
-    public Door(Vector2Int position, Direction direction)
-    {
-        Position = position;
-        Direction = direction;
-    }
-}
 
 public class Room : MonoBehaviour
 {
@@ -40,22 +29,18 @@ public class Room : MonoBehaviour
     public Tile[] tiles;
     public Vector3Int[] tilePositions;
 
-    public Vector3Int pos;
+    public Vector3Int position;
 
-    public int width;
-    public int height;
+    public List<Door> doors = new List<Door>();
 
-    private List<Direction> ignoredDoors;
-
-
-    // List with placed tiles, to be removed when moving the thing
-    private List<Vector3Int> placedTiles = new List<Vector3Int>();
+    public Room previousRoom;
 
     // Start is called before the first frame update
     void Awake()
     {
-        ignoredDoors = new List<Direction>();
         tilemap_walls = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
+
+        SetDoorPositions();
     }
 
     public void DrawRoom()
@@ -63,68 +48,84 @@ public class Room : MonoBehaviour
         if(tilemap_walls == null)
             return;
 
-        if (pos == null)
+        if (position == null)
             return;
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            tilemap_walls.SetTile((tilePositions[i] + pos), tiles[i]);
+            tilemap_walls.SetTile((tilePositions[i] + position), tiles[i]);
         }
     }
 
-    public List<Door> GetDoorPositions()
+    internal void AddToPosition(Vector3Int addToPosition)
     {
-        List<Door> tempPos = new List<Door>();
+        position += addToPosition;
+    }
 
+    public void RemoveDoor(Door door)
+    {
+        doors.Remove(door);
+    }
+
+    private void SetDoorPositions()
+    {
         for (int i = 0; i < tiles.Length; i++)
         {
-            if (tiles[i].sprite.name == "DoorUp" && !ignoredDoors.Contains(Direction.Up))
-                tempPos.Add(new Door(new Vector2Int(tilePositions[i].x, tilePositions[i].y), Direction.Up));
+            Door newDoor = new Door(new Vector3Int(tilePositions[i].x, tilePositions[i].y, 0));
 
-            else if (tiles[i].sprite.name == "DoorDown" && !ignoredDoors.Contains(Direction.Down))
-                tempPos.Add(new Door(new Vector2Int(tilePositions[i].x, tilePositions[i].y), Direction.Down));
+            switch (tiles[i].sprite.name)
+            {
+                case "DoorUp":
+                    newDoor.Direction = Direction.Up;
+                    break;
+                case "DoorDown":
+                    newDoor.Direction = Direction.Down;
+                    break;
+                case "DoorLeft":
+                    newDoor.Direction = Direction.Left;
+                    break;
+                case "DoorRight":
+                    newDoor.Direction = Direction.Right;
+                    break;
+                default:
+                    continue;
+            }
 
-            else if (tiles[i].sprite.name == "DoorLeft" && !ignoredDoors.Contains(Direction.Left))
-                tempPos.Add(new Door(new Vector2Int(tilePositions[i].x, tilePositions[i].y), Direction.Left));
-
-            else if (tiles[i].sprite.name == "DoorRight" && !ignoredDoors.Contains(Direction.Right))
-                tempPos.Add(new Door(new Vector2Int(tilePositions[i].x, tilePositions[i].y), Direction.Right));
+            doors.Add(newDoor);
         }
-        return tempPos;
-    }
-
-    internal void RemoveDoor(Direction dir)
-    {
-        ignoredDoors.Add(dir);
-    }
-
-    internal void AddToPosition(Vector2Int addToPosition)
-    {
-        pos += (Vector3Int) addToPosition;
     }
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
         RoomBorders rb = roomBorders;
 
-        Gizmos.color = Color.red;
-
-        Gizmos.DrawSphere(pos + new Vector3(rb.xMin, rb.yMin), .2f);
-        Gizmos.DrawSphere(pos + new Vector3(rb.xMin, rb.yMax), .2f);
-        Gizmos.DrawSphere(pos + new Vector3(rb.xMax, rb.yMin), .2f);
-        Gizmos.DrawSphere(pos + new Vector3(rb.xMax, rb.yMax), .2f);
+        Gizmos.DrawSphere(position + new Vector3(rb.xMin, rb.yMin), .2f);
+        Gizmos.DrawSphere(position + new Vector3(rb.xMin, rb.yMax), .2f);
+        Gizmos.DrawSphere(position + new Vector3(rb.xMax, rb.yMin), .2f);
+        Gizmos.DrawSphere(position + new Vector3(rb.xMax, rb.yMax), .2f);
 
         Gizmos.DrawLine(
-            pos + new Vector3(rb.xMax, rb.yMin),
-            pos + new Vector3(rb.xMin, rb.yMin));
+            position + new Vector3(rb.xMax, rb.yMin),
+            position + new Vector3(rb.xMin, rb.yMin));
         Gizmos.DrawLine(
-            pos + new Vector3(rb.xMax, rb.yMax),
-            pos + new Vector3(rb.xMin, rb.yMax));
+            position + new Vector3(rb.xMax, rb.yMax),
+            position + new Vector3(rb.xMin, rb.yMax));
         Gizmos.DrawLine(
-            pos + new Vector3(rb.xMin, rb.yMin),
-            pos + new Vector3(rb.xMin, rb.yMax));
+            position + new Vector3(rb.xMin, rb.yMin),
+            position + new Vector3(rb.xMin, rb.yMax));
         Gizmos.DrawLine(
-            pos + new Vector3(rb.xMax, rb.yMax),
-            pos + new Vector3(rb.xMax, rb.yMin));
+            position + new Vector3(rb.xMax, rb.yMax),
+            position + new Vector3(rb.xMax, rb.yMin));
+
+        foreach(Door door in doors)
+        {
+            Gizmos.DrawSphere(door.Position + position, .2f);
+        }
+
+        Gizmos.color = Color.magenta;
+        if(previousRoom)
+            Gizmos.DrawLine(position, previousRoom.position);
+
     }
 }
