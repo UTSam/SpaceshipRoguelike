@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class SteeringBehaviours : MonoBehaviour
 {
     private BasicMovingEnemy host;
+    private Vector2 returnValue;
 
     static System.Random rand;
-    private  Vector2 wanderTarget;
-    private  Vector2 wanderCircle;
-    private  Vector2 worldTarget;
+    private Vector2 wanderTarget;
+    private Vector2 wanderCircle;
+    private Vector2 worldTarget;
     [SerializeField] private float wanderRadius = 1f;
     [SerializeField] private float wanderJitter = 0.25f;
     [SerializeField] private float wanderDistance = 0.4f * 0.4f;
@@ -22,6 +24,10 @@ public class SteeringBehaviours : MonoBehaviour
     [SerializeField] private bool evadeOn = false;
     private double panicDistance = 2 * 2;
 
+    [SerializeField] private Collider2D headingCollider;
+    private bool collidingWall = false;
+
+
 
     private void Start()
     {
@@ -34,26 +40,16 @@ public class SteeringBehaviours : MonoBehaviour
 
     public Vector2 Calculate()
     {
-
-        Vector2 returnValue = Vector2.zero;
+        returnValue = Vector2.zero;
 
         if (seekON) returnValue += Seek();
         if (fleeON) returnValue += Flee();
         if (arriveOn) returnValue += Arrive(arriveDeceleration);
         if (persuitOn) returnValue += Persuit();
-        if (evadeOn) returnValue += Evade()*4;
+        if (evadeOn) returnValue += Evade();
         if (wanderOn) returnValue += Wander();
+        if (collidingWall) returnValue *= -1;
         return returnValue;
-    }
-
-    public Vector2 ForwardComponent()
-    {
-        return Vector2.zero;
-    }
-
-    public Vector2 SideComponent()
-    {
-        return Vector2.zero;
     }
 
     public void SetPath() { }
@@ -134,42 +130,50 @@ public class SteeringBehaviours : MonoBehaviour
             toPersuer.magnitude /
             (host.maxSpeed + host.target.speed.magnitude);
 
-        return Flee(host.GetPosition() + host.target.speed * lookAHeadTime);
+        return Flee(host.target.GetPosition() + host.target.speed * lookAHeadTime);
     }
 
     private Vector2 Wander()
     {
-        wanderCircle = host.GetPosition() + host.heading * wanderDistance;
+        wanderCircle = host.heading * wanderDistance;
         wanderTarget += new Vector2(
-            rand.Next(-1, 1) * wanderJitter,
-            rand.Next(-1, 1) * wanderJitter
+            (float)(rand.NextDouble() * 2 - 1) * wanderJitter,
+            (float)(rand.NextDouble() * 2 - 1) * wanderJitter
             );
         wanderTarget = wanderTarget.normalized * wanderRadius;
-
-
         worldTarget = wanderCircle + wanderTarget;
-        Vector2 force = (wanderTarget - host.GetPosition()).normalized;
 
-        return force;
+        return wanderTarget;
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponentInParent<TilemapCollider2D>())this.collidingWall = true;
     }
 
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponentInParent<TilemapCollider2D>()) this.collidingWall = false;
+    }
     void OnDrawGizmos()
     {
         // Draw a yellow sphere at the transform's position
         if (host != null)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawLine(host.GetPosition(), host.heading.normalized);
+            Gizmos.DrawLine(host.GetPosition(), host.GetPosition() + host.heading);
             if (wanderOn && wanderTarget != null)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(host.GetPosition(), (wanderTarget - host.GetPosition()).normalized);
-                Gizmos.color = Color.black;
-                Gizmos.DrawSphere(wanderTarget.normalized, 0.1f);
+                Gizmos.DrawLine(host.GetPosition(), host.GetPosition() + wanderTarget);
+
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawSphere((host.GetPosition() + wanderTarget), 0.1f);
+
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawSphere(worldTarget.normalized, 0.1f);
+                Gizmos.DrawSphere((host.GetPosition() + worldTarget), 0.1f);
+
                 Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(wanderCircle, 0.4f);
+                Gizmos.DrawSphere(host.GetPosition() + wanderCircle, 0.4f);
             }
         }
     }

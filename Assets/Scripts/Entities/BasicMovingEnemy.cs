@@ -31,6 +31,11 @@ public class BasicMovingEnemy : MovingEntity
             this.heading = speed.normalized;
             this.perpendicular = Perpendicular(heading);
         }
+
+        Vector3 lookPos = target.transform.position - transform.position;
+        float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         UpdatePosition();
     }
 }
