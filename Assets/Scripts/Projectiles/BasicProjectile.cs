@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+public enum ElementType
+{
+    Fire,
+    Elec,
+    None
+}
 public class BasicProjectile : MovingEntity
 {
-    public int DamageValue = 1;
+    public float DamageValue = 10f;
     public float LifeSpan = 3.0f;
     public float InitialSpeed = 10.0f;
+    public ElementType element = ElementType.None;
 
 
     // Start is called before the first frame update
@@ -32,7 +39,7 @@ public class BasicProjectile : MovingEntity
     {
         if (other.GetComponentInParent<Player>())
         {
-            other.GetComponentInParent<HealthComponent>().Damage(DamageValue);
+            other.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
             Destroy(this.gameObject);
         } if (other.GetComponentInParent<TilemapCollider2D>())
         {
@@ -40,7 +47,7 @@ public class BasicProjectile : MovingEntity
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         OnHit(other);
     }

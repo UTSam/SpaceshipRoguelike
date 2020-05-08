@@ -24,7 +24,9 @@ public class ShootingComponent : MonoBehaviour
         {
             GameObject projectile = Instantiate(ProjectilePrefab) as GameObject;
             projectile.transform.position = Muzzle.position;
-            projectile.GetComponent<MovingEntity>().Speed = (Target.position - Muzzle.position).normalized * projectile.GetComponent<BasicProjectile>().InitialSpeed;
+            projectile.GetComponent<MovingEntity>().speed = (Target.position - Muzzle.position).normalized * projectile.GetComponent<BasicProjectile>().InitialSpeed;
+
+            Debug.DrawLine(Muzzle.position, Target.position, Color.red, 10f);
 
             Vector3 lookPos = Target.position - Muzzle.position;
             float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
@@ -32,7 +34,6 @@ public class ShootingComponent : MonoBehaviour
 
             lastShotTimer = 0.0f;
         }
-
         lastShotTimer += Time.deltaTime;
     }
 }
