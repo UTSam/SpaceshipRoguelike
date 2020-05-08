@@ -57,11 +57,11 @@ public class Player : MovingEntity
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        Speed = new Vector2(horizontalInput * 10.0f, verticalInput * 10.0f); acceleration.Set(horizontalInput, verticalInput);
+        speed = new Vector3(horizontalInput * 10.0f, verticalInput * 10.0f); acceleration.Set(horizontalInput, verticalInput);
         acceleration *= accelerationFactor;
 
         // Fore back computation
-        forceBack = -Speed * forceBackFactor;
+        forceBack = -speed * forceBackFactor;
 
         // special movements computation
         DashFunction();
@@ -69,8 +69,8 @@ public class Player : MovingEntity
         LoopingFunction();
 
         // Velocity computation
-        Speed += acceleration;
-        Speed += forceBack;
+        speed += acceleration;
+        speed += forceBack;
 
         UpdatePosition();
     }
@@ -90,8 +90,8 @@ public class Player : MovingEntity
 
         // SpaceShip normal orientation
         Vector2 orientationVector = Vector2.zero;
-        orientationVector.y = (Speed.x - acceleration.x) * orientationFactorX;
-        orientationVector.x = (Speed.y - acceleration.y) * orientationFactorY;
+        orientationVector.y = (speed.x - acceleration.x) * orientationFactorX;
+        orientationVector.x = (speed.y - acceleration.y) * orientationFactorY;
 
         // Spaceship looping modification
         if (loopingOrientation != "none")

@@ -24,7 +24,7 @@ public class ShootingComponent : MonoBehaviour
         {
             GameObject projectile = Instantiate(ProjectilePrefab) as GameObject;
             projectile.transform.position = Muzzle.position;
-            projectile.GetComponent<MovingEntity>().Speed = (Target.position - Muzzle.position).normalized * projectile.GetComponent<BasicProjectile>().InitialSpeed;
+            projectile.GetComponent<MovingEntity>().speed = (Target.position - Muzzle.position).normalized * projectile.GetComponent<BasicProjectile>().InitialSpeed;
 
             Debug.DrawLine(Muzzle.position, Target.position, Color.red, 10f);
 

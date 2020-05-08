@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -20,5 +18,12 @@ public class BasicEntity : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public static float DotProduct(Vector2 a, Vector2 b)
+    {
+        float returnvalue = (a.x * b.x) + (a.y * b.y);
+
+        return returnvalue;
     }
 }
