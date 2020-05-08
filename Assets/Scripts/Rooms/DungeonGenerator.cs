@@ -25,7 +25,7 @@ public class DungeonGenerator : MonoBehaviour
 
     public void Start()
     {
-        availableRooms = LoadAllPrefabsOfType<Room>("Assets/Rooms");
+        availableRooms = LoadAllPrefabsInResourcesOfType<Room>("Rooms");
         FillEntranceRoomsLists();
 
         startTime = Time.time;
@@ -183,7 +183,7 @@ public class DungeonGenerator : MonoBehaviour
         return false;
     }
 
-    private static List<T> LoadAllPrefabsOfType<T>(string path) where T : MonoBehaviour
+    private List<T> LoadAllPrefabsInResourcesOfType<T>(string path) where T : MonoBehaviour
     {
         if (path != "")
         {
@@ -193,7 +193,7 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
 
-        DirectoryInfo dirInfo = new DirectoryInfo(path);
+        DirectoryInfo dirInfo = new DirectoryInfo("Assets/Resources/" + path);
         FileInfo[] fileInf = dirInfo.GetFiles("*.prefab");
 
         //loop through directory loading the game object and checking if it has the component you want
@@ -201,9 +201,8 @@ public class DungeonGenerator : MonoBehaviour
         foreach (FileInfo fileInfo in fileInf)
         {
             string fullPath = fileInfo.FullName.Replace(@"\", "/");
-            string assetPath = "Assets" + fullPath.Replace(Application.dataPath, "");
-            GameObject prefab = AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject)) as GameObject;
-
+            GameObject prefab = Resources.Load<GameObject>(path + "/" + RemoveFileExtension(fileInfo.Name));
+            Debug.Log(prefab);
             if (prefab != null)
             {
                 T hasT = prefab.GetComponent<T>();
@@ -214,5 +213,16 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
         return prefabComponents;
+    }
+
+    public string RemoveFileExtension(string fileName)
+    {
+        string filenameWithoutExt = "";
+        int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
+
+        if (fileExtPos >= 0)
+            filenameWithoutExt = fileName.Substring(0, fileExtPos);
+
+        return filenameWithoutExt;
     }
 }

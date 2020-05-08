@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Thibaut.unity
-    guid: 236c6f454ae5e3a45b3d65b3c2f5b174
+    path: Assets/Scenes/World.unity
+    guid: add72b73b040b184f92b116d0526db91
   m_configObjects: {}
