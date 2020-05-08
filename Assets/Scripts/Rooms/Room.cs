@@ -13,7 +13,6 @@ public enum Direction
     Left
 }
 
-
 public class Room : MonoBehaviour
 {
     [System.Serializable]
@@ -40,7 +39,7 @@ public class Room : MonoBehaviour
     {
         tilemap_walls = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
 
-        SetDoorPositions();
+        SetDoors();
     }
 
     public void DrawRoom()
@@ -67,7 +66,7 @@ public class Room : MonoBehaviour
         doors.Remove(door);
     }
 
-    private void SetDoorPositions()
+    public void SetDoors()
     {
         for (int i = 0; i < tiles.Length; i++)
         {
@@ -93,6 +92,25 @@ public class Room : MonoBehaviour
 
             doors.Add(newDoor);
         }
+    }
+
+    public Door GetRandomDoor()
+    {
+        System.Random rnd = new System.Random();
+        return doors[rnd.Next(doors.Count)];
+    }
+
+    public Door GetDoorByDirection(Direction direction)
+    {
+        foreach (Door door in doors)
+        {
+            if(door.Direction == direction)
+            {
+                return door;
+            }
+        }
+
+        return null;
     }
 
     private void OnDrawGizmos()
@@ -123,9 +141,11 @@ public class Room : MonoBehaviour
             Gizmos.DrawSphere(door.Position + position, .2f);
         }
 
-        Gizmos.color = Color.magenta;
-        if(previousRoom)
-            Gizmos.DrawLine(position, previousRoom.position);
 
+        if (previousRoom)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(position, previousRoom.position);
+        }
     }
 }

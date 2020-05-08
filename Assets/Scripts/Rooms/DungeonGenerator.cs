@@ -1,33 +1,34 @@
 ﻿using Assets.Scripts.Rooms;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    private List<Room> availableRooms;
+    private List<Room> availableRooms = new List<Room>();
+    private List<Room> PlacedRooms = new List<Room>();
 
+    private Dictionary<Direction, List<Room>> RoomsByDirection = new Dictionary<Direction, List<Room>>();
+    
     public int count = 0;
-    public int roomCount = 10;
+    public int roomCount = 50;
     public int seed;
     public int additionalDistance = 10;
     public int maxOffset = 20;
-    readonly Vector3Int[] directions =
-    {
-        Vector3Int.down,
-        Vector3Int.left,
-        Vector3Int.right,
-        Vector3Int.up
-    };
 
-    private List<Room> placedRooms = new List<Room>();
+    private float startTime;
 
     public void Start()
     {
         availableRooms = LoadAllPrefabsOfType<Room>("Assets/Rooms");
+        FillEntranceRoomsLists();
 
+        startTime = Time.time;
         StartCoroutine("GenerateDungeon");
     }
 
@@ -37,52 +38,54 @@ public class DungeonGenerator : MonoBehaviour
 
         // Place starting room
         Room spawnRoom = Instantiate(GetAndRemoveStartingRoom(), this.transform);
-        placedRooms.Add(spawnRoom);
+        PlacedRooms.Add(spawnRoom);
 
         // Keep placing rooms until roomCount
         while (count < roomCount)
         {
             // Pick random room from placed rooms
-            Room toAddTo = placedRooms[rand.Next(placedRooms.Count)];
+            Room initialRoom = PlacedRooms[rand.Next(PlacedRooms.Count)];
 
-            // Pick random room to add
-            Room toAdd = availableRooms[rand.Next(availableRooms.Count)];
+            // Get a room based on the direcion of the door
+            Door door = initialRoom.GetRandomDoor();
+            if (door == null)
+                continue;
 
-            // Pick random direction
-            Vector3Int newRoomPosition = directions[rand.Next(directions.Length)];
+            Room roomToConnect = GetRoomByDirection(door.GetOppositeDirection());
+            if(roomToConnect == null)
+                continue;
 
             int randomOffset = rand.Next(maxOffset * 2) - maxOffset;
-
-            // Get right distance from direction
-            if (newRoomPosition == Vector3Int.down)
+            Vector3Int newRoomPosition = Vector3Int.zero;
+            if (door.Direction == Direction.Down)
             {
-                newRoomPosition -= new Vector3Int(0, -toAddTo.roomBorders.yMin, 0);
-                newRoomPosition -= new Vector3Int(0, toAdd.roomBorders.yMax, 0);
+                newRoomPosition -= new Vector3Int(0, -initialRoom.roomBorders.yMin, 0);
+                newRoomPosition -= new Vector3Int(0, roomToConnect.roomBorders.yMax, 0);
                 newRoomPosition -= new Vector3Int(randomOffset, additionalDistance, 0);
             }
-            else if (newRoomPosition == Vector3Int.left)
+            else if (door.Direction == Direction.Left)
             {
-                newRoomPosition -= new Vector3Int(-toAddTo.roomBorders.xMin, 0, 0);
-                newRoomPosition -= new Vector3Int(toAdd.roomBorders.xMax, 0, 0);
+                newRoomPosition -= new Vector3Int(-initialRoom.roomBorders.xMin, 0, 0);
+                newRoomPosition -= new Vector3Int(roomToConnect.roomBorders.xMax, 0, 0);
                 newRoomPosition -= new Vector3Int(additionalDistance, randomOffset, 0);
             }
-            else if (newRoomPosition == Vector3Int.right)
+            else if (door.Direction == Direction.Right)
             {
-                newRoomPosition += new Vector3Int(toAddTo.roomBorders.xMax, 0, 0);
-                newRoomPosition += new Vector3Int(-toAdd.roomBorders.xMin, 0, 0);
+                newRoomPosition += new Vector3Int(initialRoom.roomBorders.xMax, 0, 0);
+                newRoomPosition += new Vector3Int(-roomToConnect.roomBorders.xMin, 0, 0);
                 newRoomPosition += new Vector3Int(additionalDistance, randomOffset, 0);
             }
-            else if (newRoomPosition == Vector3Int.up)
+            else if (door.Direction == Direction.Up)
             {
-                newRoomPosition += new Vector3Int(0, toAddTo.roomBorders.yMax, 0);
-                newRoomPosition += new Vector3Int(0, -toAdd.roomBorders.yMin, 0);
+                newRoomPosition += new Vector3Int(0, initialRoom.roomBorders.yMax, 0);
+                newRoomPosition += new Vector3Int(0, -roomToConnect.roomBorders.yMin, 0);
                 newRoomPosition += new Vector3Int(randomOffset, additionalDistance, 0);
             }
 
             // Find new position
-            Vector3Int newPos = toAddTo.position + newRoomPosition;
-            Room newRoom = Instantiate(toAdd, newPos, Quaternion.identity, this.transform);
-            newRoom.position = newPos;
+            Vector3Int newPosition = initialRoom.position + newRoomPosition;
+            Room newRoom = Instantiate(roomToConnect, newPosition, Quaternion.identity, this.transform);
+            newRoom.position = newPosition;
 
             if (RoomInteractsWithPlacedRooms(newRoom, additionalDistance))
             {
@@ -90,8 +93,8 @@ public class DungeonGenerator : MonoBehaviour
             }
             else
             {
-                placedRooms.Add(newRoom);
-                newRoom.previousRoom = toAddTo;
+                PlacedRooms.Add(newRoom);
+                newRoom.previousRoom = initialRoom;
                 count++;
             }
 
@@ -99,17 +102,64 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         // Draw all rooms
-        foreach (Room r in placedRooms)
+        foreach (Room r in PlacedRooms)
         {
             r.DrawRoom();
+        }
 
-            foreach (Door door in r.doors)
-                Debug.Log(door.Position);
+        Debug.Log("Dungeon generation time: " + (Time.time - startTime));
+    }
+
+    private Room GetRoomByDirection(Direction direction)
+    {
+        if(RoomsByDirection[direction].Count != 0)
+        {
+            return RoomsByDirection[direction][UnityEngine.Random.Range(0, RoomsByDirection[direction].Count)];
+        }
+
+        return null;
+    }
+
+    private void FillEntranceRoomsLists()
+    {
+        RoomsByDirection.Add(Direction.Down, new List<Room>());
+        RoomsByDirection.Add(Direction.Up, new List<Room>());
+        RoomsByDirection.Add(Direction.Left, new List<Room>());
+        RoomsByDirection.Add(Direction.Right, new List<Room>());
+
+        foreach (Room room in availableRooms)
+        {
+            room.SetDoors();
+            foreach (Door door in room.doors)
+            {
+                if (!RoomsByDirection[door.Direction].Contains(room))
+                {
+                    RoomsByDirection[door.Direction].Add(room);
+                }
+            }
         }
     }
+
+    private Room GetAndRemoveStartingRoom()
+    {
+        Room startingRoom = null;
+
+        foreach (Room room in availableRooms)
+        {
+            // For some reason unity doesn't save the variables or whatever.
+            if (room.name == "start")
+            {
+                startingRoom = room;
+            }
+        }
+
+        availableRooms.Remove(startingRoom);
+        return startingRoom;
+    }
+
     private bool RoomInteractsWithPlacedRooms(Room placedRoom, int additionalDistance)
     {
-        foreach (Room roomToCheck in placedRooms)
+        foreach (Room roomToCheck in PlacedRooms)
         {
             // Check if either room is completely left of the other
             if (
@@ -164,21 +214,5 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
         return prefabComponents;
-    }
-
-    private Room GetAndRemoveStartingRoom()
-    {
-        Room startingRoom = null;
-
-        foreach (Room room in availableRooms)
-        {
-            if (room.name == "start")
-            {
-                startingRoom = room;
-            }
-        }
-
-        availableRooms.Remove(startingRoom);
-        return startingRoom;
     }
 }

@@ -19,6 +19,7 @@ public class RoomGeneratorEditor : Editor
     {
         GameObject thingy = gen.GetGameObject();
         thingy.name = filename;
+        Debug.Log(thingy.GetComponent<Room>().doors.Count);
         if (File.Exists(Application.dataPath + "/Rooms/" + filename + ".prefab"))
         {
             bool isOk = EditorUtility.DisplayDialog("Warning", "The file already exsist in the folder. Do you want to overwrite the file?", "YuRP", "PLEASE NO");
@@ -141,7 +142,7 @@ public class RoomGeneratorEditor : Editor
                 gen.tilemap.ClearAllTiles();
 
                 tempRoonObject = (Room)Instantiate(roomObject, new Vector3(0, 0, 0), Quaternion.identity) as Room;
-                PreviousRoomName = tempRoonObject.name;
+                PreviousRoomName = tempRoonObject.name.Remove(tempRoonObject.name.Length - 7); // nice and hardcoded substring for '(clone)'
                 tempRoonObject.tilemap_walls = gen.tilemap;
                 tempRoonObject.DrawRoom();
 

@@ -23,5 +23,27 @@ namespace Assets.Scripts.Rooms
             Position = position;
             Direction = direction;
         }
+
+        public Direction GetOppositeDirection()
+        {
+            if (Direction == Direction.Down)
+                return Direction.Up;
+
+            if (Direction == Direction.Up)
+                return Direction.Down;
+
+            if (Direction == Direction.Left)
+                return Direction.Right;
+
+            if (Direction == Direction.Right)
+                return Direction.Left;
+
+            return Direction.Left;
+        }
+
+        public override string ToString()
+        {
+            return $"Direction: {Direction}, Position: {Position};";
+        }
     }
 }

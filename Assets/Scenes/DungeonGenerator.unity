@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0d64c62b9301c4e85832e4a7044122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomCount: 10
+  count: 0
+  roomCount: 20
   seed: 0
   additionalDistance: 10
   maxOffset: 20

@@ -21,6 +21,8 @@ public class RoomGenerator : MonoBehaviour
 {
     public Tilemap tilemap;
 
+    Room.RoomBorders borders;
+
     public GameObject GetGameObject()
     {
         return GetRoom().gameObject;
@@ -30,8 +32,6 @@ public class RoomGenerator : MonoBehaviour
     {
         List<Tile> tiles = new List<Tile>();
         List<Vector3Int> pos = new List<Vector3Int>();
-
-        Room.RoomBorders borders;
 
         // Reset borders
         borders.xMin = int.MaxValue;
@@ -52,10 +52,10 @@ public class RoomGenerator : MonoBehaviour
                     pos.Add(new Vector3Int(x, y, 0));
 
                     // Update borders
-                    if (x < borders.xMin) { borders.xMin = x; }
-                    if (y < borders.yMin) { borders.yMin = y; }
-                    if (x > borders.xMax) { borders.xMax = x; }
-                    if (y > borders.yMax) { borders.yMax = y; }
+                    if (x < borders.xMin) borders.xMin = x;
+                    if (y < borders.yMin) borders.yMin = y;
+                    if (x > borders.xMax) borders.xMax = x;
+                    if (y > borders.yMax) borders.yMax = y;
                 }
             }
         }
@@ -72,6 +72,27 @@ public class RoomGenerator : MonoBehaviour
         room.tilemap_walls = tilemap;
         room.roomBorders = borders;
 
+        room.SetDoors();
+
         return room;
+    }
+
+    // Since the user can draw anywhere in the world space we need to reset the room
+    // to Vector2.zero. This way when we spawn a room it will have an consistent
+    // location. The left bottom of the room will be set to 0,0.
+    private List<Vector3Int> SetCoordinatesToBottomLeft(List<Vector3Int> positions)
+    {
+        Vector3Int[] newPositions = positions.ToArray();
+
+        int xOffset = 0 - borders.xMin;
+        int yOffset = 0 - borders.yMin;
+
+        for (int i = 0; i < positions.Count; i++)
+        {
+            newPositions[i].x += xOffset;
+            newPositions[i].y += yOffset;
+        }
+
+        return new List<Vector3Int>(newPositions);
     }
 }
