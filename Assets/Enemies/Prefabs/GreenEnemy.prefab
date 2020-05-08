@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7786273473214142752}
   - component: {fileID: 2496109141150863430}
   - component: {fileID: 1785904802364002397}
-  - component: {fileID: 8536124778736281412}
   m_Layer: 0
   m_Name: GreenEnemy
   m_TagString: Untagged
@@ -149,25 +148,3 @@ MonoBehaviour:
   Target: {fileID: 0}
   Muzzle: {fileID: 2800104448951566651}
   FireRate: 3
---- !u!114 &8536124778736281412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3037187362089655625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24878635c16947243b3a921cd7108a6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wanderRadius: 4
-  wanderJitter: 2
-  wanderDistance: 2.25
-  wanderOn: 1
-  arriveDeceleration: 3
-  seekON: 0
-  arriveOn: 0
-  persuitOn: 0
-  fleeON: 0
-  evadeOn: 0

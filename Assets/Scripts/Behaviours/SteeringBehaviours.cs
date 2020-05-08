@@ -46,7 +46,7 @@ public class SteeringBehaviours : MonoBehaviour
         if (fleeON) returnValue += Flee();
         if (arriveOn) returnValue += Arrive(arriveDeceleration);
         if (persuitOn) returnValue += Persuit();
-        if (evadeOn) returnValue += Evade();
+        if (evadeOn) returnValue += Evade() * 2;
         if (wanderOn) returnValue += Wander();
         if (collidingWall) returnValue *= -1;
         return returnValue;

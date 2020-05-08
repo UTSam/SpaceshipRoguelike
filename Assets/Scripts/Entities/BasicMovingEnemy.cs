@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(SteeringBehaviours))]
+
 public class BasicMovingEnemy : MovingEntity
 {
     private SteeringBehaviours steering;
