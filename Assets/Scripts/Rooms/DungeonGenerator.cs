@@ -8,8 +8,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(Tilemap))]
-
 public class DungeonGenerator : MonoBehaviour
 {
     private List<Room> availableRooms = new List<Room>();
@@ -22,6 +20,10 @@ public class DungeonGenerator : MonoBehaviour
     public int seed;
     public int additionalDistance = 10;
     public int maxOffset = 20;
+
+    public Tilemap tilemap;
+    public Tile corridorTile;
+    public Tile wallTile;
 
     private float startTime;
 
@@ -41,6 +43,7 @@ public class DungeonGenerator : MonoBehaviour
         // Place starting room
         Room spawnRoom = Instantiate(GetAndRemoveStartingRoom(), this.transform);
         PlacedRooms.Add(spawnRoom);
+        spawnRoom.DrawRoom();
 
         // Keep placing rooms until roomCount
         while (count < roomCount)
@@ -97,23 +100,162 @@ public class DungeonGenerator : MonoBehaviour
             }
             else
             {
+                Door newRoomDoor = newRoom.GetDoorByDirection(door.GetOppositeDirection());
+
                 PlacedRooms.Add(newRoom);
                 newRoom.previousRoom = initialRoom;
-                initialRoom.RemoveDoor(door);
-                newRoom.RemoveDoor(newRoom.GetDoorByDirection(door.GetOppositeDirection()));
+                initialRoom.DoorIsConnected(door);
+                newRoom.DoorIsConnected(newRoomDoor);
                 count++;
+                newRoom.DrawRoom();
+
+                door.Position += initialRoom.position;
+                CreateCorridor(door, newRoomDoor.Position + newRoom.position);
             }
 
             yield return null;
         }
 
-        // Draw all rooms
-        foreach (Room r in PlacedRooms)
+        Debug.Log("Dungeon generation time: " + (Time.time - startTime));
+    }
+
+    #region Spawn Tile functions
+    private void SpawnCorridorTile(Vector3Int position)
+    {
+        tilemap.SetTile(position, corridorTile);
+    }
+
+    private void SpawnWallTile(Vector3Int position)
+    {
+        tilemap.SetTile(position, wallTile);
+    }
+
+    private void SpawnHorizontalCorridor(Vector3Int currentCorridorPosition)
+    {
+        SpawnWallTile    (new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 2, 0));
+        SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 1, 0));
+        SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y    , 0));
+        SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 1, 0));
+        SpawnWallTile    (new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 2, 0));
+    }
+
+    private void SpawnVerticalCorridor(Vector3Int currentCorridorPosition)
+    {
+        SpawnWallTile    (new Vector3Int(currentCorridorPosition.x - 2, currentCorridorPosition.y, 0));
+        SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x - 1, currentCorridorPosition.y, 0));
+        SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x    , currentCorridorPosition.y, 0));
+        SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x + 1, currentCorridorPosition.y, 0));
+        SpawnWallTile    (new Vector3Int(currentCorridorPosition.x + 2, currentCorridorPosition.y, 0));
+    }
+
+    private void SpawnVerticalWalls(Vector3Int currentCorridorPosition)
+    {
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 2, 0));
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 1, 0));
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y    , 0));
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 1, 0));
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 2, 0));
+    }
+    private void SpawnHorizontalWalls(Vector3Int currentCorridorPosition)
+    {
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x - 2, currentCorridorPosition.y, 0));
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x - 1, currentCorridorPosition.y, 0));
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x    , currentCorridorPosition.y, 0));
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x + 1, currentCorridorPosition.y, 0));
+        SpawnWallTile(new Vector3Int(currentCorridorPosition.x + 2, currentCorridorPosition.y, 0));
+    }
+    #endregion
+
+    private void CreateCorridor(Door door, Vector3Int connectedDoorPosition)
+    {
+        Vector3Int difference = -door.Position + connectedDoorPosition;
+        Vector3Int differenceAbs = new Vector3Int(Math.Abs(difference.x), Math.Abs(difference.y), 0);
+        Vector3Int currentCorridorPosition = door.Position;
+
+        int signX = 0;
+        if (difference.x != 0 && differenceAbs.x != 0)
+            signX = difference.x / differenceAbs.x;
+
+        int signY = 0;
+        if (difference.y != 0 && differenceAbs.y != 0)
+            signY = difference.y / differenceAbs.y;
+
+        if (door.Direction == Direction.Right || door.Direction == Direction.Left)
         {
-            r.DrawRoom();
+            int corridorHorizontalLengthHalf = differenceAbs.x / 2;
+            int corridorVerticalLength = differenceAbs.y;
+
+            // Go horizontal for half the way
+            for (int j = 0; j < corridorHorizontalLengthHalf; j++)
+            {
+                currentCorridorPosition.x += signX;
+                SpawnHorizontalCorridor(currentCorridorPosition);
+            }
+
+            // Move 1 more since the corridor is 3 width
+            SpawnHorizontalCorridor(new Vector3Int(currentCorridorPosition.x + signX, currentCorridorPosition.y, 0));
+            SpawnVerticalWalls(new Vector3Int(currentCorridorPosition.x + signX * 2, currentCorridorPosition.y, 0));
+
+            // Go vertical
+            for (int j = 0; j < corridorVerticalLength; j++)
+            {
+                currentCorridorPosition.y += signY;
+                SpawnVerticalCorridor(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + signY, 0));// The plus signY since we don't want it to spawn in the already spawned corridor.
+            }
+
+            if(corridorVerticalLength != 0)
+                SpawnHorizontalWalls(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + signY * 2, 0));
+
+            // Go horizontal for half the way
+            currentCorridorPosition.x += signX;
+            for (int j = 0; j < differenceAbs.x - corridorHorizontalLengthHalf - 1; j++)
+            {
+                currentCorridorPosition.x += signX;
+                if (currentCorridorPosition != connectedDoorPosition)
+                    SpawnHorizontalCorridor(currentCorridorPosition);
+            }
         }
 
-        Debug.Log("Dungeon generation time: " + (Time.time - startTime));
+        if (door.Direction == Direction.Up || door.Direction == Direction.Down)
+        {
+            //Debug.Log(corridorHorizontalLength);
+            int corridorVerticalLengthHalf = differenceAbs.y / 2;
+            int corridorHorizontalLength = differenceAbs.x;
+
+            // go vertical half the way
+            for (int i = 0; i < corridorVerticalLengthHalf; i++)
+            {
+                currentCorridorPosition.y += signY;
+                SpawnVerticalCorridor(currentCorridorPosition);
+            }
+
+            // Move 1 more since the corridor is 3 width
+            SpawnVerticalCorridor(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + signY, 0));
+            SpawnHorizontalWalls(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + signY * 2, 0));
+
+            // go horizontal
+            for (int i = 0; i < corridorHorizontalLength; i++)
+            {
+                currentCorridorPosition.x += signX;
+                SpawnHorizontalCorridor(new Vector3Int(currentCorridorPosition.x + signX, currentCorridorPosition.y, 0));// The plus signX since we don't want it to spawn in the already spawned corridor.
+            }
+
+            if (corridorHorizontalLength != 0)
+                SpawnVerticalWalls(new Vector3Int(currentCorridorPosition.x + signX * 2, currentCorridorPosition.y, 0));
+
+            // go vertical half the way
+            currentCorridorPosition.y += signY;
+            for (int i = 0; i < differenceAbs.y - corridorVerticalLengthHalf - 1; i++)
+            {
+                currentCorridorPosition.y += signY;
+                if (currentCorridorPosition != connectedDoorPosition)
+                    SpawnVerticalCorridor(currentCorridorPosition);
+            }
+        }
+
+        // Remove the doors
+        tilemap.SetTile(door.Position, null);
+        tilemap.SetTile(connectedDoorPosition, null);
     }
 
     private Room GetRoomByDirection(Direction direction, System.Random rand)
@@ -208,7 +350,6 @@ public class DungeonGenerator : MonoBehaviour
         {
             string fullPath = fileInfo.FullName.Replace(@"\", "/");
             GameObject prefab = Resources.Load<GameObject>(path + "/" + RemoveFileExtension(fileInfo.Name));
-            Debug.Log(prefab);
             if (prefab != null)
             {
                 T hasT = prefab.GetComponent<T>();
