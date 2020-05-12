@@ -103,10 +103,7 @@ public class Room : MonoBehaviour
 
     public Door GetRandomDoor(System.Random rand)
     {
-        var doorsArray = doors.ToArray();
-        doorsArray.OrderBy(item => int.Parse(item.Fields["FieldName"].Value));
-
-        foreach (Door door in doors)
+        foreach (Door door in doors.OrderBy(x => rand.Next()))
         {
             if (door.connected == false)
             {

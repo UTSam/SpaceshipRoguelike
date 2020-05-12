@@ -122,7 +122,7 @@ public class DungeonGenerator : MonoBehaviour
     #region Spawn Tile functions
     private void SpawnCorridorTile(Vector3Int position)
     {
-        tilemap.SetTile(position, corridorTile);
+        tilemap.SetTile(position, null);
     }
 
     private void SpawnWallTile(Vector3Int position)
@@ -237,7 +237,7 @@ public class DungeonGenerator : MonoBehaviour
             for (int i = 0; i < corridorHorizontalLength; i++)
             {
                 currentCorridorPosition.x += signX;
-                SpawnHorizontalCorridor(new Vector3Int(currentCorridorPosition.x + signX, currentCorridorPosition.y, 0));// The plus signX since we don't want it to spawn in the already spawned corridor.
+                SpawnHorizontalCorridor(new Vector3Int(currentCorridorPosition.x + signX, currentCorridorPosition.y, 0)); // The plus signX since we don't want it to spawn in the already spawned corridor.
             }
 
             if (corridorHorizontalLength != 0)
