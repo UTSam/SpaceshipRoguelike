@@ -9,6 +9,8 @@ namespace Assets.Scripts.Rooms
 {
     public class Door
     {
+        internal bool connected = false;
+
         public Vector3Int Position { get; set; }
 
         public Direction Direction { get; set; }
