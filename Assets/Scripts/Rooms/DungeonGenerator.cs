@@ -8,8 +8,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(Tilemap))]
-
 public class DungeonGenerator : MonoBehaviour
 {
     private List<Room> availableRooms = new List<Room>();
