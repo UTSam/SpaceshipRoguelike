@@ -94,10 +94,9 @@ public class Room : MonoBehaviour
         }
     }
 
-    public Door GetRandomDoor()
+    public Door GetRandomDoor(System.Random rand)
     {
-        System.Random rnd = new System.Random();
-        return doors[rnd.Next(doors.Count)];
+        return doors[rand.Next(doors.Count)];
     }
 
     public Door GetDoorByDirection(Direction direction)
@@ -138,7 +137,8 @@ public class Room : MonoBehaviour
 
         foreach(Door door in doors)
         {
-            Gizmos.DrawSphere(door.Position + position, .2f);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(door.Position + position, 1f);
         }
 
 
