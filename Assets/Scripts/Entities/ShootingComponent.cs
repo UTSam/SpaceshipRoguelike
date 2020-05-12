@@ -20,7 +20,7 @@ public class ShootingComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastShotTimer >= 1.0f/FireRate)
+        if (lastShotTimer >= 1.0f/FireRate && Target != null)
         {
             GameObject projectile = Instantiate(ProjectilePrefab) as GameObject;
             projectile.transform.position = Muzzle.position;
