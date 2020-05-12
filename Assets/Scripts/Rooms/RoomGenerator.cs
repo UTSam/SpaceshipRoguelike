@@ -71,28 +71,37 @@ public class RoomGenerator : MonoBehaviour
         room.tilePositions = pos.ToArray();
         room.tilemap_walls = tilemap;
         room.roomBorders = borders;
-
+        room = ResetRoomToCenter(room);
         room.SetDoors();
 
         return room;
     }
 
-    // Since the user can draw anywhere in the world space we need to reset the room
-    // to Vector2.zero. This way when we spawn a room it will have an consistent
-    // location. The left bottom of the room will be set to 0,0.
-    private List<Vector3Int> SetCoordinatesToBottomLeft(List<Vector3Int> positions)
+    // Set the position of the room to the center
+    private Room ResetRoomToCenter(Room room)
     {
-        Vector3Int[] newPositions = positions.ToArray();
+        Vector3Int[] tilePositions = room.tilePositions;
+        Room.RoomBorders rb = room.roomBorders;
 
-        int xOffset = 0 - borders.xMin;
-        int yOffset = 0 - borders.yMin;
+        int dx = -(rb.xMax + rb.xMin) / 2;
+        int dy = -(rb.yMax + rb.yMin) / 2;
 
-        for (int i = 0; i < positions.Count; i++)
+        // Change tile positions
+        for (int i = 0; i < tilePositions.Length; i++)
         {
-            newPositions[i].x += xOffset;
-            newPositions[i].y += yOffset;
+            tilePositions[i].x += dx; 
+            tilePositions[i].y += dy; 
         }
 
-        return new List<Vector3Int>(newPositions);
+        // Change room borders
+        rb.xMin += dx;
+        rb.xMax += dx;
+        rb.yMin += dy;
+        rb.yMax += dy; 
+
+        room.tilePositions = tilePositions;
+        room.roomBorders = rb; 
+
+        return room;
     }
 }

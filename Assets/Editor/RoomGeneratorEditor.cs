@@ -20,7 +20,7 @@ public class RoomGeneratorEditor : Editor
         GameObject thingy = gen.GetGameObject();
         thingy.name = filename;
         Debug.Log(thingy.GetComponent<Room>().doors.Count);
-        if (File.Exists(Application.dataPath + "/Rooms/" + filename + ".prefab"))
+        if (File.Exists(Application.dataPath + "/Resources/Rooms/" + filename + ".prefab"))
         {
             bool isOk = EditorUtility.DisplayDialog("Warning", "The file already exsist in the folder. Do you want to overwrite the file?", "YuRP", "PLEASE NO");
             if (isOk)
@@ -39,7 +39,7 @@ public class RoomGeneratorEditor : Editor
 
     private void saveFile(GameObject prefabToSave, string filename)
     {
-        bool saved = PrefabUtility.SaveAsPrefabAsset(prefabToSave, "Assets/Rooms/" + filename + ".prefab");
+        bool saved = PrefabUtility.SaveAsPrefabAsset(prefabToSave, "Assets/Resources/Rooms/" + filename + ".prefab");
         if (saved)
         {
             EditorUtility.DisplayDialog("Niceuh", "Saved the prefab! Pretty goood.", "Thanks");
