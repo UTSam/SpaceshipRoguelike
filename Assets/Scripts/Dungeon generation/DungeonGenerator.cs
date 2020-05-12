@@ -26,9 +26,11 @@ public class DungeonGenerator : MonoBehaviour
     public Tile wallTile;
 
     private float startTime;
+    private Transform parentFolder;
 
     public void Start()
     {
+        parentFolder = this.transform.Find("Rooms");
         availableRooms = LoadAllPrefabsInResourcesOfType<Room>("Rooms");
         FillEntranceRoomsLists();
 
@@ -41,7 +43,7 @@ public class DungeonGenerator : MonoBehaviour
         System.Random rand = new System.Random(seed);
 
         // Place starting room
-        Room spawnRoom = Instantiate(GetAndRemoveStartingRoom(), this.transform);
+        Room spawnRoom = Instantiate(GetAndRemoveStartingRoom(), parentFolder);
         PlacedRooms.Add(spawnRoom);
         spawnRoom.DrawRoom();
 
@@ -91,7 +93,7 @@ public class DungeonGenerator : MonoBehaviour
 
             // Find new position
             Vector3Int newPosition = initialRoom.position + newRoomPosition;
-            Room newRoom = Instantiate(roomToConnect, newPosition, Quaternion.identity, this.transform);
+            Room newRoom = Instantiate(roomToConnect, newPosition, Quaternion.identity, parentFolder);
             newRoom.position = newPosition;
 
             if (RoomInteractsWithPlacedRooms(newRoom, additionalDistance))
@@ -100,13 +102,13 @@ public class DungeonGenerator : MonoBehaviour
             }
             else
             {
+                count++;
+                newRoom.previousRoom = initialRoom;
                 Door newRoomDoor = newRoom.GetDoorByDirection(door.GetOppositeDirection());
 
                 PlacedRooms.Add(newRoom);
-                newRoom.previousRoom = initialRoom;
                 initialRoom.DoorIsConnected(door);
                 newRoom.DoorIsConnected(newRoomDoor);
-                count++;
                 newRoom.DrawRoom();
 
                 door.Position += initialRoom.position;
@@ -166,6 +168,7 @@ public class DungeonGenerator : MonoBehaviour
     }
     #endregion
 
+    // In order to create 
     private void CreateCorridor(Door door, Vector3Int connectedDoorPosition)
     {
         Vector3Int difference = -door.Position + connectedDoorPosition;
@@ -362,7 +365,7 @@ public class DungeonGenerator : MonoBehaviour
         return prefabComponents;
     }
 
-    public string RemoveFileExtension(string fileName)
+    private string RemoveFileExtension(string fileName)
     {
         string filenameWithoutExt = "";
         int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
