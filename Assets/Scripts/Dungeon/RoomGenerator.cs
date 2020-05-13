@@ -35,6 +35,7 @@ public class RoomGenerator : MonoBehaviour
         List<Door> doors = new List<Door>();
         List<Vector3Int> pos = new List<Vector3Int>();
 
+
         // Reset borders
         borders.xMin = int.MaxValue;
         borders.yMin = int.MaxValue;
@@ -72,6 +73,7 @@ public class RoomGenerator : MonoBehaviour
                                 break;
                         }
                         doors.Add(newDoor);
+                        tile = DungeonManager.tile_Wall;
                     }
 
                     tiles.Add(tile);

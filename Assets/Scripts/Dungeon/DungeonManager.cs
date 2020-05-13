@@ -15,7 +15,6 @@ public class DungeonManager : MonoBehaviour
     [SerializeField]
     private Tile _tile_Corridor, _tile_Wall, _tile_Door_Locked, _tile_Door_Unlocked;
 
-
     void Awake()
     {
         FillStaticFields();
@@ -43,7 +42,7 @@ public class DungeonManager : MonoBehaviour
         
     }
 
-    private void OnValidate()
+    void OnValidate()
     {
         FillStaticFields();
     }

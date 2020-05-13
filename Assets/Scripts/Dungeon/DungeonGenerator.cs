@@ -25,6 +25,8 @@ public class DungeonGenerator : MonoBehaviour
     private float startTime;
     private Transform parentFolder;
 
+    public bool locked;
+
     public void Start()
     {
         parentFolder = this.transform.Find("Rooms");
@@ -385,5 +387,19 @@ public class DungeonGenerator : MonoBehaviour
             filenameWithoutExt = fileName.Substring(0, fileExtPos);
 
         return filenameWithoutExt;
+    }
+
+    void OnValidate()
+    {
+        foreach (Room room in PlacedRooms)
+        {
+            if (locked)
+            {
+                room.CloseDoors();
+            } else
+            {
+                room.OpenDoors();
+            }
+        }
     }
 }
