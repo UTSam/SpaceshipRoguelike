@@ -45,13 +45,15 @@ public class DungeonGenerator : MonoBehaviour
         {
             // Pick random room from placed rooms
             Room initialRoom = PlacedRooms[rand.Next(PlacedRooms.Count)];
+            if (initialRoom.doors.Count == 0)
+                continue;
 
             // Get a room based on the direcion of the door
-            Door door = initialRoom.GetRandomDoor();
+            Door door = initialRoom.GetRandomDoor(rand);
             if (door == null)
                 continue;
 
-            Room roomToConnect = GetRoomByDirection(door.GetOppositeDirection());
+            Room roomToConnect = GetRoomByDirection(door.GetOppositeDirection(), rand);
             if(roomToConnect == null)
                 continue;
 
@@ -95,6 +97,8 @@ public class DungeonGenerator : MonoBehaviour
             {
                 PlacedRooms.Add(newRoom);
                 newRoom.previousRoom = initialRoom;
+                initialRoom.RemoveDoor(door);
+                newRoom.RemoveDoor(newRoom.GetDoorByDirection(door.GetOppositeDirection()));
                 count++;
             }
 
@@ -110,11 +114,11 @@ public class DungeonGenerator : MonoBehaviour
         Debug.Log("Dungeon generation time: " + (Time.time - startTime));
     }
 
-    private Room GetRoomByDirection(Direction direction)
+    private Room GetRoomByDirection(Direction direction, System.Random rand)
     {
         if(RoomsByDirection[direction].Count != 0)
         {
-            return RoomsByDirection[direction][UnityEngine.Random.Range(0, RoomsByDirection[direction].Count)];
+            return RoomsByDirection[direction][rand.Next(0, RoomsByDirection[direction].Count)];
         }
 
         return null;
