@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -61,9 +62,15 @@ public class Room : MonoBehaviour
         position += addToPosition;
     }
 
-    public void RemoveDoor(Door door)
+    public void DoorIsConnected(Door findDoor)
     {
-        doors.Remove(door);
+        foreach (Door door in doors)
+        {
+            if(door == findDoor)
+            {
+                door.connected = true;
+            }
+        }
     }
 
     public void SetDoors()
@@ -96,7 +103,15 @@ public class Room : MonoBehaviour
 
     public Door GetRandomDoor(System.Random rand)
     {
-        return doors[rand.Next(doors.Count)];
+        foreach (Door door in doors.OrderBy(x => rand.Next()))
+        {
+            if (door.connected == false)
+            {
+                return door;
+            }
+        }
+
+        return null;
     }
 
     public Door GetDoorByDirection(Direction direction)

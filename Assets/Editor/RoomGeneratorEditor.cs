@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System;
 
 [CustomEditor(typeof(RoomGenerator))]
 public class RoomGeneratorEditor : Editor
@@ -19,7 +20,6 @@ public class RoomGeneratorEditor : Editor
     {
         GameObject thingy = gen.GetGameObject();
         thingy.name = filename;
-        Debug.Log(thingy.GetComponent<Room>().doors.Count);
         if (File.Exists(Application.dataPath + "/Resources/Rooms/" + filename + ".prefab"))
         {
             bool isOk = EditorUtility.DisplayDialog("Warning", "The file already exsist in the folder. Do you want to overwrite the file?", "YuRP", "PLEASE NO");
@@ -52,6 +52,7 @@ public class RoomGeneratorEditor : Editor
 
     GUIStyle Header;
     GUIStyle SubHeader;
+    GUIStyle SubSubHeader;
     GUIStyle error;
     private void InitializeCss()
     {
@@ -62,6 +63,9 @@ public class RoomGeneratorEditor : Editor
 
         SubHeader = new GUIStyle();
         SubHeader.fontSize = 15;
+
+        SubSubHeader = new GUIStyle();
+        SubSubHeader.fontSize = 14;
 
         error = new GUIStyle();
         error.alignment = TextAnchor.UpperRight;
@@ -124,31 +128,24 @@ public class RoomGeneratorEditor : Editor
         }
     }
 
+    Room roomObjectPrevious = null;
     Room roomObject = null;
-    Room tempRoonObject = null;
+    Room tempRoomObject = null;
     string PreviousRoomName;
     private void drawEditingSection()
     {
         GUILayout.Label("Editing room", SubHeader);
         DrawUILine(Color.grey, 1, 0);
         GUILayout.Space(4f);
+        GUILayout.Label(" Select room to place", SubSubHeader);
+        roomObject = EditorGUILayout.ObjectField("DELETES ALL CURRENTLY DRAWN", roomObject, typeof(Room), true) as Room;
 
-        roomObject = EditorGUILayout.ObjectField("Select room to place", roomObject, typeof(Room), true) as Room;
-
-        if (roomObject)
+        if (!roomObject)
         {
-            if (GUILayout.Button("Add to scene - DELETES ALL CURRENTLY DRAWN"))
-            {
-                gen.tilemap.ClearAllTiles();
-
-                tempRoonObject = (Room)Instantiate(roomObject, new Vector3(0, 0, 0), Quaternion.identity) as Room;
-                PreviousRoomName = tempRoonObject.name.Remove(tempRoonObject.name.Length - 7); // nice and hardcoded substring for '(clone)'
-                tempRoonObject.tilemap_walls = gen.tilemap;
-                tempRoonObject.DrawRoom();
-
-                DestroyImmediate(tempRoonObject.gameObject);
-            }
-
+            EditorGUILayout.LabelField("Selecteer zon kamertje dan", error);
+        }
+        else if (roomObject == roomObjectPrevious)
+        {
             if (GUILayout.Button("Save to Assets folder"))
             {
                 saveTilemapAsAsset(gen, PreviousRoomName);
@@ -156,7 +153,15 @@ public class RoomGeneratorEditor : Editor
         }
         else
         {
-            EditorGUILayout.LabelField("Selecteer zon kamertje dan", error);
+            gen.tilemap.ClearAllTiles();
+
+            tempRoomObject = (Room)Instantiate(roomObject, new Vector3(0, 0, 0), Quaternion.identity) as Room;
+            PreviousRoomName = tempRoomObject.name.Remove(tempRoomObject.name.Length - 7); // nice and hardcoded substring for '(clone)'
+            tempRoomObject.tilemap_walls = gen.tilemap;
+            tempRoomObject.DrawRoom();
+
+            DestroyImmediate(tempRoomObject.gameObject);
+            roomObjectPrevious = roomObject;
         }
     }
 }

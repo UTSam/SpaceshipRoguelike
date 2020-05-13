@@ -9,6 +9,8 @@ namespace Assets.Scripts.Rooms
 {
     public class Door
     {
+        internal bool connected = false;
+
         public Vector3Int Position { get; set; }
 
         public Direction Direction { get; set; }
@@ -40,10 +42,20 @@ namespace Assets.Scripts.Rooms
 
             return Direction.Left;
         }
+        public static Door operator +(Door door, Vector3Int position)
+        {
+            return new Door(door.Position + position, door.Direction);
+        }
+
 
         public override string ToString()
         {
             return $"Direction: {Direction}, Position: {Position};";
+        }
+
+        internal void OpenDoor()
+        {
+            throw new NotImplementedException();
         }
     }
 }
