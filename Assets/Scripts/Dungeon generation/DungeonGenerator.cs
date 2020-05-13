@@ -99,22 +99,22 @@ public class DungeonGenerator : MonoBehaviour
             if (RoomInteractsWithPlacedRooms(newRoom, additionalDistance))
             {
                 Destroy(newRoom.gameObject);
-            }
-            else
-            {
-                count++;
-                newRoom.previousRoom = initialRoom;
-                Door newRoomDoor = newRoom.GetDoorByDirection(door.GetOppositeDirection());
-
-                PlacedRooms.Add(newRoom);
-                initialRoom.DoorIsConnected(door);
-                newRoom.DoorIsConnected(newRoomDoor);
-                newRoom.DrawRoom();
-
-                door.Position += initialRoom.position;
-                CreateCorridor(door, newRoomDoor.Position + newRoom.position);
+                continue;
             }
 
+            initialRoom.DoorIsConnected(door);
+
+            Door newRoomDoor = newRoom.GetDoorByDirection(door.GetOppositeDirection());
+
+            newRoom.previousRoom = initialRoom;
+            newRoom.DoorIsConnected(newRoomDoor);
+            newRoom.DrawRoom();
+
+            Door initialDoor = door + initialRoom.position;
+            CreateCorridor(initialDoor, newRoomDoor.Position + newRoom.position);
+
+            PlacedRooms.Add(newRoom);
+            count++;
             yield return null;
         }
 
