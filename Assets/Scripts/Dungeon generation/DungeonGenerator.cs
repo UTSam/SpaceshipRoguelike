@@ -220,6 +220,15 @@ public class DungeonGenerator : MonoBehaviour
                 if (currentCorridorPosition != connectedDoorPosition)
                     SpawnHorizontalCorridor(currentCorridorPosition);
             }
+
+
+            tilemap.SetTile(new Vector3Int(door.Position.x, door.Position.y - 1, 0), null);
+            tilemap.SetTile(door.Position                                          , null);
+            tilemap.SetTile(new Vector3Int(door.Position.x, door.Position.y + 1, 0), null);
+
+            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x, connectedDoorPosition.y - 1, 0), null);
+            tilemap.SetTile(connectedDoorPosition                                                  , null);
+            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x, connectedDoorPosition.y + 1, 0), null);
         }
 
         if (door.Direction == Direction.Up || door.Direction == Direction.Down)
@@ -256,11 +265,16 @@ public class DungeonGenerator : MonoBehaviour
                 if (currentCorridorPosition != connectedDoorPosition)
                     SpawnVerticalCorridor(currentCorridorPosition);
             }
+
+            tilemap.SetTile(new Vector3Int(door.Position.x - 1, door.Position.y, 0), null);
+            tilemap.SetTile(door.Position                                          , null);
+            tilemap.SetTile(new Vector3Int(door.Position.x + 1, door.Position.y, 0), null);
+            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x - 1, connectedDoorPosition.y, 0), null);
+            tilemap.SetTile(connectedDoorPosition                                                  , null);
+            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x + 1, connectedDoorPosition.y, 0), null);
         }
 
         // Remove the doors
-        tilemap.SetTile(door.Position, null);
-        tilemap.SetTile(connectedDoorPosition, null);
     }
 
     private Room GetRoomByDirection(Direction direction, System.Random rand)

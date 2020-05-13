@@ -47,5 +47,10 @@ namespace Assets.Scripts.Rooms
         {
             return $"Direction: {Direction}, Position: {Position};";
         }
+
+        internal void OpenDoor()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
