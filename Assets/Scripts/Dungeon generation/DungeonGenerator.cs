@@ -16,12 +16,11 @@ public class DungeonGenerator : MonoBehaviour
 
     private Dictionary<Direction, List<Room>> RoomsByDirection = new Dictionary<Direction, List<Room>>();
     
-    public int count = 0;
-    public int roomCount = 50;
-    public int seed;
-    public int additionalDistance = 10;
-    public int maxOffset = 20;
-
+    [SerializeField] [ReadOnly] private int count = 0;
+    [SerializeField] private int roomCount = 50;
+    [SerializeField] private int seed = 0;
+    [SerializeField] private int additionalDistance = 10;
+    [SerializeField] private int maxOffset = 20;
 
     private float startTime;
     private Transform parentFolder;
@@ -59,25 +58,16 @@ public class DungeonGenerator : MonoBehaviour
             // Pick random room from placed rooms
             Room initialRoom = PlacedRooms[rand.Next(PlacedRooms.Count)];
             if (initialRoom.doors.Count == 0)
-            {
-                Debug.Log("HALLO 0");
                 continue;
-            }
 
             // Get a room based on the direcion of the door
             Door door = initialRoom.GetRandomDoor(rand);
             if (door == null)
-            {
-                Debug.Log("HALLO 1");
                 continue;
-            }
 
             Room roomToConnect = GetRoomByDirection(door.GetOppositeDirection(), rand);
             if(roomToConnect == null)
-            {
-                Debug.Log("HALLO 2");
                 continue;
-            }
 
             int randomOffset = rand.Next(maxOffset * 2) - maxOffset;
             Vector3Int newRoomPosition = Vector3Int.zero;
@@ -114,7 +104,6 @@ public class DungeonGenerator : MonoBehaviour
             if (RoomInteractsWithPlacedRooms(newRoom, additionalDistance))
             {
                 Destroy(newRoom.gameObject);
-                Debug.Log("HALLO 3");
                 continue;
             }
 
@@ -137,10 +126,10 @@ public class DungeonGenerator : MonoBehaviour
             yield return null;
         }
 
-        //foreach(Room room in PlacedRooms)
-        //{
-        //    room.CloseDoors();
-        //}
+        foreach (Room room in PlacedRooms)
+        {
+            room.OpenDoors();
+        }
 
         Debug.Log("Dungeon generation time: " + (Time.time - startTime));
     }
@@ -303,7 +292,6 @@ public class DungeonGenerator : MonoBehaviour
 
         foreach (Room room in availableRooms)
         {
-            //room.SetDoors();
             foreach (Door door in room.doors)
             {
                 if (!RoomsByDirection[door.Direction].Contains(room))

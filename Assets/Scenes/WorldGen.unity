@@ -220,6 +220,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dungeon
       objectReference: {fileID: 0}
+    - target: {fileID: 920596474070257623, guid: 6df8cdc84948ad14188fb4c8981382a6,
+        type: 3}
+      propertyPath: count
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6df8cdc84948ad14188fb4c8981382a6, type: 3}
 --- !u!1 &1568370786

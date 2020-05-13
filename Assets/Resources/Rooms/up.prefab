@@ -48,7 +48,6 @@ MonoBehaviour:
     xMax: 22
     yMin: -15
     yMax: 15
-  tilemap_walls: {fileID: 0}
   tiles:
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
@@ -310,4 +309,14 @@ MonoBehaviour:
   - {x: 21, y: 7, z: 0}
   - {x: 21, y: 8, z: 0}
   position: {x: 0, y: 0, z: 0}
+  doors:
+  - connected: 0
+    Position: {x: 3, y: 14, z: 0}
+    Direction: 0
+  - connected: 0
+    Position: {x: 4, y: -15, z: 0}
+    Direction: 1
+  - connected: 0
+    Position: {x: 21, y: 2, z: 0}
+    Direction: 2
   previousRoom: {fileID: 0}

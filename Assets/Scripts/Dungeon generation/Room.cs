@@ -32,13 +32,11 @@ public class Room : MonoBehaviour
 
     [SerializeField]
     public List<Door> doors = new List<Door>();
-    [SerializeField]
 
     public Room previousRoom;
 
     public void DrawRoom()
     {
-        //SetDoors();
         if(DungeonManager.tilemap_walls == null)
             return;
 
