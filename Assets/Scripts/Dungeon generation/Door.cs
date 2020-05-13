@@ -10,12 +10,14 @@ namespace Assets.Scripts.Rooms
     [System.Serializable]
     public class Door
     {
+        [SerializeField]
         internal bool connected = false;
 
-        public Vector3Int Position { get; set; }
+        [SerializeField]
+        public Vector3Int Position;
 
         [SerializeField]
-        public Direction Direction { get; set; }
+        public Direction Direction;
 
         public Door(Vector3Int _dir)
         {

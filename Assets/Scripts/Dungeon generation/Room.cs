@@ -30,17 +30,11 @@ public class Room : MonoBehaviour
 
     public Vector3Int position;
 
+    [SerializeField]
     public List<Door> doors = new List<Door>();
     [SerializeField]
-    public Door[] doors2; 
 
     public Room previousRoom;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        SetDoors();
-    }
 
     public void DrawRoom()
     {
@@ -70,34 +64,6 @@ public class Room : MonoBehaviour
             {
                 door.connected = true;
             }
-        }
-    }
-
-    public void SetDoors()
-    {
-        for (int i = 0; i < tiles.Length; i++)
-        {
-            Door newDoor = new Door(new Vector3Int(tilePositions[i].x, tilePositions[i].y, 0));
-
-            switch (tiles[i].sprite.name)
-            {
-                case "DoorUp":
-                    newDoor.Direction = Direction.Up;
-                    break;
-                case "DoorDown":
-                    newDoor.Direction = Direction.Down;
-                    break;
-                case "DoorLeft":
-                    newDoor.Direction = Direction.Left;
-                    break;
-                case "DoorRight":
-                    newDoor.Direction = Direction.Right;
-                    break;
-                default:
-                    // Next iteration if no direction found
-                    continue;
-            }
-            doors.Add(newDoor);
         }
     }
 

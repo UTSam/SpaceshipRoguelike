@@ -32,9 +32,9 @@ public class RoomGeneratorEditor : Editor
         {
             saveFile(thingy, filename);
         }
-        
 
-        //DestroyImmediate(thingy);
+
+        DestroyImmediate(thingy);
     }
 
     private void saveFile(GameObject prefabToSave, string filename)
@@ -85,7 +85,7 @@ public class RoomGeneratorEditor : Editor
 
         if (GUILayout.Button("Clear drawing"))
         {
-            gen.tilemap.ClearAllTiles();
+            DungeonManager.ClearAllTiles();
         }
 
         GUILayout.Space(10f);
@@ -153,7 +153,7 @@ public class RoomGeneratorEditor : Editor
         }
         else
         {
-            gen.tilemap.ClearAllTiles();
+            DungeonManager.ClearAllTiles();
 
             tempRoomObject = (Room)Instantiate(roomObject, new Vector3(0, 0, 0), Quaternion.identity) as Room;
             PreviousRoomName = tempRoomObject.name.Remove(tempRoomObject.name.Length - 7); // nice and hardcoded substring for '(clone)'

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -16,6 +18,11 @@ public class DungeonManager : MonoBehaviour
 
     void Awake()
     {
+        FillStaticFields();
+    }
+
+    void FillStaticFields()
+    {
         // Fill static fields
         DungeonManager.tilemap_walls = _tilemap_walls;
         DungeonManager.tilemap_doors = _tilemap_doors;
@@ -24,7 +31,6 @@ public class DungeonManager : MonoBehaviour
         DungeonManager.tile_Door_Locked = _tile_Door_Locked;
         DungeonManager.tile_Door_Unlocked = _tile_Door_Unlocked;
     }
-
 
     void Start()
     {
@@ -35,5 +41,16 @@ public class DungeonManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnValidate()
+    {
+        FillStaticFields();
+    }
+
+    public static void ClearAllTiles()
+    {
+        DungeonManager.tilemap_doors.ClearAllTiles();
+        DungeonManager.tilemap_walls.ClearAllTiles();
     }
 }

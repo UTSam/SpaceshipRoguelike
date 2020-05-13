@@ -20,8 +20,6 @@ public struct RectSimpl
 
 public class RoomGenerator : MonoBehaviour
 {
-    public Tilemap tilemap;
-
     Room.RoomBorders borders;
 
     public GameObject GetGameObject()
@@ -31,6 +29,8 @@ public class RoomGenerator : MonoBehaviour
 
     public Room GetRoom()
     {
+        Tilemap tilemap = DungeonManager.tilemap_walls;
+
         List<Tile> tiles = new List<Tile>();
         List<Door> doors = new List<Door>();
         List<Vector3Int> pos = new List<Vector3Int>();
@@ -54,6 +54,7 @@ public class RoomGenerator : MonoBehaviour
                     // Check for door
                     if (tile.name.StartsWith("DoorIndicator"))
                     {
+                        Debug.Log(tile.name);
                         Door newDoor = new Door(tilePos);
                         switch(tile.name)
                         {
@@ -70,10 +71,8 @@ public class RoomGenerator : MonoBehaviour
                                 newDoor.Direction = Direction.Right;
                                 break;
                         }
-                        Debug.Log("AFSD:LJD Adding door");
                         doors.Add(newDoor);
                     }
-
 
                     tiles.Add(tile);
                     pos.Add(tilePos);
@@ -90,18 +89,15 @@ public class RoomGenerator : MonoBehaviour
         // Because of tiles, we need to up the max X and Y 
         borders.xMax++;
         borders.yMax++;
-
-        Debug.Log(doors.Count);
-
+        
         // Create empty gameobject, add "Room" script and populate values
         GameObject newObj = new GameObject("Room");
         Room room = newObj.AddComponent<Room>();
         room.tiles = tiles.ToArray();
         room.tilePositions = pos.ToArray();
         room.roomBorders = borders;
-        room.doors2 = doors.ToArray(); 
-        ResetRoomToCenter(room);
-        room.SetDoors();
+        room.doors = doors; 
+        room = ResetRoomToCenter(room);
 
         return room;
     }
@@ -129,6 +125,10 @@ public class RoomGenerator : MonoBehaviour
         rb.yMax += dy; 
 
         // Change door positions
+        foreach (Door door in room.doors)
+        {
+            door.Position += new Vector3Int(dx, dy, 0);
+        }
 
 
         room.tilePositions = tilePositions;
