@@ -168,7 +168,10 @@ public class DungeonGenerator : MonoBehaviour
     }
     #endregion
 
-    // In order to create 
+    // Choose 2 doors from 2 rooms. Start with the first position and check if the position are horizontal or vertical
+    // In case of an horizontal corridor:
+    // Traverse the first half of the horizontal difference between the 2 room positions, after that spawn the vertical corridor.
+    // Spawn the last half of the horizontal difference.
     private void CreateCorridor(Door door, Vector3Int connectedDoorPosition)
     {
         Vector3Int difference = -door.Position + connectedDoorPosition;
@@ -221,7 +224,6 @@ public class DungeonGenerator : MonoBehaviour
 
         if (door.Direction == Direction.Up || door.Direction == Direction.Down)
         {
-            //Debug.Log(corridorHorizontalLength);
             int corridorVerticalLengthHalf = differenceAbs.y / 2;
             int corridorHorizontalLength = differenceAbs.x;
 
