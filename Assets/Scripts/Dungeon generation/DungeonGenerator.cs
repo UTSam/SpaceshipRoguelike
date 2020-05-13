@@ -221,7 +221,6 @@ public class DungeonGenerator : MonoBehaviour
                     SpawnHorizontalCorridor(currentCorridorPosition);
             }
 
-
             tilemap.SetTile(new Vector3Int(door.Position.x, door.Position.y - 1, 0), null);
             tilemap.SetTile(door.Position                                          , null);
             tilemap.SetTile(new Vector3Int(door.Position.x, door.Position.y + 1, 0), null);
@@ -273,8 +272,6 @@ public class DungeonGenerator : MonoBehaviour
             tilemap.SetTile(connectedDoorPosition                                                  , null);
             tilemap.SetTile(new Vector3Int(connectedDoorPosition.x + 1, connectedDoorPosition.y, 0), null);
         }
-
-        // Remove the doors
     }
 
     private Room GetRoomByDirection(Direction direction, System.Random rand)
