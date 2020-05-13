@@ -7,6 +7,7 @@ using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class DungeonGenerator : MonoBehaviour
 {
@@ -21,9 +22,6 @@ public class DungeonGenerator : MonoBehaviour
     public int additionalDistance = 10;
     public int maxOffset = 20;
 
-    public Tilemap tilemap;
-    public Tile corridorTile;
-    public Tile wallTile;
 
     private float startTime;
     private Transform parentFolder;
@@ -47,22 +45,39 @@ public class DungeonGenerator : MonoBehaviour
         PlacedRooms.Add(spawnRoom);
         spawnRoom.DrawRoom();
 
+        bool exit = false; 
+
         // Keep placing rooms until roomCount
-        while (count < roomCount)
+        while (count < roomCount || exit)
         {
+            // Exit if stuck (:
+            if ((Time.time - startTime) > 10)
+            {
+                exit = true;
+            }
+
             // Pick random room from placed rooms
             Room initialRoom = PlacedRooms[rand.Next(PlacedRooms.Count)];
             if (initialRoom.doors.Count == 0)
+            {
+                Debug.Log("HALLO 0");
                 continue;
+            }
 
             // Get a room based on the direcion of the door
             Door door = initialRoom.GetRandomDoor(rand);
             if (door == null)
+            {
+                Debug.Log("HALLO 1");
                 continue;
+            }
 
             Room roomToConnect = GetRoomByDirection(door.GetOppositeDirection(), rand);
             if(roomToConnect == null)
+            {
+                Debug.Log("HALLO 2");
                 continue;
+            }
 
             int randomOffset = rand.Next(maxOffset * 2) - maxOffset;
             Vector3Int newRoomPosition = Vector3Int.zero;
@@ -99,6 +114,7 @@ public class DungeonGenerator : MonoBehaviour
             if (RoomInteractsWithPlacedRooms(newRoom, additionalDistance))
             {
                 Destroy(newRoom.gameObject);
+                Debug.Log("HALLO 3");
                 continue;
             }
 
@@ -113,10 +129,18 @@ public class DungeonGenerator : MonoBehaviour
             Door initialDoor = door + initialRoom.position;
             CreateCorridor(initialDoor, newRoomDoor.Position + newRoom.position);
 
+            //newRoom.OpenDoors();
+
             PlacedRooms.Add(newRoom);
             count++;
+
             yield return null;
         }
+
+        //foreach(Room room in PlacedRooms)
+        //{
+        //    room.CloseDoors();
+        //}
 
         Debug.Log("Dungeon generation time: " + (Time.time - startTime));
     }
@@ -124,12 +148,12 @@ public class DungeonGenerator : MonoBehaviour
     #region Spawn Tile functions
     private void SpawnCorridorTile(Vector3Int position)
     {
-        tilemap.SetTile(position, null);
+        DungeonManager.tilemap_walls.SetTile(position, null);
     }
 
     private void SpawnWallTile(Vector3Int position)
     {
-        tilemap.SetTile(position, wallTile);
+        DungeonManager.tilemap_walls.SetTile(position, DungeonManager.tile_Wall);
     }
 
     private void SpawnHorizontalCorridor(Vector3Int currentCorridorPosition)
@@ -220,14 +244,6 @@ public class DungeonGenerator : MonoBehaviour
                 if (currentCorridorPosition != connectedDoorPosition)
                     SpawnHorizontalCorridor(currentCorridorPosition);
             }
-
-            tilemap.SetTile(new Vector3Int(door.Position.x, door.Position.y - 1, 0), null);
-            tilemap.SetTile(door.Position                                          , null);
-            tilemap.SetTile(new Vector3Int(door.Position.x, door.Position.y + 1, 0), null);
-
-            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x, connectedDoorPosition.y - 1, 0), null);
-            tilemap.SetTile(connectedDoorPosition                                                  , null);
-            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x, connectedDoorPosition.y + 1, 0), null);
         }
 
         if (door.Direction == Direction.Up || door.Direction == Direction.Down)
@@ -265,12 +281,6 @@ public class DungeonGenerator : MonoBehaviour
                     SpawnVerticalCorridor(currentCorridorPosition);
             }
 
-            tilemap.SetTile(new Vector3Int(door.Position.x - 1, door.Position.y, 0), null);
-            tilemap.SetTile(door.Position                                          , null);
-            tilemap.SetTile(new Vector3Int(door.Position.x + 1, door.Position.y, 0), null);
-            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x - 1, connectedDoorPosition.y, 0), null);
-            tilemap.SetTile(connectedDoorPosition                                                  , null);
-            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x + 1, connectedDoorPosition.y, 0), null);
         }
     }
 
@@ -293,7 +303,7 @@ public class DungeonGenerator : MonoBehaviour
 
         foreach (Room room in availableRooms)
         {
-            room.SetDoors();
+            //room.SetDoors();
             foreach (Door door in room.doors)
             {
                 if (!RoomsByDirection[door.Direction].Contains(room))

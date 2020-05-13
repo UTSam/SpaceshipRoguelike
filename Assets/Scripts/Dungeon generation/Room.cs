@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[System.Serializable]
 public enum Direction
 {
     Up,
@@ -24,28 +25,27 @@ public class Room : MonoBehaviour
 
     public RoomBorders roomBorders;
 
-    public Tilemap tilemap_walls;
-
     public Tile[] tiles;
     public Vector3Int[] tilePositions;
 
     public Vector3Int position;
 
     public List<Door> doors = new List<Door>();
+    [SerializeField]
+    public Door[] doors2; 
 
     public Room previousRoom;
 
     // Start is called before the first frame update
     void Awake()
     {
-        tilemap_walls = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
-
         SetDoors();
     }
 
     public void DrawRoom()
     {
-        if(tilemap_walls == null)
+        //SetDoors();
+        if(DungeonManager.tilemap_walls == null)
             return;
 
         if (position == null)
@@ -53,7 +53,7 @@ public class Room : MonoBehaviour
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            tilemap_walls.SetTile((tilePositions[i] + position), tiles[i]);
+            DungeonManager.tilemap_walls.SetTile((tilePositions[i] + position), tiles[i]);
         }
     }
 
@@ -94,9 +94,9 @@ public class Room : MonoBehaviour
                     newDoor.Direction = Direction.Right;
                     break;
                 default:
+                    // Next iteration if no direction found
                     continue;
             }
-
             doors.Add(newDoor);
         }
     }
@@ -127,6 +127,24 @@ public class Room : MonoBehaviour
         return null;
     }
 
+    public void OpenDoors()
+    {
+        foreach (Door door in doors)
+        {
+            if (door.connected) 
+                door.Unlock(this.position);
+        }
+    }
+
+    public void CloseDoors()
+    {
+        foreach (Door door in doors)
+        {
+            if (door.connected) 
+                door.Lock(this.position);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -149,13 +167,6 @@ public class Room : MonoBehaviour
         Gizmos.DrawLine(
             position + new Vector3(rb.xMax, rb.yMax),
             position + new Vector3(rb.xMax, rb.yMin));
-
-        foreach(Door door in doors)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(door.Position + position, 1f);
-        }
-
 
         if (previousRoom)
         {

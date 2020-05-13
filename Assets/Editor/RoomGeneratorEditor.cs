@@ -34,7 +34,7 @@ public class RoomGeneratorEditor : Editor
         }
         
 
-        DestroyImmediate(thingy);
+        //DestroyImmediate(thingy);
     }
 
     private void saveFile(GameObject prefabToSave, string filename)
@@ -157,7 +157,6 @@ public class RoomGeneratorEditor : Editor
 
             tempRoomObject = (Room)Instantiate(roomObject, new Vector3(0, 0, 0), Quaternion.identity) as Room;
             PreviousRoomName = tempRoomObject.name.Remove(tempRoomObject.name.Length - 7); // nice and hardcoded substring for '(clone)'
-            tempRoomObject.tilemap_walls = gen.tilemap;
             tempRoomObject.DrawRoom();
 
             DestroyImmediate(tempRoomObject.gameObject);

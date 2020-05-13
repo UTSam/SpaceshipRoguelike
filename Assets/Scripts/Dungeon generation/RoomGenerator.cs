@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using Assets.Scripts.Rooms;
 
 public struct RectSimpl
 {
@@ -31,6 +32,7 @@ public class RoomGenerator : MonoBehaviour
     public Room GetRoom()
     {
         List<Tile> tiles = new List<Tile>();
+        List<Door> doors = new List<Door>();
         List<Vector3Int> pos = new List<Vector3Int>();
 
         // Reset borders
@@ -44,12 +46,37 @@ public class RoomGenerator : MonoBehaviour
         {
             for (int y = tilemap.cellBounds.yMin; y < tilemap.cellBounds.yMax; y++)
             {
-                Tile tile = tilemap.GetTile<Tile>(new Vector3Int(x, y, 0));
+                Vector3Int tilePos = new Vector3Int(x, y, 0);
+                Tile tile = tilemap.GetTile<Tile>(tilePos);
 
                 if (tile != null)
                 {
+                    // Check for door
+                    if (tile.name.StartsWith("DoorIndicator"))
+                    {
+                        Door newDoor = new Door(tilePos);
+                        switch(tile.name)
+                        {
+                            case "DoorIndicator_Up":
+                                newDoor.Direction = Direction.Up;
+                                break;
+                            case "DoorIndicator_Down":
+                                newDoor.Direction = Direction.Down;
+                                break;
+                            case "DoorIndicator_Left":
+                                newDoor.Direction = Direction.Left;
+                                break;
+                            case "DoorIndicator_Right":
+                                newDoor.Direction = Direction.Right;
+                                break;
+                        }
+                        Debug.Log("AFSD:LJD Adding door");
+                        doors.Add(newDoor);
+                    }
+
+
                     tiles.Add(tile);
-                    pos.Add(new Vector3Int(x, y, 0));
+                    pos.Add(tilePos);
 
                     // Update borders
                     if (x < borders.xMin) borders.xMin = x;
@@ -64,14 +91,16 @@ public class RoomGenerator : MonoBehaviour
         borders.xMax++;
         borders.yMax++;
 
+        Debug.Log(doors.Count);
+
         // Create empty gameobject, add "Room" script and populate values
         GameObject newObj = new GameObject("Room");
         Room room = newObj.AddComponent<Room>();
         room.tiles = tiles.ToArray();
         room.tilePositions = pos.ToArray();
-        room.tilemap_walls = tilemap;
         room.roomBorders = borders;
-        room = ResetRoomToCenter(room);
+        room.doors2 = doors.ToArray(); 
+        ResetRoomToCenter(room);
         room.SetDoors();
 
         return room;
@@ -98,6 +127,9 @@ public class RoomGenerator : MonoBehaviour
         rb.xMax += dx;
         rb.yMin += dy;
         rb.yMax += dy; 
+
+        // Change door positions
+
 
         room.tilePositions = tilePositions;
         room.roomBorders = rb; 
