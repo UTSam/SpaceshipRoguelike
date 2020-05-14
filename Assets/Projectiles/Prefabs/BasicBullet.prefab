@@ -49,9 +49,10 @@ MonoBehaviour:
   MaxSpeed: 250
   Speed: {x: 0, y: 0}
   Deceleration: 0.2
-  DamageValue: 5
+  DamageValue: 10
   LifeSpan: 2
   InitialSpeed: 10
+  element: 2
 --- !u!212 &2607782460055521710
 SpriteRenderer:
   m_ObjectHideFlags: 0

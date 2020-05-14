@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Editor/RoomGeneratorEditor.cs.meta
+guid: f993a60589b775047b25fb289f6f0a13
+=======
+guid: 24878635c16947243b3a921cd7108a6d
+>>>>>>> development:Assets/Scripts/Behaviours/SteeringBehaviours.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

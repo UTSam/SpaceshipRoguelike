@@ -43,11 +43,6 @@ public class MovingEntity : BasicEntity
         rigidBody.SetRotation(rigidBody.rotation + rotateValue);
     }
 
-    public Vector2 Perpendicular(Vector2 vector)
-    {
-        return new Vector2(-vector.y, vector.x);
-    }
-
     public Vector2 GetPosition()
     {
         return this.rigidBody.position;

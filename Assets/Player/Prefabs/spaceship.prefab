@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 339957607941272975}
   - component: {fileID: 339957607941272974}
   - component: {fileID: 339957607941272973}
-  - component: {fileID: 4606493755840513268}
   m_Layer: 0
   m_Name: spaceship
   m_TagString: Untagged
@@ -105,11 +104,9 @@ MonoBehaviour:
   orientationFactorX: 3
   orientationFactorY: 1.5
   movementCouldownDefault: 3
-  movementCouldown: 0
   dashFactor: 50
   specialMovementActivated: 0
   loopingDoubleTapCooldownDefault: 0.3
-  loopingDoubleTapCooldown: 0
   inputType: 
   prevInputType: 
   loopTrigerActivated: 0
@@ -135,29 +132,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &4606493755840513268
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339957607941272972}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.010145307, y: -0.48791194}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.5, y: 4.6}
-    newSize: {x: 4.5, y: 4.6}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.29703, y: 1.2822058}
-  m_EdgeRadius: 0

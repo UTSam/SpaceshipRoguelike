@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(SteeringBehaviours))]
+
 public class BasicMovingEnemy : MovingEntity
 {
     private SteeringBehaviours steering;
@@ -29,12 +31,14 @@ public class BasicMovingEnemy : MovingEntity
         if (speed.sqrMagnitude > 0.0000001)
         {
             this.heading = speed.normalized;
-            this.perpendicular = Perpendicular(heading);
+            this.perpendicular = Vector2.Perpendicular(heading);
         }
-
-        Vector3 lookPos = target.transform.position - transform.position;
-        float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (target != null)
+        {
+            Vector3 lookPos = target.transform.position - transform.position;
+            float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
 
         UpdatePosition();
     }

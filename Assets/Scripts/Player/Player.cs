@@ -40,6 +40,7 @@ public class Player : MovingEntity
        movementCouldown = movementCouldownDefault;
        loopingDoubleTapCooldown = loopingDoubleTapCooldownDefault;
     }
+
     void Update()
     {
         // model Rotation
