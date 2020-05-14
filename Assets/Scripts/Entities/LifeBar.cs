@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 
 public class LifeBar : MonoBehaviour
 {
-    [SerializeField] GameObject healthBar;
-    [SerializeField] GameObject shieldBar;
+    [SerializeField] GameObject healthBar = null;
+    [SerializeField] GameObject shieldBar = null;
 
     private Quaternion rotation;
     private Vector3 localPosition;

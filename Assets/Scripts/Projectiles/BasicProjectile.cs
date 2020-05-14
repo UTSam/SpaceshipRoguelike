@@ -39,7 +39,7 @@ public class BasicProjectile : MovingEntity
     {
         if (other.GetComponentInParent<Player>())
         {
-            Debug.Log(other);
+            //Debug.Log(other);
             other.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
             Destroy(this.gameObject);
         } if (other.GetComponentInParent<TilemapCollider2D>())

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7786273473214142752}
   - component: {fileID: 2496109141150863430}
   - component: {fileID: 1785904802364002397}
+  - component: {fileID: 2967207578566480093}
+  - component: {fileID: 7055245320535188700}
   m_Layer: 0
   m_Name: GreenEnemy
   m_TagString: Untagged
@@ -148,3 +150,47 @@ MonoBehaviour:
   Target: {fileID: 0}
   Muzzle: {fileID: 2800104448951566651}
   FireRate: 3
+--- !u!114 &2967207578566480093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037187362089655625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34dedefaf577214089dd27f14c3a12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wanderRadius: 1
+  wanderJitter: 0.25
+  wanderDistance: 0.16000001
+  wanderOn: 0
+  arriveDeceleration: 2
+  seekON: 0
+  arriveOn: 0
+  persuitOn: 0
+  fleeON: 0
+  evadeOn: 0
+  headingCollider: {fileID: 0}
+--- !u!114 &7055245320535188700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037187362089655625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afdd40f52c3f414198bffb0b91c9f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: {x: 0, y: 0}
+  deceleration: 0
+  heading: {x: 0, y: 0}
+  perpendicular: {x: 0, y: 0}
+  mass: 10
+  maxSpeed: 20
+  maxForce: 2
+  maxTurnRate: 2
+  target: {fileID: 0}

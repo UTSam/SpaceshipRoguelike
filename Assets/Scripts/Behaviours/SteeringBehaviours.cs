@@ -49,6 +49,7 @@ public class SteeringBehaviours : MonoBehaviour
         if (evadeOn) returnValue += Evade() * 2;
         if (wanderOn) returnValue += Wander();
         if (collidingWall) returnValue *= -1;
+        returnValue += GetComponent<TMPAvoidance>().WallAvoidance(host);
         return returnValue;
     }
 
