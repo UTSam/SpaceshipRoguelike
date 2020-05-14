@@ -21,7 +21,7 @@ public class ShootingComponent : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-
+    { 
         if (Target != null && lastShotTimer >= 1.0f/FireRate && !Physics2D.Linecast(Muzzle.position, Target.position, mask))
         {
             GameObject projectile = Instantiate(ProjectilePrefab) as GameObject;
