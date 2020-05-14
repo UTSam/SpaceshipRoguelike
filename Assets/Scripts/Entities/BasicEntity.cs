@@ -5,13 +5,13 @@
 public class BasicEntity : MonoBehaviour
 {
     protected Rigidbody2D rigidBody;
-    protected Collider2D collider;
+    protected Collider2D bodyCollider;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
+        bodyCollider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame

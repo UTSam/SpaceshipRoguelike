@@ -13,7 +13,7 @@ public class HealthComponent : MonoBehaviour
 
     [SerializeField] private float FireWeakeness = 3f;
     [SerializeField] private float ElecWeakness = 3f;
-    [SerializeField] private float NormalWeakness = 3f;
+    //[SerializeField] private float NormalWeakness = 3f;
 
    private LifeBar bar;
 
