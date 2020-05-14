@@ -24,7 +24,7 @@ public class BasicProjectile : MovingEntity
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         UpdatePosition();
         LifeSpan -= Time.deltaTime;
