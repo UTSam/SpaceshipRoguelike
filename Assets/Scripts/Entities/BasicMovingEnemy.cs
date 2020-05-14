@@ -31,7 +31,7 @@ public class BasicMovingEnemy : MovingEntity
         if (speed.sqrMagnitude > 0.0000001)
         {
             this.heading = speed.normalized;
-            this.perpendicular = Perpendicular(heading);
+            this.perpendicular = Vector2.Perpendicular(heading);
         }
         if (target != null)
         {

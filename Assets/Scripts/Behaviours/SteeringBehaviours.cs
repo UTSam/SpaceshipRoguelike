@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -132,9 +133,9 @@ public class SteeringBehaviours : MonoBehaviour
 
         Vector2 toEvader = host.target.transform.position - host.transform.position;
 
-        double relativeHeading = BasicEntity.DotProduct(host.heading, host.target.heading);
+        double relativeHeading = Vector2.Dot(host.heading, host.target.heading);
 
-        if (BasicEntity.DotProduct(toEvader, host.heading) > 0 &&
+        if (Vector2.Dot(toEvader, host.heading) > 0 &&
             relativeHeading < -0.95) //-acos(0.95) = 18degrees
         {
             return Seek();

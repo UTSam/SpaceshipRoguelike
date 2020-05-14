@@ -19,11 +19,4 @@ public class BasicEntity : MonoBehaviour
     {
         
     }
-
-    public static float DotProduct(Vector2 a, Vector2 b)
-    {
-        float returnvalue = (a.x * b.x) + (a.y * b.y);
-
-        return returnvalue;
-    }
 }
