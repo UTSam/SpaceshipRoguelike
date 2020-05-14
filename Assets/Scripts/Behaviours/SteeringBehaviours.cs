@@ -26,7 +26,7 @@ public class SteeringBehaviours : MonoBehaviour
     [SerializeField] private BasicMovingEnemy Leader = null;
     [SerializeField] private Vector2 OffsetToleader = new Vector2(2, 2);
 
-    private Feelers feelers;
+    private FeelerManager feelers;
 
 
     [SerializeField] private bool fleeON = false;
@@ -40,7 +40,7 @@ public class SteeringBehaviours : MonoBehaviour
         host = GetComponent<BasicMovingEnemy>();
         wanderTarget = host.heading * wanderRadius;
         rand = new System.Random();
-        feelers = GetComponentInChildren<Feelers>();
+        feelers = GetComponentInChildren<FeelerManager>();
     }
 
     public Vector2 Calculate()
