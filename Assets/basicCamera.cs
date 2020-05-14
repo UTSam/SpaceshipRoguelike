@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Transform))]
-
 public class basicCamera : MonoBehaviour
 {
     public GameObject player;

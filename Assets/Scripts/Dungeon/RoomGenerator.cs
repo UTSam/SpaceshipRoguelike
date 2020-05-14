@@ -6,18 +6,6 @@ using UnityEngine.Tilemaps;
 using System.Linq;
 using Assets.Scripts.Rooms;
 
-public struct RectSimpl
-{
-    public int width;
-    public int height;
-
-    public RectSimpl(int _width, int _height)
-    {
-        width = _width;
-        height = _height;
-    }
-}
-
 public class RoomGenerator : MonoBehaviour
 {
     Room.RoomBorders borders;
@@ -60,16 +48,16 @@ public class RoomGenerator : MonoBehaviour
                         switch(tile.name)
                         {
                             case "DoorIndicator_Up":
-                                newDoor.Direction = Direction.Up;
+                                newDoor.direction = Direction.Up;
                                 break;
                             case "DoorIndicator_Down":
-                                newDoor.Direction = Direction.Down;
+                                newDoor.direction = Direction.Down;
                                 break;
                             case "DoorIndicator_Left":
-                                newDoor.Direction = Direction.Left;
+                                newDoor.direction = Direction.Left;
                                 break;
                             case "DoorIndicator_Right":
-                                newDoor.Direction = Direction.Right;
+                                newDoor.direction = Direction.Right;
                                 break;
                         }
                         doors.Add(newDoor);
@@ -129,7 +117,7 @@ public class RoomGenerator : MonoBehaviour
         // Change door positions
         foreach (Door door in room.doors)
         {
-            door.Position += new Vector3Int(dx, dy, 0);
+            door.position += new Vector3Int(dx, dy, 0);
         }
 
 

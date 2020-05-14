@@ -6,15 +6,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[System.Serializable]
-public enum Direction
-{
-    Up,
-    Down,
-    Right,
-    Left
-}
-
 public class Room : MonoBehaviour
 {
     [System.Serializable]
@@ -36,7 +27,7 @@ public class Room : MonoBehaviour
     public Room previousRoom;
 
     public bool isCleared = false; 
-    private List<BoxCollider2D> bclist = new List<BoxCollider2D>();
+    private List<BoxCollider2D> colliderList = new List<BoxCollider2D>();
 
     public void DrawRoom()
     {
@@ -52,19 +43,12 @@ public class Room : MonoBehaviour
         }
     }
 
-    internal void AddToPosition(Vector3Int addToPosition)
-    {
-        position += addToPosition;
-    }
-
-    public void DoorIsConnected(Door findDoor)
+    public void SetDoorConnected(Door findDoor)
     {
         foreach (Door door in doors)
         {
             if(door == findDoor)
-            {
                 door.connected = true;
-            }
         }
     }
 
@@ -73,9 +57,7 @@ public class Room : MonoBehaviour
         foreach (Door door in doors.OrderBy(x => rand.Next()))
         {
             if (door.connected == false)
-            {
                 return door;
-            }
         }
 
         return null;
@@ -85,7 +67,7 @@ public class Room : MonoBehaviour
     {
         foreach (Door door in doors)
         {
-            if(door.Direction == direction)
+            if(door.direction == direction)
             {
                 return door;
             }
@@ -118,39 +100,38 @@ public class Room : MonoBehaviour
 
         foreach (Door door in doors)
         {
-            if (door.connected)
+            if (!door.connected) return;
+
+            // Add trigger in front of door 
+            BoxCollider2D collider = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
+            collider.isTrigger = true;
+
+            Vector2Int size = new Vector2Int(1,1);
+            Vector2 offset = new Vector2(door.position.x + 0.5f, door.position.y + 0.5f);
+
+            switch (door.direction)
             {
-                // Add trigger in front of door 
-                BoxCollider2D bc = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
-                bc.isTrigger = true;
-
-                Vector2Int size = new Vector2Int(1,1);
-                Vector2 offset = new Vector2(door.Position.x + 0.5f, door.Position.y + 0.5f);
-
-                switch (door.Direction)
-                {
-                    case Direction.Up:
-                        size.x = 3;
-                        offset.y -= 1.5f;
-                        break;
-                    case Direction.Down:
-                        size.x = 3; 
-                        offset.y += 1.5f;
-                        break;
-                    case Direction.Left:
-                        size.y = 3;
-                        offset.x += 1.5f;
-                        break;
-                    case Direction.Right:
-                        size.y = 3; 
-                        offset.x -= 1.5f;
-                        break;
-                }
-
-                bc.size = size;
-                bc.offset = offset;
-                bclist.Add(bc);
+                case Direction.Up:
+                    size.x = 3;
+                    offset.y -= 1.5f;
+                    break;
+                case Direction.Down:
+                    size.x = 3; 
+                    offset.y += 1.5f;
+                    break;
+                case Direction.Left:
+                    size.y = 3;
+                    offset.x += 1.5f;
+                    break;
+                case Direction.Right:
+                    size.y = 3; 
+                    offset.x -= 1.5f;
+                    break;
             }
+
+            collider.size = size;
+            collider.offset = offset;
+            colliderList.Add(collider);
         }
     }
 
@@ -169,11 +150,11 @@ public class Room : MonoBehaviour
             StartCoroutine(OpenAfterSeconds(5));
 
             // TODO: Maybe remove colliders (There's no use for them anyways)
-            foreach (BoxCollider2D bc in bclist)
+            foreach (BoxCollider2D bc in colliderList)
             {
                 Destroy(bc);
             }
-            bclist.Clear();
+            colliderList.Clear();
         }
     }
 

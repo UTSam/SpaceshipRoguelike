@@ -8,59 +8,63 @@ using UnityEngine;
 namespace Assets.Scripts.Rooms
 {
     [System.Serializable]
+    public enum Direction
+    {
+        Up,
+        Down,
+        Right,
+        Left
+    }
+
+    [System.Serializable]
     public class Door
     {
         [SerializeField]
-        internal bool connected = false;
+        public bool connected = false;
 
         [SerializeField]
-        public Vector3Int Position;
+        public Vector3Int position;
 
         [SerializeField]
-        public Direction Direction;
+        public Direction direction;
 
         public Door(Vector3Int _dir)
         {
-            this.Position = _dir;
+            this.position = _dir;
         }
 
         public Door(Vector3Int position, Direction direction)
         {
-            Position = position;
-            Direction = direction;
+            this.position = position;
+            this.direction = direction;
         }
 
         public Direction GetOppositeDirection()
         {
-            if (Direction == Direction.Down)
+            if (direction == Direction.Down)
                 return Direction.Up;
 
-            if (Direction == Direction.Up)
+            if (direction == Direction.Up)
                 return Direction.Down;
 
-            if (Direction == Direction.Left)
+            if (direction == Direction.Left)
                 return Direction.Right;
 
-            if (Direction == Direction.Right)
+            if (direction == Direction.Right)
                 return Direction.Left;
 
             return Direction.Left;
         }
+
         public static Door operator +(Door door, Vector3Int position)
         {
-            return new Door(door.Position + position, door.Direction);
-        }
-
-
-        public override string ToString()
-        {
-            return $"Direction: {Direction}, Position: {Position};";
+            return new Door(door.position + position, door.direction);
         }
 
         internal void Unlock(Vector3Int roomPos)
         {
             Vector3Int dir = Vector3Int.zero; 
-            switch(this.Direction)
+            switch(this.direction)
             {
                 case Direction.Up:
                 case Direction.Down:
@@ -75,20 +79,20 @@ namespace Assets.Scripts.Rooms
             }
 
             // Add tiles on tilemap_doors
-            DungeonManager.tilemap_doors.SetTile(roomPos + Position,       DungeonManager.tile_Door_Unlocked);
-            DungeonManager.tilemap_doors.SetTile(roomPos + Position + dir, DungeonManager.tile_Door_Unlocked);
-            DungeonManager.tilemap_doors.SetTile(roomPos + Position - dir, DungeonManager.tile_Door_Unlocked);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position,       DungeonManager.tile_Door_Unlocked);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, DungeonManager.tile_Door_Unlocked);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, DungeonManager.tile_Door_Unlocked);
 
             // Remove tiles on tilemap_walls
-            DungeonManager.tilemap_walls.SetTile(roomPos + Position,       null);
-            DungeonManager.tilemap_walls.SetTile(roomPos + Position + dir, null);
-            DungeonManager.tilemap_walls.SetTile(roomPos + Position - dir, null);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position,       null);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, null);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, null);
         }
 
         internal void Lock(Vector3Int roomPos)
         {
             Vector3Int dir = Vector3Int.zero;
-            switch (this.Direction)
+            switch (this.direction)
             {
                 case Direction.Up:
                 case Direction.Down:
@@ -103,14 +107,14 @@ namespace Assets.Scripts.Rooms
             }
 
             // Remove tiles on tilemap_doors
-            DungeonManager.tilemap_doors.SetTile(roomPos + Position, null);
-            DungeonManager.tilemap_doors.SetTile(roomPos + Position + dir, null);
-            DungeonManager.tilemap_doors.SetTile(roomPos + Position - dir, null);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position, null);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, null);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, null);
 
             // Add tiles on tilemap_walls
-            DungeonManager.tilemap_walls.SetTile(roomPos + Position, DungeonManager.tile_Door_Locked);
-            DungeonManager.tilemap_walls.SetTile(roomPos + Position + dir, DungeonManager.tile_Door_Locked);
-            DungeonManager.tilemap_walls.SetTile(roomPos + Position - dir, DungeonManager.tile_Door_Locked);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position, DungeonManager.tile_Door_Locked);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, DungeonManager.tile_Door_Locked);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, DungeonManager.tile_Door_Locked);
         }
     }
 }
