@@ -64,8 +64,6 @@ public class SteeringBehaviours : MonoBehaviour
         return returnValue;
     }
 
-    public void SetPath() { }
-
     private Vector2 Seek()
     {
         Vector2 desiredVelocity = (host.target.transform.position - host.transform.position) * host.maxSpeed;
