@@ -58,7 +58,6 @@ public class SteeringBehaviours : MonoBehaviour
         {
             returnValue += Wander();
         }
-
         return returnValue;
     }
 

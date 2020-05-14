@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class HealthComponent : MonoBehaviour
 {
     [SerializeField] private float Health = 1;
@@ -16,12 +15,13 @@ public class HealthComponent : MonoBehaviour
     [SerializeField] private float ElecWeakness = 3f;
     //[SerializeField] private float NormalWeakness = 3f;
 
-    [SerializeField] private LifeBar bar;
+   private LifeBar bar;
 
     void Start()
     {
         Health = MaxHealth;
         Shield = MaxShield;
+        bar = GetComponentInChildren<LifeBar>();
         UpdateBar();
     }
     public virtual void OnDeath()
