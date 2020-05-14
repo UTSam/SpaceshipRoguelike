@@ -31,6 +31,9 @@ public class SteeringBehaviours : MonoBehaviour
 
     [SerializeField] private bool fleeON = false;
     [SerializeField] private bool evadeOn = false;
+
+    [SerializeField] private float arriveForce = 1f;
+    [SerializeField] private float fleeForce = 1f;
     private double panicDistance = 2 * 2;
 
 
@@ -50,8 +53,8 @@ public class SteeringBehaviours : MonoBehaviour
         {
             if (wallAvoidanceON) returnValue += WallAvoidance();
             if (seekON) returnValue += Seek();
-            if (fleeON) returnValue += Flee();
-            if (arriveOn) returnValue += Arrive(arriveDeceleration);
+            if (fleeON) returnValue += Flee() * fleeForce;
+            if (arriveOn) returnValue += Arrive(arriveDeceleration) * arriveForce;
             if (pursuitOn) returnValue += Pursuit();
             if (evadeOn) returnValue += Evade() * 2;
             if (wanderOn) returnValue += Wander();

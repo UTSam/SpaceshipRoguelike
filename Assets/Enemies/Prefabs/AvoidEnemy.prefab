@@ -97,11 +97,13 @@ MonoBehaviour:
   arriveOn: 0
   pursuitOn: 0
   OffsetPursuitOn: 0
-  wallAvoidanceON: 0
+  wallAvoidanceON: 1
   Leader: {fileID: 0}
   OffsetToleader: {x: 2, y: 2}
-  fleeON: 0
+  fleeON: 1
   evadeOn: 0
+  arriveForce: 1
+  fleeForce: 1
 --- !u!114 &5410886197537698283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +121,7 @@ MonoBehaviour:
   heading: {x: 0, y: 0}
   perpendicular: {x: 0, y: 0}
   mass: 10
-  maxSpeed: 20
+  maxSpeed: 5
   maxForce: 2
   maxTurnRate: 2
   target: {fileID: 0}
