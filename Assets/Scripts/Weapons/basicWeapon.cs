@@ -2,42 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class basicWeapon : MonoBehaviour
+public class BasicWeapon : MonoBehaviour
 {
     public enum EffectsList { fire, poison, electric, explosive, penetrate, bounce, multiply };
 
     // Bullet attributes
-    private Vector2 direction; // direction is normalized 
-    public float bulletSize = 1f;
-    public float bulletSpeed = 2f;
-    public float bulletDamages = 10f;
+    protected Vector2 direction; // direction is normalized 
+    public float bulletSize;
+    public float bulletSpeed;
+    public float bulletDamages;
     public List<EffectsList> effectsList;
 
     // Weapon attribute
-    public string riffleName = "Riffle";
-    public int magazineSize = 5;
-    private int currentBulletNumber;
-    public int reloadTime = 2; // in seconds
-    public float fireRate = 2f;
-    public int maxModifierNumber = 3;
+    public string weaponName;
+    public int magazineSize;
+    protected int currentBulletNumber;
+    public int reloadTime; // in seconds
+    public float fireRate;
+    public int maxModifierNumber;
 
     // Bullet object and spawn point
     public GameObject bullet;
     public Transform bulletSpawnPoint;
 
     // Time variables
-    private float reloadCouldown = 0;
-    private float shotCouldown = 0;
+    protected float reloadCouldown = 0;
+    protected float shotCouldown = 0;
 
     // Triger variables
-    private bool isReloading = false;
+    protected bool isReloading = false;
 
 
-    private Quaternion rotation;
-    private Vector3 localPosition;
+    protected Quaternion rotation;
+    protected Vector3 localPosition;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         currentBulletNumber = magazineSize;
         //transform.localPosition = transform.parent.position;
@@ -50,7 +50,7 @@ public class basicWeapon : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         //OrientWeapon();
 
@@ -69,15 +69,15 @@ public class basicWeapon : MonoBehaviour
         /* End timer updates */
     }
 
-    public void ShootFunction()
+    public virtual void ShootFunction()
     {
-        if (Input.GetMouseButton(0) && shotCouldown <= 0 && !isReloading)
+/*        if (Input.GetMouseButton(0) && shotCouldown <= 0 && !isReloading)
         {
             shotCouldown = 1 / fireRate;
             currentBulletNumber--;
             SetBulletSpeed();
             Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation); 
-        }
+        }*/
     }
 
     public void ReloadFunction()
@@ -95,16 +95,27 @@ public class basicWeapon : MonoBehaviour
         }
     }
 
-    public void SetBulletSpeed()
+    public void SetBulletSpeed(float min, float max)
     {
         Vector2 direction = Vector2.zero;
         direction.Set(transform.parent.up.x, transform.parent.up.y);
-        bullet.GetComponent<MovingEntity>().speed = direction * bulletSpeed;
-
-        //bullet.GetComponent<MovingEntity>().speed =  Vector2.up * bulletSpeed;
+        direction += AddNoiseOnAngle(min, max);
+        bullet.GetComponent<MovingEntity>().speed = direction.normalized * bulletSpeed;
     }
 
     public void SetBullet()
     {
+    }
+
+    Vector2 AddNoiseOnAngle(float min, float max)
+    {
+        float xNoise = Random.Range(min, max);
+        float yNoise = Random.Range(min, max);
+        // Now get the angle between w.r.t. a vector 3 direction
+        Vector2 noise = new Vector3(
+            Mathf.Sin(2f * 3.1415926f * xNoise / 360),
+            Mathf.Sin(2f * 3.1415926f * yNoise / 360)
+                        );
+        return noise;
     }
 }

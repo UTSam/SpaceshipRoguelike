@@ -25,7 +25,7 @@ public class Player: MovingEntity
 
     // Dash variables
     public float movementCouldownDefault = 1; // In seconds
-    private float movementCouldown;
+    public float movementCouldown;
     public float dashFactor = 80;
     private bool specialMovementActivated = false;
 
@@ -145,7 +145,7 @@ public class Player: MovingEntity
 
     public void DashFunction()
     {
-        if (!specialMovementActivated && (Input.GetKeyDown(KeyCode.LeftShift) || (Input.GetKeyDown(KeyCode.LeftShift))))
+        if (!specialMovementActivated && (Input.GetKeyDown(KeyCode.LeftShift) || (Input.GetKeyDown(KeyCode.RightShift))))
         {
             specialMovementActivated = true;
 

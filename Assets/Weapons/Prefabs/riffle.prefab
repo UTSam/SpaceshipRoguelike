@@ -41,9 +41,9 @@ GameObject:
   - component: {fileID: 3256656784232116920}
   - component: {fileID: 3045033326104773088}
   - component: {fileID: 3045033326104773090}
-  - component: {fileID: 7358254385541215295}
+  - component: {fileID: 9078981282956975825}
   m_Layer: 0
-  m_Name: defaultWeapon
+  m_Name: riffle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7358254385541215295
+--- !u!114 &9078981282956975825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,17 +144,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3045033326104773089}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfc2f9ab28cce994a8044fa1a1605ae9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ea10a40adbdd204bb6c11c0e5e01313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSize: 1
-  bulletSpeed: 10
-  bulletDamages: 10
+  bulletSize: 0
+  bulletSpeed: 0
+  bulletDamages: 0
   effectsList: 
-  riffleName: Riffle
-  magazineSize: 5
-  reloadTime: 2
-  fireRate: 2
-  maxModifierNumber: 3
+  weaponName: 
+  magazineSize: 0
+  reloadTime: 0
+  fireRate: 0
+  maxModifierNumber: 0
   bullet: {fileID: 5397038310933703808, guid: c088ced9cc5678c44b063816286d420b, type: 3}
   bulletSpawnPoint: {fileID: 1379018518}

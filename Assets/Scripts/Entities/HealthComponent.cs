@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
-    [SerializeField] private float Health = 1;
-    [SerializeField] private float Shield = 1;
+    [SerializeField] public float Health = 1;
+    [SerializeField] public float Shield = 1;
 
     public float MaxHealth = 100;
     public float MaxShield = 100;
