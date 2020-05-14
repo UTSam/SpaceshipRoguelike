@@ -35,6 +35,9 @@ public class Room : MonoBehaviour
 
     public Room previousRoom;
 
+    public bool isCleared = false; 
+    private List<BoxCollider2D> bclist = new List<BoxCollider2D>();
+
     public void DrawRoom()
     {
         if(DungeonManager.tilemap_walls == null)
@@ -107,6 +110,77 @@ public class Room : MonoBehaviour
             if (door.connected) 
                 door.Lock(this.position);
         }
+    }
+
+    public void AddTriggers()
+    {
+        if (isCleared) return;
+
+        foreach (Door door in doors)
+        {
+            if (door.connected)
+            {
+                // Add trigger in front of door 
+                BoxCollider2D bc = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
+                bc.isTrigger = true;
+
+                Vector2Int size = new Vector2Int(1,1);
+                Vector2 offset = new Vector2(door.Position.x + 0.5f, door.Position.y + 0.5f);
+
+                switch (door.Direction)
+                {
+                    case Direction.Up:
+                        size.x = 3;
+                        offset.y -= 1.5f;
+                        break;
+                    case Direction.Down:
+                        size.x = 3; 
+                        offset.y += 1.5f;
+                        break;
+                    case Direction.Left:
+                        size.y = 3;
+                        offset.x += 1.5f;
+                        break;
+                    case Direction.Right:
+                        size.y = 3; 
+                        offset.x -= 1.5f;
+                        break;
+                }
+
+                bc.size = size;
+                bc.offset = offset;
+                bclist.Add(bc);
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Check if player collision
+        if (collision.gameObject.tag != "Player") return;
+
+        // Close room & Spawn enemies
+        if (!isCleared)
+        {
+            this.CloseDoors();
+            isCleared = true;
+
+            // TEMP
+            StartCoroutine(OpenAfterSeconds(5));
+
+            // TODO: Maybe remove colliders (There's no use for them anyways)
+            foreach (BoxCollider2D bc in bclist)
+            {
+                Destroy(bc);
+            }
+            bclist.Clear();
+        }
+    }
+
+    IEnumerator OpenAfterSeconds(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        this.OpenDoors();
     }
 
     private void OnDrawGizmos()
