@@ -12,7 +12,7 @@ public class Feelers : MonoBehaviour
     {
         mask = LayerMask.GetMask("Wall");
     }
-    public Vector2 CalculateForce(BasicMovingEnemy host)
+    public Vector2 CalculateForce()
     {
         Vector2 returnValue = Vector2.zero;
         foreach (Feeler feel in GetComponentsInChildren<Feeler>())

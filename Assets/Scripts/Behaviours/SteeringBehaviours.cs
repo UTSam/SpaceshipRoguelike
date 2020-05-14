@@ -22,15 +22,16 @@ public class SteeringBehaviours : MonoBehaviour
     [SerializeField] private bool arriveOn = false;
     [SerializeField] private bool pursuitOn = false;
     [SerializeField] private bool OffsetPursuitOn = false;
+    [SerializeField] private bool wallAvoidanceON = false;
     [SerializeField] private BasicMovingEnemy Leader = null;
     [SerializeField] private Vector2 OffsetToleader = new Vector2(2, 2);
+
+    private Feelers feelers;
+
 
     [SerializeField] private bool fleeON = false;
     [SerializeField] private bool evadeOn = false;
     private double panicDistance = 2 * 2;
-
-    [SerializeField] private Collider2D headingCollider;
-    private bool collidingWall = false;
 
 
 
@@ -39,6 +40,7 @@ public class SteeringBehaviours : MonoBehaviour
         host = GetComponent<BasicMovingEnemy>();
         wanderTarget = host.heading * wanderRadius;
         rand = new System.Random();
+        feelers = GetComponentInChildren<Feelers>();
     }
 
     public Vector2 Calculate()
@@ -46,6 +48,7 @@ public class SteeringBehaviours : MonoBehaviour
         returnValue = Vector2.zero;
         if (host.target != null)
         {
+            if (wallAvoidanceON) returnValue += WallAvoidance();
             if (seekON) returnValue += Seek();
             if (fleeON) returnValue += Flee();
             if (arriveOn) returnValue += Arrive(arriveDeceleration);
@@ -53,7 +56,6 @@ public class SteeringBehaviours : MonoBehaviour
             if (evadeOn) returnValue += Evade() * 2;
             if (wanderOn) returnValue += Wander();
             if (OffsetPursuitOn) returnValue += OffsetPursuit();
-            if (collidingWall) returnValue *= -1;
         }
         else
         {
@@ -188,18 +190,19 @@ public class SteeringBehaviours : MonoBehaviour
         return Arrive(WorldOffsetPos + Leader.speed * lookAheadTime, Deceleration.VVVslow);
     }
 
+    public Vector2 WallAvoidance()
+    {
+        if (feelers != null)
+        {
+            return feelers.CalculateForce();
+        }
+        else
+            return Vector2.zero;
+    }
+
     //***************************************************************************************************
     //DEBUG
     //***************************************************************************************************
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponentInParent<TilemapCollider2D>()) this.collidingWall = true;
-    }
-
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.GetComponentInParent<TilemapCollider2D>()) this.collidingWall = false;
-    }
     void OnDrawGizmos()
     {
         // Draw a yellow sphere at the transform's position

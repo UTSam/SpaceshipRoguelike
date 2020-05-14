@@ -26,7 +26,6 @@ public class Feeler : MonoBehaviour
         if (other.GetComponent<TilemapCollider2D>())
         {
             IsCollidingWall = false;
-            //Debug.Log(other.transform.position);
         }
     }
 
