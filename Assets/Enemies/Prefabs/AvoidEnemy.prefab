@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 275761894407374314}
   - component: {fileID: 5410886197537698283}
   - component: {fileID: 8128879150302792467}
+  - component: {fileID: 5263503671374176894}
   m_Layer: 0
   m_Name: AvoidEnemy
   m_TagString: Untagged
@@ -156,6 +157,24 @@ PolygonCollider2D:
       - {x: -0.46239662, y: -0.24297237}
       - {x: -0.033566475, y: -0.13213539}
       - {x: 0.46005535, y: -0.00022125244}
+--- !u!114 &5263503671374176894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60888451730901118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34acdaf1414693418a335439d6febce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  Shield: 100
+  MaxHealth: 100
+  MaxShield: 100
+  FireWeakeness: 3
+  ElecWeakness: 3
 --- !u!1 &1235644634345869104
 GameObject:
   m_ObjectHideFlags: 0
