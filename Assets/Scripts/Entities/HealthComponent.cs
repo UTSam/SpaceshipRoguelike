@@ -13,9 +13,8 @@ public class HealthComponent : MonoBehaviour
 
     [SerializeField] private float FireWeakeness = 3f;
     [SerializeField] private float ElecWeakness = 3f;
-    //[SerializeField] private float NormalWeakness = 3f;
 
-   private LifeBar bar;
+   private LifeBar bar; //HealthBar is not required but can be used for visual indications
 
     void Start()
     {

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
+[RequireComponent(typeof(BasicMovingEnemy))]
 
 public class SteeringBehaviours : MonoBehaviour
 {
@@ -44,6 +47,11 @@ public class SteeringBehaviours : MonoBehaviour
         wanderTarget = host.heading * wanderRadius;
         rand = new System.Random();
         feelers = GetComponentInChildren<FeelerManager>();
+        if (feelers == null)
+        {
+            Debug.LogError("Feeler manager prefab missing");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
     }
 
     public Vector2 Calculate()
@@ -117,7 +125,6 @@ public class SteeringBehaviours : MonoBehaviour
 
     private Vector2 Arrive(Vector2 target, Deceleration deceleration)
     {
-        Debug.Log("In offset pursuit ARRIVE FUNCTION");
         Vector2 toTarget = target - host.GetPosition();
         float distance = host.CalculateDistance(toTarget);
         if (distance > 0.5)
@@ -193,12 +200,7 @@ public class SteeringBehaviours : MonoBehaviour
 
     public Vector2 WallAvoidance()
     {
-        if (feelers != null)
-        {
-            return feelers.CalculateForce();
-        }
-        else
-            return Vector2.zero;
+        return feelers.CalculateForce();
     }
 
     //***************************************************************************************************
