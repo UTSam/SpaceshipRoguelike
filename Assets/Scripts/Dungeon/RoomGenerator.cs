@@ -4,24 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
-
-public struct RectSimpl
-{
-    public int width;
-    public int height;
-
-    public RectSimpl(int _width, int _height)
-    {
-        width = _width;
-        height = _height;
-    }
-}
+using Assets.Scripts.Rooms;
 
 public class RoomGenerator : MonoBehaviour
 {
-    public Tilemap tilemap;
-
     Room.RoomBorders borders;
+
+    public Tile doorLeft;
+    public Tile doorR;
+    public Tile doorU;
+    public Tile doorD;
 
     public GameObject GetGameObject()
     {
@@ -30,8 +22,12 @@ public class RoomGenerator : MonoBehaviour
 
     public Room GetRoom()
     {
+        Tilemap tilemap = DungeonManager.tilemap_walls;
+
         List<Tile> tiles = new List<Tile>();
+        List<Door> doors = new List<Door>();
         List<Vector3Int> pos = new List<Vector3Int>();
+
 
         // Reset borders
         borders.xMin = int.MaxValue;
@@ -44,12 +40,36 @@ public class RoomGenerator : MonoBehaviour
         {
             for (int y = tilemap.cellBounds.yMin; y < tilemap.cellBounds.yMax; y++)
             {
-                Tile tile = tilemap.GetTile<Tile>(new Vector3Int(x, y, 0));
+                Vector3Int tilePos = new Vector3Int(x, y, 0);
+                Tile tile = tilemap.GetTile<Tile>(tilePos);
 
                 if (tile != null)
                 {
+                    // Check for door
+                    if (tile.name.StartsWith("DoorIndicator"))
+                    {
+                        Door newDoor = new Door(tilePos);
+                        switch(tile.name)
+                        {
+                            case "DoorIndicator_Up":
+                                newDoor.direction = Direction.Up;
+                                break;
+                            case "DoorIndicator_Down":
+                                newDoor.direction = Direction.Down;
+                                break;
+                            case "DoorIndicator_Left":
+                                newDoor.direction = Direction.Left;
+                                break;
+                            case "DoorIndicator_Right":
+                                newDoor.direction = Direction.Right;
+                                break;
+                        }
+                        doors.Add(newDoor);
+                        tile = DungeonManager.tile_Wall;
+                    }
+
                     tiles.Add(tile);
-                    pos.Add(new Vector3Int(x, y, 0));
+                    pos.Add(tilePos);
 
                     // Update borders
                     if (x < borders.xMin) borders.xMin = x;
@@ -63,16 +83,15 @@ public class RoomGenerator : MonoBehaviour
         // Because of tiles, we need to up the max X and Y 
         borders.xMax++;
         borders.yMax++;
-
+        
         // Create empty gameobject, add "Room" script and populate values
         GameObject newObj = new GameObject("Room");
         Room room = newObj.AddComponent<Room>();
         room.tiles = tiles.ToArray();
         room.tilePositions = pos.ToArray();
-        room.tilemap_walls = tilemap;
         room.roomBorders = borders;
+        room.doors = doors; 
         room = ResetRoomToCenter(room);
-        room.SetDoors();
 
         return room;
     }
@@ -98,6 +117,13 @@ public class RoomGenerator : MonoBehaviour
         rb.xMax += dx;
         rb.yMin += dy;
         rb.yMax += dy; 
+
+        // Change door positions
+        foreach (Door door in room.doors)
+        {
+            door.position += new Vector3Int(dx, dy, 0);
+        }
+
 
         room.tilePositions = tilePositions;
         room.roomBorders = rb; 

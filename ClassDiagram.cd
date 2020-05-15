@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="basicCamera" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAEAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\basicCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SteeringBehaviours" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FBCEAICAIigAAACACAEQAABgAGAkIEAAEEkIAAAkIAA=</HashCode>
+      <FileName>Assets\Scripts\Behaviours\SteeringBehaviours.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonGenerator">
+    <Position X="30.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEACCACAAYABgBQEgIoACEAghAAAIAEAAIAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\DungeonGenerator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="PlacedRooms" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DungeonManager">
+    <Position X="23.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQRAAIBBACSAAAAAAAEAAAABCQEAAAEAAAQAAgAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\DungeonManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Room">
+    <Position X="33.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="Room.RoomBorders">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Dungeon\Room.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAEAEAAgAAQAAAAAAAAJAACAkABAAEAAgEAAAoJAII=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\Room.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="previousRoom" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="doors" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RoomGenerator">
+    <Position X="27.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAABAAAAAAAAAAAAAAAAAAAAAAAAAIgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\RoomGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicEnemy" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entities\BasicEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicEntity" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIQAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entities\BasicEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicMovingEnemy" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAIAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entities\BasicMovingEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GreenEnemy" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entities\GreenEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthComponent" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACACAACEACACAAAAAAIgAAAAAAAAAJCEAAAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Entities\HealthComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LifeBar" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAQAAAAAAACAIAAAAAAAgAAAAAAAIAAQAEA=</HashCode>
+      <FileName>Assets\Scripts\Entities\LifeBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MovingEntity" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IoAIABAAACAAACSAAAAQAAAAAAAAAwAEAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entities\MovingEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedEnemy" Collapsed="true">
+    <Position X="7.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entities\RedEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShootingComponent" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAACAAAAACAAQAACAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entities\ShootingComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicItem" Collapsed="true">
+    <Position X="13" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Items\BasicItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthPickUp" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Items\HealthPickUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShieldPickUp" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Items\ShieldPickUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAwACQQGIxgEAAgIAAQIAQAAAwBAAAABAACABA=</HashCode>
+      <FileName>Assets\Scripts\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicProjectile" Collapsed="true">
+    <Position X="5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAEAIAEAAAABABAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Projectiles\BasicProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.Scripts.Rooms.Door">
+    <Position X="35.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAQAABAAAAAAAAkQCAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\Door.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="RectSimpl" Collapsed="true">
+    <Position X="16.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\RoomGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="Deceleration" Collapsed="true">
+    <Position X="16.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Behaviours\SteeringBehaviours.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Direction" Collapsed="true">
+    <Position X="18.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\Room.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ElementType" Collapsed="true">
+    <Position X="20" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAEAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectiles\BasicProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

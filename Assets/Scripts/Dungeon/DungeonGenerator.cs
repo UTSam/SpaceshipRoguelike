@@ -7,35 +7,34 @@ using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class DungeonGenerator : MonoBehaviour
 {
     private List<Room> availableRooms = new List<Room>();
-    private List<Room> PlacedRooms = new List<Room>();
+    private List<Room> placedRooms = new List<Room>();
 
-    private Dictionary<Direction, List<Room>> RoomsByDirection = new Dictionary<Direction, List<Room>>();
+    private Dictionary<Direction, List<Room>> roomsByDirection = new Dictionary<Direction, List<Room>>();
     
-    public int count = 0;
-    public int roomCount = 50;
-    public int seed;
-    public int additionalDistance = 10;
-    public int maxOffset = 20;
-
-    public Tilemap tilemap;
-    public Tile corridorTile;
-    public Tile wallTile;
+    [SerializeField] private int count = 0;
+    [SerializeField] private int roomCount = 50;
+    [SerializeField] private int seed = 0;
+    [SerializeField] private int additionalDistance = 10;
+    [SerializeField] private int maxOffset = 20;
 
     private float startTime;
     private Transform parentFolder;
 
+    public bool locked;
+
     public void Start()
     {
         parentFolder = this.transform.Find("Rooms");
-        availableRooms = LoadAllPrefabsInResourcesOfType<Room>("Rooms");
+        availableRooms = LoadAllRoomsInResources();
         FillEntranceRoomsLists();
 
         startTime = Time.time;
-        StartCoroutine("GenerateDungeon");
+        StartCoroutine(GenerateDungeon());
     }
 
     IEnumerator GenerateDungeon()
@@ -44,14 +43,23 @@ public class DungeonGenerator : MonoBehaviour
 
         // Place starting room
         Room spawnRoom = Instantiate(GetAndRemoveStartingRoom(), parentFolder);
-        PlacedRooms.Add(spawnRoom);
+        placedRooms.Add(spawnRoom);
         spawnRoom.DrawRoom();
+        spawnRoom.isCleared = true;
+
+        bool dontExit = true; 
 
         // Keep placing rooms until roomCount
-        while (count < roomCount)
+        while (count < roomCount && dontExit)
         {
+            // Exit if stuck (:
+            if ((Time.time - startTime) > 10)
+            {
+                dontExit = false;
+            }
+
             // Pick random room from placed rooms
-            Room initialRoom = PlacedRooms[rand.Next(PlacedRooms.Count)];
+            Room initialRoom = placedRooms[rand.Next(placedRooms.Count)];
             if (initialRoom.doors.Count == 0)
                 continue;
 
@@ -62,29 +70,34 @@ public class DungeonGenerator : MonoBehaviour
 
             Room roomToConnect = GetRoomByDirection(door.GetOppositeDirection(), rand);
             if(roomToConnect == null)
+            {
+                dontExit = false;
                 continue;
+            }
 
             int randomOffset = rand.Next(maxOffset * 2) - maxOffset;
             Vector3Int newRoomPosition = Vector3Int.zero;
-            if (door.Direction == Direction.Down)
+
+            // Set the room offset position based on the direction of the door
+            if (door.direction == Direction.Down)
             {
                 newRoomPosition -= new Vector3Int(0, -initialRoom.roomBorders.yMin, 0);
                 newRoomPosition -= new Vector3Int(0, roomToConnect.roomBorders.yMax, 0);
                 newRoomPosition -= new Vector3Int(randomOffset, additionalDistance, 0);
             }
-            else if (door.Direction == Direction.Left)
+            else if (door.direction == Direction.Left)
             {
                 newRoomPosition -= new Vector3Int(-initialRoom.roomBorders.xMin, 0, 0);
                 newRoomPosition -= new Vector3Int(roomToConnect.roomBorders.xMax, 0, 0);
                 newRoomPosition -= new Vector3Int(additionalDistance, randomOffset, 0);
             }
-            else if (door.Direction == Direction.Right)
+            else if (door.direction == Direction.Right)
             {
                 newRoomPosition += new Vector3Int(initialRoom.roomBorders.xMax, 0, 0);
                 newRoomPosition += new Vector3Int(-roomToConnect.roomBorders.xMin, 0, 0);
                 newRoomPosition += new Vector3Int(additionalDistance, randomOffset, 0);
             }
-            else if (door.Direction == Direction.Up)
+            else if (door.direction == Direction.Up)
             {
                 newRoomPosition += new Vector3Int(0, initialRoom.roomBorders.yMax, 0);
                 newRoomPosition += new Vector3Int(0, -roomToConnect.roomBorders.yMin, 0);
@@ -102,20 +115,26 @@ public class DungeonGenerator : MonoBehaviour
                 continue;
             }
 
-            initialRoom.DoorIsConnected(door);
-
+            initialRoom.SetDoorConnected(door);
             Door newRoomDoor = newRoom.GetDoorByDirection(door.GetOppositeDirection());
 
             newRoom.previousRoom = initialRoom;
-            newRoom.DoorIsConnected(newRoomDoor);
+            newRoom.SetDoorConnected(newRoomDoor);
             newRoom.DrawRoom();
 
             Door initialDoor = door + initialRoom.position;
-            CreateCorridor(initialDoor, newRoomDoor.Position + newRoom.position);
+            CreateCorridor(initialDoor, newRoomDoor.position + newRoom.position);
 
-            PlacedRooms.Add(newRoom);
+            placedRooms.Add(newRoom);
             count++;
+
             yield return null;
+        }
+
+        foreach (Room room in placedRooms)
+        {
+            room.OpenDoors();
+            room.AddTriggers();
         }
 
         Debug.Log("Dungeon generation time: " + (Time.time - startTime));
@@ -124,12 +143,12 @@ public class DungeonGenerator : MonoBehaviour
     #region Spawn Tile functions
     private void SpawnCorridorTile(Vector3Int position)
     {
-        tilemap.SetTile(position, null);
+        DungeonManager.tilemap_walls.SetTile(position, null);
     }
 
     private void SpawnWallTile(Vector3Int position)
     {
-        tilemap.SetTile(position, wallTile);
+        DungeonManager.tilemap_walls.SetTile(position, DungeonManager.tile_Wall);
     }
 
     private void SpawnHorizontalCorridor(Vector3Int currentCorridorPosition)
@@ -174,9 +193,9 @@ public class DungeonGenerator : MonoBehaviour
     // Spawn the last half of the horizontal difference.
     private void CreateCorridor(Door door, Vector3Int connectedDoorPosition)
     {
-        Vector3Int difference = -door.Position + connectedDoorPosition;
+        Vector3Int difference = -door.position + connectedDoorPosition;
         Vector3Int differenceAbs = new Vector3Int(Math.Abs(difference.x), Math.Abs(difference.y), 0);
-        Vector3Int currentCorridorPosition = door.Position;
+        Vector3Int currentCorridorPosition = door.position;
 
         int signX = 0;
         if (difference.x != 0 && differenceAbs.x != 0)
@@ -186,7 +205,7 @@ public class DungeonGenerator : MonoBehaviour
         if (difference.y != 0 && differenceAbs.y != 0)
             signY = difference.y / differenceAbs.y;
 
-        if (door.Direction == Direction.Right || door.Direction == Direction.Left)
+        if (door.direction == Direction.Right || door.direction == Direction.Left)
         {
             int corridorHorizontalLengthHalf = differenceAbs.x / 2;
             int corridorVerticalLength = differenceAbs.y;
@@ -220,17 +239,9 @@ public class DungeonGenerator : MonoBehaviour
                 if (currentCorridorPosition != connectedDoorPosition)
                     SpawnHorizontalCorridor(currentCorridorPosition);
             }
-
-            tilemap.SetTile(new Vector3Int(door.Position.x, door.Position.y - 1, 0), null);
-            tilemap.SetTile(door.Position                                          , null);
-            tilemap.SetTile(new Vector3Int(door.Position.x, door.Position.y + 1, 0), null);
-
-            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x, connectedDoorPosition.y - 1, 0), null);
-            tilemap.SetTile(connectedDoorPosition                                                  , null);
-            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x, connectedDoorPosition.y + 1, 0), null);
         }
 
-        if (door.Direction == Direction.Up || door.Direction == Direction.Down)
+        if (door.direction == Direction.Up || door.direction == Direction.Down)
         {
             int corridorVerticalLengthHalf = differenceAbs.y / 2;
             int corridorHorizontalLength = differenceAbs.x;
@@ -265,20 +276,14 @@ public class DungeonGenerator : MonoBehaviour
                     SpawnVerticalCorridor(currentCorridorPosition);
             }
 
-            tilemap.SetTile(new Vector3Int(door.Position.x - 1, door.Position.y, 0), null);
-            tilemap.SetTile(door.Position                                          , null);
-            tilemap.SetTile(new Vector3Int(door.Position.x + 1, door.Position.y, 0), null);
-            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x - 1, connectedDoorPosition.y, 0), null);
-            tilemap.SetTile(connectedDoorPosition                                                  , null);
-            tilemap.SetTile(new Vector3Int(connectedDoorPosition.x + 1, connectedDoorPosition.y, 0), null);
         }
     }
 
     private Room GetRoomByDirection(Direction direction, System.Random rand)
     {
-        if(RoomsByDirection[direction].Count != 0)
+        if(roomsByDirection[direction].Count != 0)
         {
-            return RoomsByDirection[direction][rand.Next(0, RoomsByDirection[direction].Count)];
+            return roomsByDirection[direction][rand.Next(0, roomsByDirection[direction].Count)];
         }
 
         return null;
@@ -286,19 +291,18 @@ public class DungeonGenerator : MonoBehaviour
 
     private void FillEntranceRoomsLists()
     {
-        RoomsByDirection.Add(Direction.Down, new List<Room>());
-        RoomsByDirection.Add(Direction.Up, new List<Room>());
-        RoomsByDirection.Add(Direction.Left, new List<Room>());
-        RoomsByDirection.Add(Direction.Right, new List<Room>());
+        roomsByDirection.Add(Direction.Down, new List<Room>());
+        roomsByDirection.Add(Direction.Up, new List<Room>());
+        roomsByDirection.Add(Direction.Left, new List<Room>());
+        roomsByDirection.Add(Direction.Right, new List<Room>());
 
         foreach (Room room in availableRooms)
         {
-            room.SetDoors();
             foreach (Door door in room.doors)
             {
-                if (!RoomsByDirection[door.Direction].Contains(room))
+                if (!roomsByDirection[door.direction].Contains(room))
                 {
-                    RoomsByDirection[door.Direction].Add(room);
+                    roomsByDirection[door.direction].Add(room);
                 }
             }
         }
@@ -323,7 +327,7 @@ public class DungeonGenerator : MonoBehaviour
 
     private bool RoomInteractsWithPlacedRooms(Room placedRoom, int additionalDistance)
     {
-        foreach (Room roomToCheck in PlacedRooms)
+        foreach (Room roomToCheck in placedRooms)
         {
             // Check if either room is completely left of the other
             if (
@@ -347,32 +351,24 @@ public class DungeonGenerator : MonoBehaviour
         return false;
     }
 
-    private List<T> LoadAllPrefabsInResourcesOfType<T>(string path) where T : MonoBehaviour
+    private List<Room> LoadAllRoomsInResources()
     {
-        if (path != "")
-        {
-            if (path.EndsWith("/"))
-            {
-                path = path.TrimEnd('/');
-            }
-        }
-
-        DirectoryInfo dirInfo = new DirectoryInfo("Assets/Resources/" + path);
+        string resourceFolder = "Rooms";
+        DirectoryInfo dirInfo = new DirectoryInfo("Assets/Resources/" + resourceFolder);
         FileInfo[] fileInf = dirInfo.GetFiles("*.prefab");
 
         //loop through directory loading the game object and checking if it has the component you want
-        List<T> prefabComponents = new List<T>();
+        List<Room> prefabComponents = new List<Room>();
         foreach (FileInfo fileInfo in fileInf)
         {
-            string fullPath = fileInfo.FullName.Replace(@"\", "/");
-            GameObject prefab = Resources.Load<GameObject>(path + "/" + RemoveFileExtension(fileInfo.Name));
-            if (prefab != null)
+            GameObject prefab = Resources.Load<GameObject>(resourceFolder + "/" + RemoveFileExtension(fileInfo.Name));
+
+            if (prefab == null) continue;
+
+            Room room = prefab.GetComponent<Room>();
+            if (room != null)
             {
-                T hasT = prefab.GetComponent<T>();
-                if (hasT != null)
-                {
-                    prefabComponents.Add(hasT);
-                }
+                prefabComponents.Add(room);
             }
         }
         return prefabComponents;
@@ -387,5 +383,19 @@ public class DungeonGenerator : MonoBehaviour
             filenameWithoutExt = fileName.Substring(0, fileExtPos);
 
         return filenameWithoutExt;
+    }
+
+    void OnValidate()
+    {
+        foreach (Room room in placedRooms)
+        {
+            if (locked)
+            {
+                room.CloseDoors();
+            } else
+            {
+                room.OpenDoors();
+            }
+        }
     }
 }
