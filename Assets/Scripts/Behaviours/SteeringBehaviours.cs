@@ -50,7 +50,7 @@ public class SteeringBehaviours : MonoBehaviour
         if (feelers == null)
         {
             Debug.LogError("Feeler manager prefab missing");
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 

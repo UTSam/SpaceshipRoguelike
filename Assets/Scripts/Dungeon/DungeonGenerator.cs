@@ -14,7 +14,7 @@ public class DungeonGenerator : MonoBehaviour
     private List<Room> availableRooms = new List<Room>();
     private List<Room> placedRooms = new List<Room>();
 
-    private Dictionary<Direction, List<Room>> roomsByDirection = new Dictionary<Direction, List<Room>>();
+    public Dictionary<Direction, List<Room>> roomsByDirection = new Dictionary<Direction, List<Room>>();
     
     [SerializeField] private int count = 0;
     [SerializeField] private int roomCount = 50;
