@@ -20,6 +20,8 @@ namespace Assets.Scripts.Rooms
     [System.Serializable]
     public class Door
     {
+        private bool locked = false;
+
         [SerializeField]
         public bool connected = false;
 
@@ -62,36 +64,44 @@ namespace Assets.Scripts.Rooms
             return new Door(door.position + position, door.direction);
         }
 
-        internal void Unlock(Vector3Int roomPos)
+        public void Draw(Vector3Int roomPos)
         {
+            Tile wall = null;
+            Tile door = null;
+
+            if (locked)
+            {
+                wall = DungeonManager.tile_Door_Locked;
+            }
+            else
+            {
+                door = DungeonManager.tile_Door_Unlocked;
+            }
+
             Vector3Int dir = RotateBasedOnDirection();
 
             // Add tiles on tilemap_doors
-            DungeonManager.tilemap_doors.SetTile(roomPos + position,       DungeonManager.tile_Door_Unlocked);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, DungeonManager.tile_Door_Unlocked);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, DungeonManager.tile_Door_Unlocked);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position      , door);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, door);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, door);
 
             // Remove tiles on tilemap_walls
-            DungeonManager.tilemap_walls.SetTile(roomPos + position,       null);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, null);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, null);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position      , wall);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, wall);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, wall);
+        }
+
+        internal void Unlock(Vector3Int roomPos)
+        {
+            this.locked = false;
+            this.Draw(roomPos);
         }
 
         internal void Lock(Vector3Int roomPos)
         {
-            Vector3Int dir = RotateBasedOnDirection();
-
-            // Remove tiles on tilemap_doors
-            DungeonManager.tilemap_doors.SetTile(roomPos + position, null);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, null);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, null);
-
-            // Add tiles on tilemap_walls
-            DungeonManager.tilemap_walls.SetTile(roomPos + position      , DungeonManager.tile_Door_Locked);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, DungeonManager.tile_Door_Locked);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, DungeonManager.tile_Door_Locked);
+            this.locked = true;
+            this.Draw(roomPos);
         }
-
 
         private Vector3Int RotateBasedOnDirection()
         {
