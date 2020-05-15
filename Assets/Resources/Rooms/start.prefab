@@ -145,7 +145,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
-  - {fileID: 11400000, guid: df492dc25f4162843bb8925b751f9abe, type: 2}
+  - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
@@ -257,15 +257,16 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   doors:
   - connected: 0
-    Position: {x: -15, y: -1, z: 0}
-    Direction: 3
+    position: {x: -15, y: 0, z: 0}
+    direction: 3
   - connected: 0
-    Position: {x: 1, y: -11, z: 0}
-    Direction: 1
+    position: {x: 2, y: -11, z: 0}
+    direction: 1
   - connected: 0
-    Position: {x: 5, y: 10, z: 0}
-    Direction: 0
+    position: {x: 3, y: 10, z: 0}
+    direction: 0
   - connected: 0
-    Position: {x: 15, y: 0, z: 0}
-    Direction: 2
+    position: {x: 15, y: -1, z: 0}
+    direction: 2
   previousRoom: {fileID: 0}
+  isCleared: 0

@@ -31,11 +31,17 @@ public class Room : MonoBehaviour
 
     public void DrawRoom()
     {
-        if(DungeonManager.tilemap_walls == null)
+        if (DungeonManager.tilemap_walls == null)
+        {
+            Debug.LogError("DungeonManager.tilemap_walls == null in drawroom");
             return;
+        }
 
         if (position == null)
+        {
+            Debug.LogError("position == null in drawroom");
             return;
+        }
 
         for (int i = 0; i < tiles.Length; i++)
         {

@@ -30,7 +30,7 @@ public class DungeonGenerator : MonoBehaviour
     public void Start()
     {
         parentFolder = this.transform.Find("Rooms");
-        availableRooms = LoadAllPrefabsInResourcesOfType<Room>("Rooms");
+        availableRooms = LoadAllRoomsInResources();
         FillEntranceRoomsLists();
 
         startTime = Time.time;
@@ -351,32 +351,24 @@ public class DungeonGenerator : MonoBehaviour
         return false;
     }
 
-    private List<T> LoadAllPrefabsInResourcesOfType<T>(string path) where T : MonoBehaviour
+    private List<Room> LoadAllRoomsInResources()
     {
-        if (path != "")
-        {
-            if (path.EndsWith("/"))
-            {
-                path = path.TrimEnd('/');
-            }
-        }
-
-        DirectoryInfo dirInfo = new DirectoryInfo("Assets/Resources/" + path);
+        string resourceFolder = "Rooms";
+        DirectoryInfo dirInfo = new DirectoryInfo("Assets/Resources/" + resourceFolder);
         FileInfo[] fileInf = dirInfo.GetFiles("*.prefab");
 
         //loop through directory loading the game object and checking if it has the component you want
-        List<T> prefabComponents = new List<T>();
+        List<Room> prefabComponents = new List<Room>();
         foreach (FileInfo fileInfo in fileInf)
         {
-            string fullPath = fileInfo.FullName.Replace(@"\", "/");
-            GameObject prefab = Resources.Load<GameObject>(path + "/" + RemoveFileExtension(fileInfo.Name));
-            if (prefab != null)
+            GameObject prefab = Resources.Load<GameObject>(resourceFolder + "/" + RemoveFileExtension(fileInfo.Name));
+
+            if (prefab == null) continue;
+
+            Room room = prefab.GetComponent<Room>();
+            if (room != null)
             {
-                T hasT = prefab.GetComponent<T>();
-                if (hasT != null)
-                {
-                    prefabComponents.Add(hasT);
-                }
+                prefabComponents.Add(room);
             }
         }
         return prefabComponents;

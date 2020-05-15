@@ -183,12 +183,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
   - {fileID: 11400000, guid: 5c3dd3bbe348032438387d92d0792d5d, type: 2}
   tilePositions:
+  - {x: -21, y: -10, z: 0}
+  - {x: -21, y: -9, z: 0}
   - {x: -21, y: -8, z: 0}
   - {x: -21, y: -7, z: 0}
   - {x: -21, y: -6, z: 0}
   - {x: -20, y: -10, z: 0}
-  - {x: -20, y: -9, z: 0}
-  - {x: -20, y: -8, z: 0}
   - {x: -20, y: -6, z: 0}
   - {x: -19, y: -11, z: 0}
   - {x: -19, y: -10, z: 0}
@@ -319,12 +319,16 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   doors:
   - connected: 0
-    Position: {x: -12, y: 2, z: 0}
-    Direction: 3
+    position: {x: -21, y: -8, z: 0}
+    direction: 3
   - connected: 0
-    Position: {x: 9, y: -14, z: 0}
-    Direction: 1
+    position: {x: 2, y: 13, z: 0}
+    direction: 0
   - connected: 0
-    Position: {x: 20, y: 2, z: 0}
-    Direction: 2
+    position: {x: 9, y: -14, z: 0}
+    direction: 1
+  - connected: 0
+    position: {x: 20, y: 1, z: 0}
+    direction: 2
   previousRoom: {fileID: 0}
+  isCleared: 0

@@ -64,33 +64,6 @@ namespace Assets.Scripts.Rooms
             return new Door(door.position + position, door.direction);
         }
 
-        public void Draw(Vector3Int roomPos)
-        {
-            Tile wall = null;
-            Tile door = null;
-
-            if (locked)
-            {
-                wall = DungeonManager.tile_Door_Locked;
-            }
-            else
-            {
-                door = DungeonManager.tile_Door_Unlocked;
-            }
-
-            Vector3Int dir = RotateBasedOnDirection();
-
-            // Add tiles on tilemap_doors
-            DungeonManager.tilemap_doors.SetTile(roomPos + position      , door);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, door);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, door);
-
-            // Remove tiles on tilemap_walls
-            DungeonManager.tilemap_walls.SetTile(roomPos + position      , wall);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, wall);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, wall);
-        }
-
         internal void Unlock(Vector3Int roomPos)
         {
             this.locked = false;
@@ -122,6 +95,33 @@ namespace Assets.Scripts.Rooms
             }
 
             return dir;
+        }
+
+        private void Draw(Vector3Int roomPos)
+        {
+            Tile wall = null;
+            Tile door = null;
+
+            if (locked)
+            {
+                wall = DungeonManager.tile_Door_Locked;
+            }
+            else
+            {
+                door = DungeonManager.tile_Door_Unlocked;
+            }
+
+            Vector3Int dir = RotateBasedOnDirection();
+
+            // Add tiles on tilemap_doors
+            DungeonManager.tilemap_doors.SetTile(roomPos + position, door);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, door);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, door);
+
+            // Remove tiles on tilemap_walls
+            DungeonManager.tilemap_walls.SetTile(roomPos + position, wall);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, wall);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, wall);
         }
     }
 }

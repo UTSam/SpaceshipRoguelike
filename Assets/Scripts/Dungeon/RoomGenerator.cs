@@ -10,6 +10,11 @@ public class RoomGenerator : MonoBehaviour
 {
     Room.RoomBorders borders;
 
+    public Tile doorLeft;
+    public Tile doorR;
+    public Tile doorU;
+    public Tile doorD;
+
     public GameObject GetGameObject()
     {
         return GetRoom().gameObject;
@@ -43,7 +48,6 @@ public class RoomGenerator : MonoBehaviour
                     // Check for door
                     if (tile.name.StartsWith("DoorIndicator"))
                     {
-                        Debug.Log(tile.name);
                         Door newDoor = new Door(tilePos);
                         switch(tile.name)
                         {
