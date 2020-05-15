@@ -114,13 +114,13 @@ public class RoomGeneratorEditor : Editor
         }
     }
 
+    string newRoomName;
     private void DrawNewSection()
     {
         GUILayout.Label("New room", SubHeader);
         DrawUILine(Color.grey, 1, 0);
         GUILayout.Space(4f);
 
-        string newRoomName = "";
         newRoomName = EditorGUILayout.TextField("room naam", newRoomName);
         if (newRoomName != "")
         {
