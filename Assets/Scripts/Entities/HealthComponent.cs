@@ -35,14 +35,14 @@ public class HealthComponent : MonoBehaviour
         {
             if (elem == ElementType.Elec)
             {
-                Debug.Log("Damage to shield : " + damageValue * (1f + ElecWeakness));
+               // Debug.Log("Damage to shield : " + damageValue * (1f + ElecWeakness));
                 Shield -= damageValue * (1f + ElecWeakness);
             }
                 
             else
             {
                 Shield -= damageValue;
-                Debug.Log("Damage to shield : " + damageValue);
+                //Debug.Log("Damage to shield : " + damageValue);
             }
             Shield = Mathf.Round(Shield);
             
@@ -63,12 +63,12 @@ public class HealthComponent : MonoBehaviour
             if (elem == ElementType.Fire)
             {
                 Health -= damageToLife * (1f + FireWeakeness);
-                Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
+                //Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
             }
             else
             {
                 Health -= damageToLife;
-                Debug.Log("Damage to life : " + damageToLife);
+                //Debug.Log("Damage to life : " + damageToLife);
             }
 
             Health = Mathf.Round(Health);
