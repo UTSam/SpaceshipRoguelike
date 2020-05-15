@@ -57,7 +57,7 @@ public class SteeringBehaviours : MonoBehaviour
     public Vector2 Calculate()
     {
         returnValue = Vector2.zero;
-        if (host.target != null)
+        if (host.target != null && Vector3.Distance(host.transform.position, host.target.transform.position) < 20f)
         {
             if (wallAvoidanceON) returnValue += WallAvoidance();
             if (seekON) returnValue += Seek();
@@ -71,6 +71,7 @@ public class SteeringBehaviours : MonoBehaviour
         else
         {
             returnValue += Wander();
+            returnValue += WallAvoidance();
         }
         return returnValue;
     }
