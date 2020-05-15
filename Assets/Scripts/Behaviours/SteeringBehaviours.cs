@@ -1,5 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Runtime.CompilerServices;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.Tilemaps;
+
+[RequireComponent(typeof(BasicMovingEnemy))]
 
 public class SteeringBehaviours : MonoBehaviour
 {
@@ -7,9 +12,9 @@ public class SteeringBehaviours : MonoBehaviour
     private Vector2 returnValue;
 
     static System.Random rand;
-    private Vector2 wanderTarget;
-    private Vector2 wanderCircle;
-    private Vector2 worldTarget;
+    private Vector2 wanderTarget = Vector2.zero;
+    private Vector2 wanderCircle = Vector2.zero;
+    private Vector2 worldTarget = Vector2.zero;
     [SerializeField] private float wanderRadius = 1f;
     [SerializeField] private float wanderJitter = 0.25f;
     [SerializeField] private float wanderDistance = 0.4f * 0.4f;
@@ -18,14 +23,21 @@ public class SteeringBehaviours : MonoBehaviour
     [SerializeField] private Deceleration arriveDeceleration = Deceleration.medium;
     [SerializeField] private bool seekON = false;
     [SerializeField] private bool arriveOn = false;
-    [SerializeField] private bool persuitOn = false;
+    [SerializeField] private bool pursuitOn = false;
+    [SerializeField] private bool OffsetPursuitOn = false;
+    [SerializeField] private bool wallAvoidanceON = false;
+    [SerializeField] private BasicMovingEnemy Leader = null;
+    [SerializeField] private Vector2 OffsetToleader = new Vector2(2, 2);
+
+    private FeelerManager feelers;
+
 
     [SerializeField] private bool fleeON = false;
     [SerializeField] private bool evadeOn = false;
-    private double panicDistance = 2 * 2;
 
-    [SerializeField] private Collider2D headingCollider;
-    private bool collidingWall = false;
+    [SerializeField] private float arriveForce = 1f;
+    [SerializeField] private float fleeForce = 1f;
+    private double panicDistance = 2 * 2;
 
 
 
@@ -33,26 +45,35 @@ public class SteeringBehaviours : MonoBehaviour
     {
         host = GetComponent<BasicMovingEnemy>();
         wanderTarget = host.heading * wanderRadius;
-        wanderCircle = new Vector2();
-        worldTarget = new Vector2();
         rand = new System.Random();
+        feelers = GetComponentInChildren<FeelerManager>();
+        if (feelers == null)
+        {
+            Debug.LogError("Feeler manager prefab missing");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
     }
 
     public Vector2 Calculate()
     {
         returnValue = Vector2.zero;
-
-        if (seekON) returnValue += Seek();
-        if (fleeON) returnValue += Flee();
-        if (arriveOn) returnValue += Arrive(arriveDeceleration);
-        if (persuitOn) returnValue += Persuit();
-        if (evadeOn) returnValue += Evade() * 2;
-        if (wanderOn) returnValue += Wander();
-        if (collidingWall) returnValue *= -1;
+        if (host.target != null)
+        {
+            if (wallAvoidanceON) returnValue += WallAvoidance();
+            if (seekON) returnValue += Seek();
+            if (fleeON) returnValue += Flee() * fleeForce;
+            if (arriveOn) returnValue += Arrive(arriveDeceleration) * arriveForce;
+            if (pursuitOn) returnValue += Pursuit();
+            if (evadeOn) returnValue += Evade() * 2;
+            if (wanderOn) returnValue += Wander();
+            if (OffsetPursuitOn) returnValue += OffsetPursuit();
+        }
+        else
+        {
+            returnValue += Wander();
+        }
         return returnValue;
     }
-
-    public void SetPath() { }
 
     private Vector2 Seek()
     {
@@ -102,14 +123,29 @@ public class SteeringBehaviours : MonoBehaviour
         return Vector2.zero;
     }
 
-    private Vector2 Persuit()
+    private Vector2 Arrive(Vector2 target, Deceleration deceleration)
+    {
+        Vector2 toTarget = target - host.GetPosition();
+        float distance = host.CalculateDistance(toTarget);
+        if (distance > 0.5)
+        {
+            const double decelerationTweaker = 0.3;
+            double speed = distance / (((double)deceleration / 50) * decelerationTweaker);
+
+            Vector2 desiredVelocity = toTarget * (float)speed / distance;
+            return desiredVelocity;
+        }
+        return Vector2.zero;
+    }
+
+    private Vector2 Pursuit()
     {
 
         Vector2 toEvader = host.target.transform.position - host.transform.position;
 
-        double relativeHeading = BasicEntity.DotProduct(host.heading, host.target.heading);
+        double relativeHeading = Vector2.Dot(host.heading, host.target.heading);
 
-        if (BasicEntity.DotProduct(toEvader, host.heading) > 0 &&
+        if (Vector2.Dot(toEvader, host.heading) > 0 &&
             relativeHeading < -0.95) //-acos(0.95) = 18degrees
         {
             return Seek();
@@ -145,15 +181,31 @@ public class SteeringBehaviours : MonoBehaviour
 
         return wanderTarget;
     }
-    public void OnTriggerEnter2D(Collider2D collision)
+
+    public Vector2 OffsetPursuit()
     {
-        if(collision.GetComponentInParent<TilemapCollider2D>())this.collidingWall = true;
+        //No leader/target so no persuit
+        if (this.Leader == null) return Vector2.zero;
+
+        Vector2 WorldOffsetPos = Leader.GetPosition();
+        //Calculate the heading of the leader and do this *-1 to get behind the leader.
+        WorldOffsetPos += (Leader.heading.normalized * -1 * OffsetToleader);
+
+        Vector2 toOffset = WorldOffsetPos - host.GetPosition();
+
+        float lookAheadTime = toOffset.magnitude / (host.maxSpeed + Leader.maxSpeed);
+
+        return Arrive(WorldOffsetPos + Leader.speed * lookAheadTime, Deceleration.VVVslow);
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public Vector2 WallAvoidance()
     {
-        if (collision.GetComponentInParent<TilemapCollider2D>()) this.collidingWall = false;
+        return feelers.CalculateForce();
     }
+
+    //***************************************************************************************************
+    //DEBUG
+    //***************************************************************************************************
     void OnDrawGizmos()
     {
         // Draw a yellow sphere at the transform's position
@@ -180,6 +232,9 @@ public class SteeringBehaviours : MonoBehaviour
 }
 enum Deceleration
 {
+    VVVslow = 10,
+    VVslow = 5,
+    Vslow = 4,
     slow = 3,
     medium = 2,
     fast = 1

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class HealthComponent : MonoBehaviour
 {
     [SerializeField] public float Health = 1;
@@ -14,14 +13,14 @@ public class HealthComponent : MonoBehaviour
 
     [SerializeField] private float FireWeakeness = 3f;
     [SerializeField] private float ElecWeakness = 3f;
-    [SerializeField] private float NormalWeakness = 3f;
 
-    [SerializeField] private LifeBar bar;
+   private LifeBar bar; //HealthBar is not required but can be used for visual indications
 
     void Start()
     {
         Health = MaxHealth;
         Shield = MaxShield;
+        bar = GetComponentInChildren<LifeBar>();
         UpdateBar();
     }
     public virtual void OnDeath()
@@ -36,14 +35,14 @@ public class HealthComponent : MonoBehaviour
         {
             if (elem == ElementType.Elec)
             {
-                Debug.Log("Damage to shield : " + damageValue * (1f + ElecWeakness));
+               // Debug.Log("Damage to shield : " + damageValue * (1f + ElecWeakness));
                 Shield -= damageValue * (1f + ElecWeakness);
             }
                 
             else
             {
                 Shield -= damageValue;
-                Debug.Log("Damage to shield : " + damageValue);
+                //Debug.Log("Damage to shield : " + damageValue);
             }
             Shield = Mathf.Round(Shield);
             
@@ -64,12 +63,12 @@ public class HealthComponent : MonoBehaviour
             if (elem == ElementType.Fire)
             {
                 Health -= damageToLife * (1f + FireWeakeness);
-                Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
+                //Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
             }
             else
             {
                 Health -= damageToLife;
-                Debug.Log("Damage to life : " + damageToLife);
+                //Debug.Log("Damage to life : " + damageToLife);
             }
 
             Health = Mathf.Round(Health);
