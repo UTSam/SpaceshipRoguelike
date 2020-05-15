@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Assets.Scripts.Rooms
 {
@@ -63,20 +64,7 @@ namespace Assets.Scripts.Rooms
 
         internal void Unlock(Vector3Int roomPos)
         {
-            Vector3Int dir = Vector3Int.zero; 
-            switch(this.direction)
-            {
-                case Direction.Up:
-                case Direction.Down:
-                    dir = Vector3Int.left;
-                    break;
-                case Direction.Left:
-                case Direction.Right:
-                    dir = Vector3Int.up;
-                    break;
-                default:
-                    break;
-            }
+            Vector3Int dir = RotateBasedOnDirection();
 
             // Add tiles on tilemap_doors
             DungeonManager.tilemap_doors.SetTile(roomPos + position,       DungeonManager.tile_Door_Unlocked);
@@ -91,7 +79,24 @@ namespace Assets.Scripts.Rooms
 
         internal void Lock(Vector3Int roomPos)
         {
+            Vector3Int dir = RotateBasedOnDirection();
+
+            // Remove tiles on tilemap_doors
+            DungeonManager.tilemap_doors.SetTile(roomPos + position, null);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, null);
+            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, null);
+
+            // Add tiles on tilemap_walls
+            DungeonManager.tilemap_walls.SetTile(roomPos + position      , DungeonManager.tile_Door_Locked);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, DungeonManager.tile_Door_Locked);
+            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, DungeonManager.tile_Door_Locked);
+        }
+
+
+        private Vector3Int RotateBasedOnDirection()
+        {
             Vector3Int dir = Vector3Int.zero;
+
             switch (this.direction)
             {
                 case Direction.Up:
@@ -106,15 +111,7 @@ namespace Assets.Scripts.Rooms
                     break;
             }
 
-            // Remove tiles on tilemap_doors
-            DungeonManager.tilemap_doors.SetTile(roomPos + position, null);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, null);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, null);
-
-            // Add tiles on tilemap_walls
-            DungeonManager.tilemap_walls.SetTile(roomPos + position, DungeonManager.tile_Door_Locked);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, DungeonManager.tile_Door_Locked);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, DungeonManager.tile_Door_Locked);
+            return dir;
         }
     }
 }

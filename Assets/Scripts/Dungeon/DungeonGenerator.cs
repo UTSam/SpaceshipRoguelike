@@ -47,15 +47,15 @@ public class DungeonGenerator : MonoBehaviour
         spawnRoom.DrawRoom();
         spawnRoom.isCleared = true;
 
-        bool exit = false; 
+        bool dontExit = true; 
 
         // Keep placing rooms until roomCount
-        while (count < roomCount || exit)
+        while (count < roomCount && dontExit)
         {
             // Exit if stuck (:
             if ((Time.time - startTime) > 10)
             {
-                exit = true;
+                dontExit = false;
             }
 
             // Pick random room from placed rooms
@@ -70,10 +70,15 @@ public class DungeonGenerator : MonoBehaviour
 
             Room roomToConnect = GetRoomByDirection(door.GetOppositeDirection(), rand);
             if(roomToConnect == null)
+            {
+                dontExit = false;
                 continue;
+            }
 
             int randomOffset = rand.Next(maxOffset * 2) - maxOffset;
             Vector3Int newRoomPosition = Vector3Int.zero;
+
+            // Set the room offset position based on the direction of the door
             if (door.direction == Direction.Down)
             {
                 newRoomPosition -= new Vector3Int(0, -initialRoom.roomBorders.yMin, 0);
@@ -111,7 +116,6 @@ public class DungeonGenerator : MonoBehaviour
             }
 
             initialRoom.SetDoorConnected(door);
-
             Door newRoomDoor = newRoom.GetDoorByDirection(door.GetOppositeDirection());
 
             newRoom.previousRoom = initialRoom;
@@ -120,7 +124,6 @@ public class DungeonGenerator : MonoBehaviour
 
             Door initialDoor = door + initialRoom.position;
             CreateCorridor(initialDoor, newRoomDoor.position + newRoom.position);
-
 
             placedRooms.Add(newRoom);
             count++;
