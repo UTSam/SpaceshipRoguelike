@@ -47,6 +47,9 @@ public class SteeringBehaviours : MonoBehaviour
     [SerializeField] private bool wallAvoidanceON = true;
     [SerializeField] private float wallForce = 5f;
 
+    [SerializeField] private bool kamikazeON = true;
+    [SerializeField] private float kamikazeForce = 1f;
+
 
     private FeelerManager feelers;
 
@@ -77,6 +80,7 @@ public class SteeringBehaviours : MonoBehaviour
             if (evadeOn) returnValue += Evade() * evadeForce;
             if (wanderOn) returnValue += Wander() * wanderForce;
             if (OffsetPursuitOn) returnValue += OffsetPursuit() * offsetPursuitForce;
+            if (kamikazeON) returnValue += Kamikazeee() * kamikazeForce;
         }
         else
         {
@@ -88,15 +92,22 @@ public class SteeringBehaviours : MonoBehaviour
 
     private Vector2 Seek()
     {
-        Vector2 desiredVelocity = (host.target.transform.position - host.transform.position) * host.maxSpeed;
+        Vector2 desiredVelocity = (host.target.transform.position - host.transform.position).normalized * host.maxSpeed;
         return desiredVelocity - host.speed;
     }
 
     private Vector2 Seek(Vector2 vector)
     {
-        Vector2 desiredVelocity = (vector - host.GetPosition()) * host.maxSpeed;
+        Vector2 desiredVelocity = (vector - host.GetPosition()).normalized * host.maxSpeed;
         return desiredVelocity - host.speed;
     }
+
+    private Vector2 Kamikazeee()
+    {
+        Vector2 desiredVelocity = (host.target.transform.position - host.transform.position).normalized * host.maxSpeed;
+        return desiredVelocity;
+    }
+
     private Vector2 Flee()
     {
         if (host.CalculateDistance(host.target) > panicDistance)
@@ -104,7 +115,7 @@ public class SteeringBehaviours : MonoBehaviour
             return Vector2.zero;
         }
 
-        Vector2 desiredVelocity = (host.GetPosition() - host.target.GetPosition()) * host.target.maxSpeed;
+        Vector2 desiredVelocity = (host.GetPosition() - host.target.GetPosition()).normalized * host.target.maxSpeed;
         return desiredVelocity - host.speed;
     }
 
@@ -115,13 +126,13 @@ public class SteeringBehaviours : MonoBehaviour
             return Vector2.zero;
         }
 
-        Vector2 desiredVelocity = (host.GetPosition() - vector) * host.target.maxSpeed;
+        Vector2 desiredVelocity = (host.GetPosition() - vector).normalized * host.target.maxSpeed;
         return desiredVelocity - host.speed;
     }
 
     private Vector2 Arrive(Deceleration deceleration)
     {
-        Vector2 toTarget = host.target.transform.position - host.transform.position;
+        Vector2 toTarget = (host.target.transform.position - host.transform.position).normalized;
         float distance = host.CalculateDistance(toTarget);
         if (distance > 0.5)
         {
@@ -136,7 +147,7 @@ public class SteeringBehaviours : MonoBehaviour
 
     private Vector2 Arrive(Vector2 target, Deceleration deceleration)
     {
-        Vector2 toTarget = target - host.GetPosition();
+        Vector2 toTarget = (target - host.GetPosition()).normalized;
         float distance = host.CalculateDistance(toTarget);
         if (distance > 0.5)
         {
@@ -152,7 +163,7 @@ public class SteeringBehaviours : MonoBehaviour
     private Vector2 Pursuit()
     {
 
-        Vector2 toEvader = host.target.transform.position - host.transform.position;
+        Vector2 toEvader = (host.target.transform.position - host.transform.position).normalized;
 
         double relativeHeading = Vector2.Dot(host.heading, host.target.heading);
 
@@ -171,7 +182,7 @@ public class SteeringBehaviours : MonoBehaviour
 
     private Vector2 Evade()
     {
-        Vector2 toPersuer = host.target.transform.position - host.transform.position;
+        Vector2 toPersuer = (host.target.transform.position - host.transform.position).normalized;
 
         float lookAHeadTime =
             toPersuer.magnitude /

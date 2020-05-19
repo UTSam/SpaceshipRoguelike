@@ -212,7 +212,7 @@ MonoBehaviour:
   arriveOn: 0
   arriveForce: 1
   pursuitOn: 1
-  pursuitForce: 5
+  pursuitForce: 25
   OffsetPursuitOn: 0
   offsetPursuitForce: 5
   OffsetToleader: {x: 2, y: 2}
@@ -220,10 +220,12 @@ MonoBehaviour:
   fleeON: 0
   fleeForce: 1
   evadeOn: 1
-  evadeForce: 10
+  evadeForce: 26
   panicDistance: 4
   wallAvoidanceON: 1
   wallForce: 4
+  kamikazeON: 1
+  kamikazeForce: 1
 --- !u!114 &9144696576692006002
 MonoBehaviour:
   m_ObjectHideFlags: 0

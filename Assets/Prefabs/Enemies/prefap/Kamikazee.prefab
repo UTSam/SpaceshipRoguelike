@@ -220,8 +220,8 @@ GameObject:
   - component: {fileID: 6987440835531744021}
   - component: {fileID: 8552562974248567897}
   - component: {fileID: 6839655801942995571}
+  - component: {fileID: 2795841704469873492}
   - component: {fileID: 8002399353498972915}
-  - component: {fileID: 2867346550842902258}
   - component: {fileID: 2022710723293101066}
   - component: {fileID: 2726420056775480679}
   m_Layer: 0
@@ -287,6 +287,28 @@ MonoBehaviour:
   Target: {fileID: 0}
   Muzzle: {fileID: 6987440835531744021}
   FireRate: 0
+--- !u!114 &2795841704469873492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7783866754064367463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287c2c6db143f743b1a150aedaee3c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: {x: 0, y: 0}
+  deceleration: 0
+  heading: {x: 0, y: 0}
+  perpendicular: {x: 0, y: 0}
+  mass: 10
+  maxSpeed: 20
+  maxForce: 2
+  maxTurnRate: 2
+  target: {fileID: 0}
+  kamikazeeDamage: 50
 --- !u!114 &8002399353498972915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,8 +327,8 @@ MonoBehaviour:
   wanderOn: 0
   wanderForce: 1
   arriveDeceleration: 2
-  seekON: 1
-  seekForce: 40
+  seekON: 0
+  seekForce: 20
   arriveOn: 0
   arriveForce: 1
   pursuitOn: 0
@@ -322,27 +344,8 @@ MonoBehaviour:
   panicDistance: 4
   wallAvoidanceON: 1
   wallForce: 6
---- !u!114 &2867346550842902258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7783866754064367463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8afdd40f52c3f414198bffb0b91c9f38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: {x: 0, y: 0}
-  deceleration: 0
-  heading: {x: 0, y: 0}
-  perpendicular: {x: 0, y: 0}
-  mass: 10
-  maxSpeed: 15
-  maxForce: 10
-  maxTurnRate: 2
-  target: {fileID: 0}
+  kamikazeON: 1
+  kamikazeForce: 20
 --- !u!60 &2022710723293101066
 PolygonCollider2D:
   m_ObjectHideFlags: 0
