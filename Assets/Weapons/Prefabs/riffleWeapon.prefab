@@ -95,17 +95,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea10a40adbdd204bb6c11c0e5e01313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSize: 5
-  bulletSpeed: 5
-  bulletDamages: 5
+  bulletSize: 0
+  bulletSpeed: 0
+  bulletDamages: 0
   effectsList: 
   weaponName: 
-  magazineSize: 5
-  reloadTime: 1
-  fireRate: 10
+  magazineSize: 0
+  currentBulletNumber: 0
+  reloadTime: 0
+  fireRate: 0
   maxModifierNumber: 0
   bullet: {fileID: 5397038310933703808, guid: c088ced9cc5678c44b063816286d420b, type: 3}
   bulletSpawnPoint: {fileID: 4608903454911773998}
+  reloadCooldown: 0
+  shotCooldown: 0
 --- !u!1 &7672953708480828670
 GameObject:
   m_ObjectHideFlags: 0
