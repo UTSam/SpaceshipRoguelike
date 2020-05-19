@@ -25,6 +25,11 @@ public class weaponUIScript : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        
+    }
+
+    public void Init()
+    {
         weaponNameTextZone.text = weapon.weaponName;
         weaponImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
         shotCooldownBar.fillAmount = 0;
