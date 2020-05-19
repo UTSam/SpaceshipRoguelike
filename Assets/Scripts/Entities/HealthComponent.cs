@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class HealthComponent : MonoBehaviour
 {
@@ -25,7 +26,10 @@ public class HealthComponent : MonoBehaviour
     }
     public virtual void OnDeath()
     {
-        Destroy(this.gameObject);
+        if (GetComponent<Player>())
+            SceneManager.LoadScene("DeathScreen");
+        else
+            Destroy(this.gameObject);
     }
 
     public virtual void Damage(float damageValue, ElementType elem)
