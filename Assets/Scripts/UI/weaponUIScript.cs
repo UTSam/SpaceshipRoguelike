@@ -19,15 +19,6 @@ public class weaponUIScript : MonoBehaviour
 
     private float maxBulletNumber;
 
-    //modifiers ...
-
-
-    // Start is called before the first frame update
-    public void Start()
-    {
-        
-    }
-
     public void Init()
     {
         weaponNameTextZone.text = weapon.weaponName;
