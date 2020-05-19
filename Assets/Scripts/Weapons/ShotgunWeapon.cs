@@ -41,13 +41,23 @@ public class ShotgunWeapon : BasicWeapon
 
             for(int i = 0; i < bulletsPerShot; i++)
             {
-                GameObject bulletGO = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+                //GameObject bulletGO = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
                 //SetBulletSpeed(bulletGO.transform, -30f, 30f);
                 //bulletGO.GetComponent<MovingEntity>().speed = (bulletDirection.position - bulletSpawnPoint.position).normalized * bulletGO.GetComponent<BasicProjectile>().InitialSpeed;
                 //Vector2 noise = AddNoiseOnAngle(-30f, 30f).normalized;
-                Vector3 direction = bulletDirection.position - bulletSpawnPoint.position;
+                /*Vector3 direction = bulletDirection.position - bulletSpawnPoint.position;
                 direction = Quaternion.AngleAxis(Random.Range(-10f,10f), Vector3.back) * direction;
-                bulletGO.GetComponent<MovingEntity>().speed = direction.normalized * bulletGO.GetComponent<BasicProjectile>().InitialSpeed* Random.Range(0.8f, 1.2f);
+                bulletGO.GetComponent<MovingEntity>().speed = direction.normalized * bulletGO.GetComponent<BasicProjectile>().InitialSpeed* Random.Range(0.8f, 1.2f);*/
+
+                GameObject projectile = Instantiate(bullet) as GameObject;
+                projectile.transform.position = bulletSpawnPoint.position;
+                Vector3 direction = (bulletDirection.position - bulletSpawnPoint.position).normalized;
+                direction = Quaternion.AngleAxis(Random.Range(-10f, 10f), Vector3.forward) * direction;
+                projectile.GetComponent<MovingEntity>().speed = direction * projectile.GetComponent<BasicProjectile>().InitialSpeed * Random.Range(0.8f, 1.2f); ;
+
+
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                projectile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
             
         }
