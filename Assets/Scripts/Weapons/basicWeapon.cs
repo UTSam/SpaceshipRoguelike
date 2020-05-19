@@ -23,6 +23,7 @@ public class BasicWeapon : MonoBehaviour
     // Bullet object and spawn point
     public GameObject bullet;
     public Transform bulletSpawnPoint;
+    public Transform bulletDirection;
 
     // Time variables
     public float reloadCooldown = 0;
@@ -77,20 +78,20 @@ public class BasicWeapon : MonoBehaviour
         }
     }
 
-    public void SetBulletSpeed(float min, float max)
+    public void SetBulletSpeed(Transform transform,float min, float max)
     // float min and max represents the limit angles that can be added to the original spaceship orientation
     {
-        Vector2 direction = Vector2.zero;
-        direction.Set(transform.parent.up.x, transform.parent.up.y);
-        direction += AddNoiseOnAngle(min, max);
-        bullet.GetComponent<MovingEntity>().speed = direction.normalized * bulletSpeed;
+        //Vector2 direction = (bulletDirection.position - bulletSpawnPoint.position).normalized;
+        //direction.Set(transform.parent.up.x, transform.parent.up.y);
+        //direction += AddNoiseOnAngle(min, max);
+        //bullet.GetComponent<MovingEntity>().speed = direction.normalized * bulletSpeed;
     }
 
     public void SetBullet()
     {
     }
 
-    Vector2 AddNoiseOnAngle(float min, float max)
+    protected Vector2 AddNoiseOnAngle(float min, float max)
     // float min and max represents the limit angles that can be added to the original spaceship orientation
     {
         float xNoise = Random.Range(min, max);

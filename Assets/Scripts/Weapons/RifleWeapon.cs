@@ -39,8 +39,9 @@ public class RifleWeapon : BasicWeapon
         {
             shotCooldown = 1 / fireRate;
             currentBulletNumber--;
-            SetBulletSpeed(0f,0f);
-            Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            //SetBulletSpeed(0f,0f);
+            GameObject bulletGO = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            bulletGO.GetComponent<MovingEntity>().speed = (bulletDirection.position - bulletSpawnPoint.position).normalized * bulletGO.GetComponent<BasicProjectile>().InitialSpeed;
         }
     }
 }
