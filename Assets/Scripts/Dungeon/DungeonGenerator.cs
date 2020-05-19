@@ -18,7 +18,7 @@ public class DungeonGenerator : MonoBehaviour
 
     [SerializeField] private int count = 0;
     [SerializeField] private int roomCount = 50;
-    [SerializeField] private int seed = 0;
+    [SerializeField] public int seed = 0;
     [SerializeField] private int additionalDistance = 10;
     [SerializeField] private int maxOffset = 20;
 
@@ -33,6 +33,7 @@ public class DungeonGenerator : MonoBehaviour
         LoadAllRoomsInResources();
 
         startTime = Time.time;
+        seed = GlobalValues.Seed;
         StartCoroutine(GenerateDungeon());
     }
 
@@ -135,7 +136,6 @@ public class DungeonGenerator : MonoBehaviour
             room.OpenDoors();
             room.AddTriggers();
         }
-
         Debug.Log("Dungeon generation time: " + (Time.time - startTime));
     }
 

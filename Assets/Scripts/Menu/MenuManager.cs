@@ -1,37 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    //[SerializeField]Inpu
+    [SerializeField] string sceneToLoad;
+    [SerializeField] TMP_InputField inputField;
     public void ExitGame()
     {
         Application.Quit();
     }
     public void LoadScene()
     {
-        /*GetComponentInParent<Button>().interactable = false;
-        CG.alpha = 1.0f;
-        Logo.CrossFadeAlpha(0.0f, 0.0f, false);*/
+        if (inputField.text != "")
+            GlobalValues.Seed = int.Parse(inputField.text);
+
         StartCoroutine(LoadAsync());
     }
 
     IEnumerator LoadAsync()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Player2");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
         asyncLoad.allowSceneActivation = false;
 
-        //Logo.CrossFadeAlpha(1.0f, 1.0f, false);
-        yield return new WaitForSeconds(1.0f);
 
         while (asyncLoad.isDone)
             yield return null; //Make sure the map is fully loaded
 
-        //Logo.CrossFadeAlpha(0.0f, 1.0f, false);
-        yield return new WaitForSeconds(1.0f);
-
+        yield return new WaitForSeconds(1.0f); //1 second wait to make sure the map is fully loaded
         asyncLoad.allowSceneActivation = true;
     }
 }

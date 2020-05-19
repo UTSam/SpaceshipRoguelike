@@ -399,7 +399,7 @@ MonoBehaviour:
       m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
+  m_SelectionColor: {r: 0, g: 0, b: 0, a: 0.7529412}
   m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -540,7 +540,7 @@ RectTransform:
   m_Children:
   - {fileID: 1183993255}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -558,7 +558,6 @@ GameObject:
   - component: {fileID: 187520189}
   - component: {fileID: 187520188}
   - component: {fileID: 187520187}
-  - component: {fileID: 187520190}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -631,20 +630,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &187520190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 187520186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6023591f25b80914ba3e0bddd6786c7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerGO: {fileID: 0}
-  TileMapGO: {fileID: 0}
 --- !u!1 &188525925
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +694,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &621059436
 GameObject:
@@ -1417,7 +1402,7 @@ GameObject:
   - component: {fileID: 2027996530}
   - component: {fileID: 2027996529}
   m_Layer: 0
-  m_Name: ButtonManager
+  m_Name: MenuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1435,6 +1420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f110ac22c45944fada211a5c2ab8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: Thibaut
+  inputField: {fileID: 103734336}
 --- !u!4 &2027996530
 Transform:
   m_ObjectHideFlags: 0
@@ -1447,7 +1434,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2061632319
 GameObject:

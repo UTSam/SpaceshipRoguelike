@@ -6,7 +6,7 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
 	public GameObject PlayerGO;
-	public GameObject TileMapGO;
+	public GameObject DungeonGO;
 
 
 	private static Main instance = null;
