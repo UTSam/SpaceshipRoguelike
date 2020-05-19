@@ -19,9 +19,10 @@ public class WeaponsHandler : MonoBehaviour
             GameObject wUI = Instantiate(weaponUI);
             wUI.transform.parent = gameObject.transform;
             wUI.GetComponent<weaponUIScript>().weapon = weaponList[i];
-            wUI.GetComponent<weaponUIScript>().Start();
+            wUI.GetComponent<weaponUIScript>().Init();
             wUI.GetComponent<Canvas>().worldCamera = camera;
-            wUI.GetComponent<weaponUIScript>().mainObject.transform.localPosition = new Vector3(0, wUI.transform.position.y + uiSpace * i, 0);
+            //wUI.GetComponent<weaponUIScript>().mainObject.transform.localPosition = new Vector3(0, wUI.transform.position.y + uiSpace * i, 0);
+            wUI.GetComponent<weaponUIScript>().mainObject.transform.localPosition += new Vector3(0, uiSpace * i, 0);
         }
     }
 
