@@ -48,7 +48,15 @@ public class Room : MonoBehaviour
 
         for (int i = 0; i < tiles.Length; i++)
         {
-            DungeonManager.tilemap_walls.SetTile((tilePositions[i] + position), tiles[i]);
+            Debug.Log(tiles[i].name);
+            if(tiles[i].name.StartsWith("floor"))
+            {
+                DungeonManager.tilemap_floors.SetTile((tilePositions[i] + position), tiles[i]);
+            }
+            else
+            {
+                DungeonManager.tilemap_walls.SetTile((tilePositions[i] + position), tiles[i]);
+            }
         }
     }
 

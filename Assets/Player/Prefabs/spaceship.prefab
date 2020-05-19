@@ -112,6 +112,7 @@ MonoBehaviour:
   orientationFactorX: 3
   orientationFactorY: 1.5
   movementCouldownDefault: 3
+  movementCouldown: 0
   dashFactor: 50
 --- !u!114 &3916742341280939556
 MonoBehaviour:
@@ -125,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55dfdf6102566c44eb71a8736d73b25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponList: []
 --- !u!50 &339957607941272973
 Rigidbody2D:
   serializedVersion: 4

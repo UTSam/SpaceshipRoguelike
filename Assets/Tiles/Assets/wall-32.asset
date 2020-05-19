@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: DoorIndicator_Right
+  m_Name: wall-32
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: d6a79f57bb376e348b9de23165a18ca6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e406add1cd367d4abef6e6cda02e52a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
