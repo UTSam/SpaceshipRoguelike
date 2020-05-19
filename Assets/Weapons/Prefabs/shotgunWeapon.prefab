@@ -131,8 +131,11 @@ MonoBehaviour:
   effectsList: 
   weaponName: 
   magazineSize: 0
+  currentBulletNumber: 0
   reloadTime: 0
   fireRate: 0
   maxModifierNumber: 0
   bullet: {fileID: 5397038310933703808, guid: c088ced9cc5678c44b063816286d420b, type: 3}
   bulletSpawnPoint: {fileID: 1080662680599254626}
+  reloadCooldown: 0
+  shotCooldown: 0
