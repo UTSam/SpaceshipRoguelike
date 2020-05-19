@@ -13,11 +13,10 @@ public class WeaponsHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         for (int i=0; i<weaponList.Count; i++)
         {
             GameObject wUI = Instantiate(weaponUI);
-            wUI.transform.parent = gameObject.transform;
+            wUI.transform.SetParent(gameObject.transform, false);
             wUI.GetComponent<weaponUIScript>().weapon = weaponList[i];
             wUI.GetComponent<weaponUIScript>().Init();
             wUI.GetComponent<Canvas>().worldCamera = camera;

@@ -1420,7 +1420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f110ac22c45944fada211a5c2ab8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Thibaut
+  sceneToLoad: World
   inputField: {fileID: 103734336}
 --- !u!4 &2027996530
 Transform:

@@ -146,44 +146,49 @@ public class DungeonGenerator : MonoBehaviour
         DungeonManager.tilemap_floors.SetTile(position, DungeonManager.tile_Floor);
     }
 
-    private void SpawnWallTile(Vector3Int position)
+    private void SpawnWallHorizontalTile(Vector3Int position)
     {
-        DungeonManager.tilemap_walls.SetTile(position, DungeonManager.tile_Wall);
+        DungeonManager.tilemap_walls.SetTile(position, DungeonManager.tile_Corridor_Horizontal);
+    }
+
+    private void SpawnWallVerticalTile(Vector3Int position)
+    {
+        DungeonManager.tilemap_walls.SetTile(position, DungeonManager.tile_Corridor_Vertical);
     }
 
     private void SpawnHorizontalCorridor(Vector3Int currentCorridorPosition)
     {
-        SpawnWallTile    (new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 2, 0));
+        SpawnWallHorizontalTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 2, 0));
         SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 1, 0));
         SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y    , 0));
         SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 1, 0));
-        SpawnWallTile    (new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 2, 0));
+        SpawnWallHorizontalTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 2, 0));
     }
 
     private void SpawnVerticalCorridor(Vector3Int currentCorridorPosition)
     {
-        SpawnWallTile    (new Vector3Int(currentCorridorPosition.x - 2, currentCorridorPosition.y, 0));
+        SpawnWallVerticalTile(new Vector3Int(currentCorridorPosition.x - 2, currentCorridorPosition.y, 0));
         SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x - 1, currentCorridorPosition.y, 0));
         SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x    , currentCorridorPosition.y, 0));
         SpawnCorridorTile(new Vector3Int(currentCorridorPosition.x + 1, currentCorridorPosition.y, 0));
-        SpawnWallTile    (new Vector3Int(currentCorridorPosition.x + 2, currentCorridorPosition.y, 0));
+        SpawnWallVerticalTile(new Vector3Int(currentCorridorPosition.x + 2, currentCorridorPosition.y, 0));
     }
 
     private void SpawnVerticalWalls(Vector3Int currentCorridorPosition)
     {
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 2, 0));
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 1, 0));
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y    , 0));
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 1, 0));
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 2, 0));
+        SpawnWallVerticalTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 2, 0));
+        SpawnWallVerticalTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y - 1, 0));
+        SpawnWallVerticalTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y    , 0));
+        SpawnWallVerticalTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 1, 0));
+        SpawnWallVerticalTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + 2, 0));
     }
     private void SpawnHorizontalWalls(Vector3Int currentCorridorPosition)
     {
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x - 2, currentCorridorPosition.y, 0));
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x - 1, currentCorridorPosition.y, 0));
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x    , currentCorridorPosition.y, 0));
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x + 1, currentCorridorPosition.y, 0));
-        SpawnWallTile(new Vector3Int(currentCorridorPosition.x + 2, currentCorridorPosition.y, 0));
+        SpawnWallHorizontalTile(new Vector3Int(currentCorridorPosition.x - 2, currentCorridorPosition.y, 0));
+        SpawnWallHorizontalTile(new Vector3Int(currentCorridorPosition.x - 1, currentCorridorPosition.y, 0));
+        SpawnWallHorizontalTile(new Vector3Int(currentCorridorPosition.x    , currentCorridorPosition.y, 0));
+        SpawnWallHorizontalTile(new Vector3Int(currentCorridorPosition.x + 1, currentCorridorPosition.y, 0));
+        SpawnWallHorizontalTile(new Vector3Int(currentCorridorPosition.x + 2, currentCorridorPosition.y, 0));
     }
     #endregion
 
@@ -221,9 +226,6 @@ public class DungeonGenerator : MonoBehaviour
             SpawnHorizontalCorridor(new Vector3Int(currentCorridorPosition.x + signX, currentCorridorPosition.y, 0));
             SpawnVerticalWalls(new Vector3Int(currentCorridorPosition.x + signX * 2, currentCorridorPosition.y, 0));
 
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x - 1, currentCorridorPosition.y + signY * 2, 0), DungeonManager.tile_Floor);
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x   ,  currentCorridorPosition.y + signY * 2, 0), DungeonManager.tile_Floor);
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x + 1, currentCorridorPosition.y + signY * 2, 0), DungeonManager.tile_Floor);
             // Go vertical
             for (int j = 0; j < corridorVerticalLength; j++)
             {
@@ -233,10 +235,6 @@ public class DungeonGenerator : MonoBehaviour
 
             if(corridorVerticalLength != 0)
                 SpawnHorizontalWalls(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + signY * 2, 0));
-
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x + signY * 2, currentCorridorPosition.y + 1, 0), DungeonManager.tile_Floor);
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x + signY * 2, currentCorridorPosition.y, 0), DungeonManager.tile_Floor);
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x + signY * 2, currentCorridorPosition.y - 1, 0), DungeonManager.tile_Floor);
 
             // Go horizontal for half the way
             currentCorridorPosition.x += signX;
@@ -263,9 +261,6 @@ public class DungeonGenerator : MonoBehaviour
             // Move 1 more since the corridor is 3 width
             SpawnVerticalCorridor(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + signY, 0));
             SpawnHorizontalWalls(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + signY * 2, 0));
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x - signY * 2, currentCorridorPosition.y + 1, 0), DungeonManager.tile_Floor);
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x - signY * 2, currentCorridorPosition.y, 0), DungeonManager.tile_Floor);
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x - signY * 2, currentCorridorPosition.y - 1, 0), DungeonManager.tile_Floor);
 
             // go horizontal
             for (int i = 0; i < corridorHorizontalLength; i++)
@@ -276,10 +271,6 @@ public class DungeonGenerator : MonoBehaviour
 
             if (corridorHorizontalLength != 0)
                 SpawnVerticalWalls(new Vector3Int(currentCorridorPosition.x + signX * 2, currentCorridorPosition.y, 0));
-
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x - 1, currentCorridorPosition.y + signY * 2, 0), DungeonManager.tile_Floor);
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x, currentCorridorPosition.y + signY * 2, 0), DungeonManager.tile_Floor);
-            //DungeonManager.tilemap_walls.SetTile(new Vector3Int(currentCorridorPosition.x + 1, currentCorridorPosition.y + signY * 2, 0), DungeonManager.tile_Floor);
 
             // go vertical half the way
             currentCorridorPosition.y += signY;

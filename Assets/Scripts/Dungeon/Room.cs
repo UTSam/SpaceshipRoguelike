@@ -48,6 +48,8 @@ public class Room : MonoBehaviour
 
         for (int i = 0; i < tiles.Length; i++)
         {
+            if (tiles[i] == null) continue;
+
             if(tiles[i].name.StartsWith("floor"))
             {
                 DungeonManager.tilemap_floors.SetTile((tilePositions[i] + position), tiles[i]);
