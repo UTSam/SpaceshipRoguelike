@@ -7,7 +7,6 @@ public class BasicWeapon : MonoBehaviour
     public enum EffectsList { fire, poison, electric, explosive, penetrate, bounce, multiply };
 
     // Bullet attributes
-    protected Vector2 direction; // direction is normalized 
     public float bulletSize;
     public float bulletSpeed;
     public float bulletDamages;
@@ -16,7 +15,7 @@ public class BasicWeapon : MonoBehaviour
     // Weapon attribute
     public string weaponName;
     public int magazineSize;
-    protected int currentBulletNumber;
+    public int currentBulletNumber;
     public int reloadTime; // in seconds
     public float fireRate;
     public int maxModifierNumber;
@@ -26,27 +25,17 @@ public class BasicWeapon : MonoBehaviour
     public Transform bulletSpawnPoint;
 
     // Time variables
-    protected float reloadCouldown = 0;
-    protected float shotCouldown = 0;
+    public float reloadCooldown = 0;
+    public float shotCooldown = 0;
 
     // Triger variables
     protected bool isReloading = false;
-
-
-    protected Quaternion rotation;
-    protected Vector3 localPosition;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
         currentBulletNumber = magazineSize;
         //transform.localPosition = transform.parent.position;
-    }
-
-    void Awake()
-    {
-        rotation = transform.rotation;
-        localPosition = transform.localPosition;
     }
 
     // Update is called once per frame
@@ -61,41 +50,35 @@ public class BasicWeapon : MonoBehaviour
         ReloadFunction();
 
         /* Timer updates */
-        if (shotCouldown > 0)
-            shotCouldown -= Time.deltaTime;
+        if (shotCooldown > 0)
+            shotCooldown -= Time.deltaTime;
 
-        if (reloadCouldown > 0)
-            reloadCouldown -= Time.deltaTime;
+        if (reloadCooldown > 0)
+            reloadCooldown -= Time.deltaTime;
         /* End timer updates */
     }
 
     public virtual void ShootFunction()
     {
-/*        if (Input.GetMouseButton(0) && shotCouldown <= 0 && !isReloading)
-        {
-            shotCouldown = 1 / fireRate;
-            currentBulletNumber--;
-            SetBulletSpeed();
-            Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation); 
-        }*/
     }
 
     public void ReloadFunction()
     {
-        if (isReloading && reloadCouldown <= 0)
+        if (isReloading && reloadCooldown <= 0)
         {
             isReloading = false;
             currentBulletNumber = magazineSize;
         }
 
-        if (((Input.GetKeyDown(KeyCode.R) && (currentBulletNumber < magazineSize)) || currentBulletNumber == 0) && reloadCouldown <= 0)
+        if (((Input.GetKeyDown(KeyCode.R) && (currentBulletNumber < magazineSize)) || currentBulletNumber == 0) && reloadCooldown <= 0)
         {
             isReloading = true;
-            reloadCouldown = reloadTime;
+            reloadCooldown = reloadTime;
         }
     }
 
     public void SetBulletSpeed(float min, float max)
+    // float min and max represents the limit angles that can be added to the original spaceship orientation
     {
         Vector2 direction = Vector2.zero;
         direction.Set(transform.parent.up.x, transform.parent.up.y);
@@ -108,14 +91,20 @@ public class BasicWeapon : MonoBehaviour
     }
 
     Vector2 AddNoiseOnAngle(float min, float max)
+    // float min and max represents the limit angles that can be added to the original spaceship orientation
     {
         float xNoise = Random.Range(min, max);
         float yNoise = Random.Range(min, max);
-        // Now get the angle between w.r.t. a vector 3 direction
+        // Now get the angle between w.r.t. a vector 2 direction
         Vector2 noise = new Vector3(
             Mathf.Sin(2f * 3.1415926f * xNoise / 360),
             Mathf.Sin(2f * 3.1415926f * yNoise / 360)
                         );
         return noise;
+    }
+
+    protected void setLifeSpan(float newValue)
+    {
+        bullet.GetComponent<BasicProjectile>().LifeSpan = newValue;
     }
 }

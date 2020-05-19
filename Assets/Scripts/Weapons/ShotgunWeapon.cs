@@ -9,20 +9,20 @@ public class ShotgunWeapon : BasicWeapon
     // Start is called before the first frame update
     public override void Start()
     {
-        base.Start();
-
         // Bullet attributes
         bulletSize = 1f;
         bulletSpeed = 6f;
-        bulletDamages = 10f;
+        bulletDamages = 3f;
 
         // Weapon attribute
-        weaponName = "ShotGun";
+        weaponName = "Shotgun";
         magazineSize = 5;
         reloadTime = 3; // in seconds
-        fireRate = 2f;
+        fireRate = 0.8f;
         maxModifierNumber = 3;
         bulletsPerShot = 10;
+
+        base.Start();
     }
 
 
@@ -30,13 +30,14 @@ public class ShotgunWeapon : BasicWeapon
     void Update()
     {
         base.Update();
+        setLifeSpan(1.0f);
     }
 
     public override void ShootFunction()
     {
-        if (Input.GetMouseButton(0) && shotCouldown <= 0 && !isReloading)
+        if (Input.GetMouseButton(0) && shotCooldown <= 0 && !isReloading)
         {
-            shotCouldown = 1 / fireRate;
+            shotCooldown = 1 / fireRate;
             currentBulletNumber--;
 
             for(int i = 0; i < bulletsPerShot; i++)
