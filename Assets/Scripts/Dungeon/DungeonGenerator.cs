@@ -14,8 +14,8 @@ public class DungeonGenerator : MonoBehaviour
     private List<Room> availableRooms = new List<Room>();
     private List<Room> placedRooms = new List<Room>();
 
-    public Dictionary<Direction, List<Room>> roomsByDirection = new Dictionary<Direction, List<Room>>();
-    
+    [SerializeField] public Dictionary<Direction, List<Room>> roomsByDirection = new Dictionary<Direction, List<Room>>();
+
     [SerializeField] private int count = 0;
     [SerializeField] private int roomCount = 50;
     [SerializeField] private int seed = 0;
@@ -30,8 +30,7 @@ public class DungeonGenerator : MonoBehaviour
     public void Start()
     {
         parentFolder = this.transform.Find("Rooms");
-        availableRooms = LoadAllRoomsInResources();
-        FillEntranceRoomsLists();
+        LoadAllRoomsInResources();
 
         startTime = Time.time;
         StartCoroutine(GenerateDungeon());
@@ -281,31 +280,12 @@ public class DungeonGenerator : MonoBehaviour
 
     private Room GetRoomByDirection(Direction direction, System.Random rand)
     {
-        if(roomsByDirection[direction].Count != 0)
+        if (roomsByDirection[direction].Count != 0)
         {
             return roomsByDirection[direction][rand.Next(0, roomsByDirection[direction].Count)];
         }
 
         return null;
-    }
-
-    private void FillEntranceRoomsLists()
-    {
-        roomsByDirection.Add(Direction.Down, new List<Room>());
-        roomsByDirection.Add(Direction.Up, new List<Room>());
-        roomsByDirection.Add(Direction.Left, new List<Room>());
-        roomsByDirection.Add(Direction.Right, new List<Room>());
-
-        foreach (Room room in availableRooms)
-        {
-            foreach (Door door in room.doors)
-            {
-                if (!roomsByDirection[door.direction].Contains(room))
-                {
-                    roomsByDirection[door.direction].Add(room);
-                }
-            }
-        }
     }
 
     private Room GetAndRemoveStartingRoom()
@@ -351,38 +331,28 @@ public class DungeonGenerator : MonoBehaviour
         return false;
     }
 
-    private List<Room> LoadAllRoomsInResources()
+    private void LoadAllRoomsInResources()
     {
         string resourceFolder = "Rooms";
-        DirectoryInfo dirInfo = new DirectoryInfo("Assets/Resources/" + resourceFolder);
-        FileInfo[] fileInf = dirInfo.GetFiles("*.prefab");
 
-        //loop through directory loading the game object and checking if it has the component you want
-        List<Room> prefabComponents = new List<Room>();
-        foreach (FileInfo fileInfo in fileInf)
+        UnityEngine.Object[] rooms = Resources.LoadAll(resourceFolder, typeof(Room));
+        roomsByDirection.Add(Direction.Down, new List<Room>());
+        roomsByDirection.Add(Direction.Up, new List<Room>());
+        roomsByDirection.Add(Direction.Left, new List<Room>());
+        roomsByDirection.Add(Direction.Right, new List<Room>());
+
+        foreach (Room room in rooms)
         {
-            GameObject prefab = Resources.Load<GameObject>(resourceFolder + "/" + RemoveFileExtension(fileInfo.Name));
-
-            if (prefab == null) continue;
-
-            Room room = prefab.GetComponent<Room>();
-            if (room != null)
+            foreach (Door door in room.doors)
             {
-                prefabComponents.Add(room);
+                if (!roomsByDirection[door.direction].Contains(room))
+                {
+                    roomsByDirection[door.direction].Add(room);
+                }
             }
+
+            availableRooms.Add(room);
         }
-        return prefabComponents;
-    }
-
-    private string RemoveFileExtension(string fileName)
-    {
-        string filenameWithoutExt = "";
-        int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
-
-        if (fileExtPos >= 0)
-            filenameWithoutExt = fileName.Substring(0, fileExtPos);
-
-        return filenameWithoutExt;
     }
 
     void OnValidate()

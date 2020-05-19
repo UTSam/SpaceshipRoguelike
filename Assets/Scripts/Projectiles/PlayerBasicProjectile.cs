@@ -26,7 +26,6 @@ public class PlayerBasicProjectile : BasicProjectile
                 
             }
             Destroy(this.gameObject);
-            Debug.Log(other);
         }
     }
 }

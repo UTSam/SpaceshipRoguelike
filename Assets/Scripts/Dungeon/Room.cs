@@ -29,6 +29,9 @@ public class Room : MonoBehaviour
     public bool isCleared = false; 
     private List<BoxCollider2D> colliderList = new List<BoxCollider2D>();
 
+    [SerializeField]
+    public GameObject[] possibleEnemies;
+
     public void DrawRoom()
     {
         if (DungeonManager.tilemap_walls == null)
@@ -106,7 +109,8 @@ public class Room : MonoBehaviour
 
         foreach (Door door in doors)
         {
-            if (!door.connected) return;
+            // TODO FIX
+            //if (!door.connected) return;
 
             // Add trigger in front of door 
             BoxCollider2D collider = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
@@ -150,6 +154,7 @@ public class Room : MonoBehaviour
         if (!isCleared)
         {
             this.CloseDoors();
+            this.SpawnEnemies();
             isCleared = true;
 
             // TEMP
@@ -161,6 +166,21 @@ public class Room : MonoBehaviour
                 Destroy(bc);
             }
             colliderList.Clear();
+        }
+    }
+
+    public void SpawnEnemies()
+    {
+        foreach (GameObject enemie in possibleEnemies)
+        {
+            Instantiate(enemie, this.transform);
+            ShootingComponent shooting = enemie.GetComponent<ShootingComponent>();
+            BasicMovingEnemy basicEnemie = enemie.GetComponent<BasicMovingEnemy>();
+            if (basicEnemie && shooting)
+            {
+                shooting.Target = DungeonManager.GetPlayer().transform;
+                basicEnemie.target = DungeonManager.GetPlayer();
+            }
         }
     }
 

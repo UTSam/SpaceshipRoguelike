@@ -95,15 +95,15 @@ MonoBehaviour:
   wanderDistance: 0.16000001
   wanderOn: 0
   arriveDeceleration: 2
-  seekON: 1
+  seekON: 0
   arriveOn: 0
   pursuitOn: 0
   OffsetPursuitOn: 0
-  wallAvoidanceON: 1
+  wallAvoidanceON: 0
   Leader: {fileID: 0}
   OffsetToleader: {x: 2, y: 2}
-  fleeON: 1
-  evadeOn: 0
+  fleeON: 0
+  evadeOn: 1
   arriveForce: 1
   fleeForce: 1
 --- !u!114 &5410886197537698283
