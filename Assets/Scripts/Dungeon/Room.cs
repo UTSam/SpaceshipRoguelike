@@ -50,7 +50,8 @@ public class Room : MonoBehaviour
         {
             if (tiles[i] == null) continue;
 
-            if(tiles[i].name.StartsWith("floor"))
+            // TODO FIX this bullshit
+            if(tiles[i].name.StartsWith("floor") || tiles[i].name.StartsWith("Floor"))
             {
                 DungeonManager.tilemap_floors.SetTile((tilePositions[i] + position), tiles[i]);
             }
