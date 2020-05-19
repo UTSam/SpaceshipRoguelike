@@ -9,14 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 8d7e801f5a4c4604d818653b03972ee3
   - enabled: 1
-    path: Assets/Scenes/Player2.unity
-    guid: d6d70047ffed7eb4b85a6b2f6c8ab6f9
-  - enabled: 1
     path: Assets/Scenes/World.unity
-    guid: add72b73b040b184f92b116d0526db91
-  - enabled: 1
-    path: Assets/Scenes/Thibaut.unity
-    guid: af2b8cbececb7874f99b26234ccdb1cb
+    guid: d6d70047ffed7eb4b85a6b2f6c8ab6f9
   - enabled: 1
     path: Assets/Scenes/DeathScreen.unity
     guid: 00ee887ce301f6b46b5e5a97e51c166c
