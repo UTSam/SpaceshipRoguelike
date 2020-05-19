@@ -13,7 +13,7 @@ public class ShotgunWeapon : BasicWeapon
 
         // Bullet attributes
         bulletSize = 1f;
-        bulletSpeed = 6f;
+        bulletSpeed = 13f;
         bulletDamages = 10f;
 
         // Weapon attribute

@@ -189,11 +189,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.010739192, y: 0.6209797}
-      - {x: -0.34687823, y: 0.45951647}
-      - {x: -0.30188155, y: -0.45287657}
-      - {x: 0.04051748, y: -0.619854}
-      - {x: 0.6699598, y: -0.0063949525}
+    - - {x: 0.06642273, y: 0.6969122}
+      - {x: -0.36712664, y: 0.49495155}
+      - {x: -0.3575653, y: -0.4832496}
+      - {x: 0.065828614, y: -0.7261592}
+      - {x: 0.7762651, y: -0.0114571005}
 --- !u!114 &6265094437670557399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,6 +577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Feelers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633530183241621867, guid: 622029c66f298ce4f9f05a5ca12a1e72,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622029c66f298ce4f9f05a5ca12a1e72, type: 3}
