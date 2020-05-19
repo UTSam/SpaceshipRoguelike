@@ -51,7 +51,7 @@ public class RoomGenerator : MonoBehaviour
                         Door newDoor = new Door(tilePos);
                         switch(tile.name)
                         {
-                            case "DoorIndicator_Up":
+                            case "DoorIndicator_Up-32":
                                 newDoor.direction = Direction.Up;
                                 break;
                             case "DoorIndicator_Down":
@@ -123,7 +123,6 @@ public class RoomGenerator : MonoBehaviour
         {
             door.position += new Vector3Int(dx, dy, 0);
         }
-
 
         room.tilePositions = tilePositions;
         room.roomBorders = rb; 
