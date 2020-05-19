@@ -26,7 +26,7 @@ public class Room : MonoBehaviour
 
     public Room previousRoom;
 
-    public bool isCleared = false; 
+    public bool isCleared = false;
     private List<BoxCollider2D> colliderList = new List<BoxCollider2D>();
 
     [SerializeField]
@@ -56,7 +56,7 @@ public class Room : MonoBehaviour
     {
         foreach (Door door in doors)
         {
-            if(door == findDoor)
+            if (door == findDoor)
                 door.connected = true;
         }
     }
@@ -76,7 +76,7 @@ public class Room : MonoBehaviour
     {
         foreach (Door door in doors)
         {
-            if(door.direction == direction)
+            if (door.direction == direction)
             {
                 return door;
             }
@@ -89,7 +89,7 @@ public class Room : MonoBehaviour
     {
         foreach (Door door in doors)
         {
-            if (door.connected) 
+            if (door.connected)
                 door.Unlock(this.position);
         }
     }
@@ -98,7 +98,7 @@ public class Room : MonoBehaviour
     {
         foreach (Door door in doors)
         {
-            if (door.connected) 
+            if (door.connected)
                 door.Lock(this.position);
         }
     }
@@ -116,7 +116,7 @@ public class Room : MonoBehaviour
             BoxCollider2D collider = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
             collider.isTrigger = true;
 
-            Vector2Int size = new Vector2Int(1,1);
+            Vector2Int size = new Vector2Int(1, 1);
             Vector2 offset = new Vector2(door.position.x + 0.5f, door.position.y + 0.5f);
 
             switch (door.direction)
@@ -126,7 +126,7 @@ public class Room : MonoBehaviour
                     offset.y -= 1.5f;
                     break;
                 case Direction.Down:
-                    size.x = 3; 
+                    size.x = 3;
                     offset.y += 1.5f;
                     break;
                 case Direction.Left:
@@ -134,7 +134,7 @@ public class Room : MonoBehaviour
                     offset.x += 1.5f;
                     break;
                 case Direction.Right:
-                    size.y = 3; 
+                    size.y = 3;
                     offset.x -= 1.5f;
                     break;
             }
@@ -171,16 +171,28 @@ public class Room : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        foreach (GameObject enemie in possibleEnemies)
+        foreach (GameObject enemy in possibleEnemies)
         {
-            Instantiate(enemie, this.transform);
-            ShootingComponent shooting = enemie.GetComponent<ShootingComponent>();
-            BasicMovingEnemy basicEnemie = enemie.GetComponent<BasicMovingEnemy>();
-            if (basicEnemie && shooting)
-            {
-                shooting.Target = DungeonManager.GetPlayer().transform;
-                basicEnemie.target = DungeonManager.GetPlayer();
-            }
+            Instantiate(enemy, this.transform, false);
+            ShootingComponent shooting = enemy.GetComponent<ShootingComponent>();
+            BasicMovingEnemy basicEnemy = enemy.GetComponent<BasicMovingEnemy>();
+            //if (shooting)
+            //{
+            //    shooting.Target = DungeonManager.GetPlayer().transform;
+            //}
+            //else
+            //{
+            //    Debug.Log("No target shooting Found");
+            //}
+
+            //if (basicEnemy)
+            //{
+            //    basicEnemy.target = DungeonManager.GetPlayer();
+            //}
+            //else
+            //{
+            //    Debug.Log("No target basicEnemy Found");
+            //}
         }
     }
 

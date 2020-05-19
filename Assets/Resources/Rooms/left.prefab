@@ -333,8 +333,8 @@ MonoBehaviour:
   previousRoom: {fileID: 0}
   isCleared: 0
   possibleEnemies:
-  - {fileID: 7616047776373636926, guid: 465eb07e57769e84393e2f3c56a2af1a, type: 3}
-  - {fileID: 7616047776373636926, guid: 465eb07e57769e84393e2f3c56a2af1a, type: 3}
-  - {fileID: 60888451730901118, guid: 82982321006b48b4bb182d9181b6617a, type: 3}
-  - {fileID: 60888451730901118, guid: 82982321006b48b4bb182d9181b6617a, type: 3}
-  - {fileID: 60888451730901118, guid: 82982321006b48b4bb182d9181b6617a, type: 3}
+  - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
+  - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
+  - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
+  - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
+  - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
