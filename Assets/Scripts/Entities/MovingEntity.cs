@@ -45,7 +45,7 @@ public class MovingEntity : BasicEntity
 
     public Vector2 GetPosition()
     {
-        return this.rigidBody.position;
+        return this.transform.position;
     }
 
     public float CalculateDistance(MovingEntity targetEntity)

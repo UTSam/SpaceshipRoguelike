@@ -13,6 +13,7 @@ public class BasicMovingEnemy : MovingEntity
         base.Start();
         steering = GetComponent<SteeringBehaviours>();
         this.mass = 1;
+        this.target = Main.Instance.PlayerGO.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -26,7 +27,6 @@ public class BasicMovingEnemy : MovingEntity
 
         //Update velocity
         this.speed = acceleration * Time.deltaTime;
-        speed *= 8;
 
         if (speed.sqrMagnitude > 0.0000001)
         {

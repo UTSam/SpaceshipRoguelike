@@ -19,26 +19,36 @@ public class SteeringBehaviours : MonoBehaviour
     [SerializeField] private float wanderJitter = 0.25f;
     [SerializeField] private float wanderDistance = 0.4f * 0.4f;
     [SerializeField] private bool wanderOn = false;
+    [SerializeField] private float wanderForce = 1f;
+
 
     [SerializeField] private Deceleration arriveDeceleration = Deceleration.medium;
     [SerializeField] private bool seekON = false;
+    [SerializeField] private float seekForce = 1f;
+
     [SerializeField] private bool arriveOn = false;
+    [SerializeField] private float arriveForce = 1f;
+
     [SerializeField] private bool pursuitOn = false;
+    [SerializeField] private float pursuitForce = 1f;
+
     [SerializeField] private bool OffsetPursuitOn = false;
-    [SerializeField] private bool wallAvoidanceON = false;
-    [SerializeField] private BasicMovingEnemy Leader = null;
+    [SerializeField] private float offsetPursuitForce = 1f;
     [SerializeField] private Vector2 OffsetToleader = new Vector2(2, 2);
-
-    private FeelerManager feelers;
-
+    [SerializeField] private BasicMovingEnemy Leader = null;
 
     [SerializeField] private bool fleeON = false;
-    [SerializeField] private bool evadeOn = false;
-
-    [SerializeField] private float arriveForce = 1f;
     [SerializeField] private float fleeForce = 1f;
-    private double panicDistance = 2 * 2;
 
+    [SerializeField] private bool evadeOn = false;
+    [SerializeField] private float evadeForce = 1f;
+    [SerializeField] private double panicDistance = 2 * 2;
+
+    [SerializeField] private bool wallAvoidanceON = true;
+    [SerializeField] private float wallForce = 5f;
+
+
+    private FeelerManager feelers;
 
 
     private void Start()
@@ -59,19 +69,19 @@ public class SteeringBehaviours : MonoBehaviour
         returnValue = Vector2.zero;
         if (host.target != null && Vector3.Distance(host.transform.position, host.target.transform.position) < 20f)
         {
-            if (wallAvoidanceON) returnValue += WallAvoidance();
-            if (seekON) returnValue += Seek();
+            if (wallAvoidanceON) returnValue += WallAvoidance() * wallForce;
+            if (seekON) returnValue += Seek() * seekForce;
             if (fleeON) returnValue += Flee() * fleeForce;
             if (arriveOn) returnValue += Arrive(arriveDeceleration) * arriveForce;
-            if (pursuitOn) returnValue += Pursuit();
-            if (evadeOn) returnValue += Evade() * 2;
-            if (wanderOn) returnValue += Wander();
-            if (OffsetPursuitOn) returnValue += OffsetPursuit();
+            if (pursuitOn) returnValue += Pursuit() * pursuitForce;
+            if (evadeOn) returnValue += Evade() * evadeForce;
+            if (wanderOn) returnValue += Wander() * wanderForce;
+            if (OffsetPursuitOn) returnValue += OffsetPursuit() * offsetPursuitForce;
         }
         else
         {
-            returnValue += Wander();
-            returnValue += WallAvoidance();
+            returnValue += Wander() * wanderForce;
+            returnValue += WallAvoidance() * wallForce;
         }
         return returnValue;
     }
@@ -94,7 +104,7 @@ public class SteeringBehaviours : MonoBehaviour
             return Vector2.zero;
         }
 
-        Vector2 desiredVelocity = (host.transform.position - host.target.transform.position) * host.maxSpeed;
+        Vector2 desiredVelocity = (host.GetPosition() - host.target.GetPosition()) * host.target.maxSpeed;
         return desiredVelocity - host.speed;
     }
 
@@ -105,7 +115,7 @@ public class SteeringBehaviours : MonoBehaviour
             return Vector2.zero;
         }
 
-        Vector2 desiredVelocity = (host.GetPosition() - vector) * host.maxSpeed;
+        Vector2 desiredVelocity = (host.GetPosition() - vector) * host.target.maxSpeed;
         return desiredVelocity - host.speed;
     }
 

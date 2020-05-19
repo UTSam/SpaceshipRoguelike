@@ -17,6 +17,7 @@ public class ShootingComponent : MonoBehaviour
     void Start()
     {
         mask = LayerMask.GetMask("Wall");
+        this.Target = Main.Instance.PlayerGO.transform;
     }
 
     // Update is called once per frame
