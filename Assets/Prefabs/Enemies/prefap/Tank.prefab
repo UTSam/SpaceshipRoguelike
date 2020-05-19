@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 2243354708607630551}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_Children:
   - {fileID: 6807086139320165810}
   - {fileID: 4912557281080158260}
@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 500
-  Shield: 100
+  Shield: 250
   MaxHealth: 500
-  MaxShield: 100
+  MaxShield: 250
   FireWeakeness: 3
   ElecWeakness: 3
 --- !u!1 &2342838716319074408

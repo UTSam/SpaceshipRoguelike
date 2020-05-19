@@ -809,5 +809,5 @@ MonoBehaviour:
   possibleEnemies:
   - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
   - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
-  - {fileID: 1657381150255690991, guid: 25153884e5b51a34da053a13acaed7ee, type: 3}
-  - {fileID: 1657381150255690991, guid: 25153884e5b51a34da053a13acaed7ee, type: 3}
+  - {fileID: 3830163017004307943, guid: 8a9d9d92fa4d54d418eb480308c63966, type: 3}
+  - {fileID: 3830163017004307943, guid: 8a9d9d92fa4d54d418eb480308c63966, type: 3}
