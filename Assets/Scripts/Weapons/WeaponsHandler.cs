@@ -24,11 +24,4 @@ public class WeaponsHandler : MonoBehaviour
             wUI.GetComponent<weaponUIScript>().mainObject.transform.localPosition += new Vector3(0, uiSpace * i, 0);
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 }

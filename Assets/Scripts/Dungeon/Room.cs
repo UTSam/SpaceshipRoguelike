@@ -32,6 +32,17 @@ public class Room : MonoBehaviour
     [SerializeField]
     public GameObject[] possibleEnemies;
 
+    private void Update()
+    {
+        // TODO FIX: Performance heavy probably
+        BasicMovingEnemy[] gameObjects = GetComponentsInChildren<BasicMovingEnemy>(true) as BasicMovingEnemy[];
+
+        if (gameObjects.Length == 0)
+        {
+            this.OpenDoors();
+        }
+    }
+
     public void DrawRoom()
     {
         if (DungeonManager.tilemap_walls == null)
@@ -167,9 +178,6 @@ public class Room : MonoBehaviour
             this.SpawnEnemies();
             isCleared = true;
 
-            // TEMP
-            StartCoroutine(OpenAfterSeconds(5));
-
             // TODO: Maybe remove colliders (There's no use for them anyways)
             foreach (BoxCollider2D bc in colliderList)
             {
@@ -184,32 +192,7 @@ public class Room : MonoBehaviour
         foreach (GameObject enemy in possibleEnemies)
         {
             Instantiate(enemy, this.transform, false);
-            ShootingComponent shooting = enemy.GetComponent<ShootingComponent>();
-            BasicMovingEnemy basicEnemy = enemy.GetComponent<BasicMovingEnemy>();
-            //if (shooting)
-            //{
-            //    shooting.Target = DungeonManager.GetPlayer().transform;
-            //}
-            //else
-            //{
-            //    Debug.Log("No target shooting Found");
-            //}
-
-            //if (basicEnemy)
-            //{
-            //    basicEnemy.target = DungeonManager.GetPlayer();
-            //}
-            //else
-            //{
-            //    Debug.Log("No target basicEnemy Found");
-            //}
         }
-    }
-
-    IEnumerator OpenAfterSeconds(int seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        this.OpenDoors();
     }
 
     private void OnDrawGizmos()
