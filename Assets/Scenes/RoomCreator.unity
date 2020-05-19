@@ -150,10 +150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba75bcbaa10e7f240b477b08ffdd9724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorLeft: {fileID: 0}
-  doorR: {fileID: 0}
-  doorU: {fileID: 0}
-  doorD: {fileID: 0}
+  doorLeft: {fileID: 11400000, guid: dabab43e2dde1c04b8eecaaec13acb79, type: 2}
+  doorR: {fileID: 11400000, guid: 1709843e7fd120b41995891046b3f7c0, type: 2}
+  doorU: {fileID: 11400000, guid: 8c885b51291c42645ab1e447daef32b3, type: 2}
+  doorD: {fileID: 11400000, guid: f66fdb5c947435446a450eae69c19701, type: 2}
 --- !u!4 &325508778
 Transform:
   m_ObjectHideFlags: 0
