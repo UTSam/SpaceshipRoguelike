@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 2243354708607630551}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6807086139320165810}
   - {fileID: 4912557281080158260}
@@ -143,6 +143,8 @@ MonoBehaviour:
   panicDistance: 4
   wallAvoidanceON: 1
   wallForce: 4
+  kamikazeON: 1
+  kamikazeForce: 1
 --- !u!114 &6120104739797828930
 MonoBehaviour:
   m_ObjectHideFlags: 0
