@@ -5,12 +5,13 @@ using UnityEngine.UIElements;
 
 public class LifeBar : MonoBehaviour
 {
-    [SerializeField] GameObject healthBar;
-    [SerializeField] GameObject shieldBar;
+    [SerializeField] GameObject healthBar = null;
+    [SerializeField] GameObject shieldBar = null;
 
     private Quaternion rotation;
     private Vector3 localPosition;
-    void Awake()
+
+    void Start()
     {
         rotation = transform.rotation;
         localPosition = transform.localPosition;
@@ -21,10 +22,12 @@ public class LifeBar : MonoBehaviour
         transform.rotation = rotation;
         this.transform.position = transform.root.position + localPosition * transform.root.localScale.y;
     }
+
     public void SetHealthValue(float value)
     {
         healthBar.transform.localScale = new Vector3(value, 1);
     }
+
     public void SetShieldValue(float value)
     {
         shieldBar.transform.localScale = new Vector3(value, 1);

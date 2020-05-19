@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasicItem : BasicEntity
 {
-    protected void Start()
+    public override void Start()
     {
         base.Start();
     }

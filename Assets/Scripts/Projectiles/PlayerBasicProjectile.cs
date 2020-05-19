@@ -25,7 +25,6 @@ public class PlayerBasicProjectile : BasicProjectile
                 other.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
             }
             Destroy(this.gameObject);
-            Debug.Log(other);
         }
     }
 }

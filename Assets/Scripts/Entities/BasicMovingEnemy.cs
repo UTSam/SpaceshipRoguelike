@@ -13,6 +13,7 @@ public class BasicMovingEnemy : MovingEntity
         base.Start();
         steering = GetComponent<SteeringBehaviours>();
         this.mass = 1;
+        this.target = Main.Instance.PlayerGO.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -26,17 +27,18 @@ public class BasicMovingEnemy : MovingEntity
 
         //Update velocity
         this.speed = acceleration * Time.deltaTime;
-        speed *= 8;
 
         if (speed.sqrMagnitude > 0.0000001)
         {
             this.heading = speed.normalized;
-            this.perpendicular = Perpendicular(heading);
+            this.perpendicular = Vector2.Perpendicular(heading);
         }
-
-        Vector3 lookPos = target.transform.position - transform.position;
-        float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (target != null)
+        {
+            Vector3 lookPos = target.transform.position - transform.position;
+            float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
 
         UpdatePosition();
     }

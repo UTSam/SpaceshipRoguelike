@@ -170,4 +170,5 @@ public class Player: MovingEntity
         // Moves the weapons
         //GetComponent<WeaponsHandler>().MoveWeapons(displacementValue);
     }
+
 }
