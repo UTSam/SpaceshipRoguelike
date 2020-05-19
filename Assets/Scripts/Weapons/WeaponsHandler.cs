@@ -17,7 +17,7 @@ public class WeaponsHandler : MonoBehaviour
         for (int i=0; i<weaponList.Count; i++)
         {
             GameObject wUI = Instantiate(weaponUI);
-            wUI.transform.parent = gameObject.transform;
+            wUI.transform.SetParent(gameObject.transform, false);
             wUI.GetComponent<weaponUIScript>().weapon = weaponList[i];
             wUI.GetComponent<weaponUIScript>().Start();
             wUI.GetComponent<Canvas>().worldCamera = camera;

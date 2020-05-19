@@ -51,21 +51,24 @@ public class RoomGenerator : MonoBehaviour
                         Door newDoor = new Door(tilePos);
                         switch(tile.name)
                         {
-                            case "DoorIndicator_Up-32":
+                            case "DoorIndicator_Up":
                                 newDoor.direction = Direction.Up;
+                                tile = DungeonManager.tile_Corridor_Horizontal;
                                 break;
                             case "DoorIndicator_Down":
                                 newDoor.direction = Direction.Down;
+                                tile = DungeonManager.tile_Corridor_Horizontal;
                                 break;
                             case "DoorIndicator_Left":
                                 newDoor.direction = Direction.Left;
+                                tile = DungeonManager.tile_Corridor_Vertical;
                                 break;
                             case "DoorIndicator_Right":
                                 newDoor.direction = Direction.Right;
+                                tile = DungeonManager.tile_Corridor_Vertical;
                                 break;
                         }
                         doors.Add(newDoor);
-                        tile = DungeonManager.tile_Wall;
                     }
 
                     tiles.Add(tile);
