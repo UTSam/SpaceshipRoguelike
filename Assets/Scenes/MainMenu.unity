@@ -1422,6 +1422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: World
   inputField: {fileID: 103734336}
+  playButton: {fileID: 1964011189}
+  quitButton: {fileID: 621059438}
 --- !u!4 &2027996530
 Transform:
   m_ObjectHideFlags: 0
