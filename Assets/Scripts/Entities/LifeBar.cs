@@ -8,19 +8,19 @@ public class LifeBar : MonoBehaviour
     [SerializeField] GameObject healthBar = null;
     [SerializeField] GameObject shieldBar = null;
 
-    private Quaternion rotation;
-    private Vector3 localPosition;
+    //private Quaternion rotation;
+    //private Vector3 localPosition;
 
     void Start()
     {
-        rotation = transform.rotation;
-        localPosition = transform.localPosition;
+        //rotation = transform.root.rotation;
+        //this.transform.localPosition = transform.localPosition;
     }
 
     void LateUpdate()
     {
-        transform.rotation = rotation;
-        this.transform.position = transform.root.position + localPosition * transform.root.localScale.y;
+        transform.rotation = Quaternion.identity;
+        this.transform.position = GetComponentInParent<HealthComponent>().transform.position - new Vector3(0, 1.5f, 0);//this.transform.localPosition * transform.root.localScale.y;
     }
 
     public void SetHealthValue(float value)

@@ -56,7 +56,7 @@ MonoBehaviour:
   maxTurnRate: 2
   DamageValue: 10
   LifeSpan: 3
-  InitialSpeed: 10
+  InitialSpeed: 15
   element: 2
 --- !u!212 &5645941038550472849
 SpriteRenderer:
