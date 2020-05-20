@@ -30,16 +30,30 @@ public class Room : MonoBehaviour
     private List<BoxCollider2D> colliderList = new List<BoxCollider2D>();
 
     [SerializeField]
-    public GameObject[] possibleEnemies;
+    private GameObject[] possibleEnemies;
+
+    [SerializeField]
+    private GameObject spongebob;
+    internal bool lastRoom = false;
+    private bool playerEntered = false;
+    private bool openedDoor = false;
 
     private void Update()
     {
+        if (!playerEntered) return;
+        if (openedDoor) return;
+
         // TODO FIX: Performance heavy probably
         BasicMovingEnemy[] gameObjects = GetComponentsInChildren<BasicMovingEnemy>(true) as BasicMovingEnemy[];
 
         if (gameObjects.Length == 0)
         {
             this.OpenDoors();
+
+            if (lastRoom)
+                Instantiate(spongebob, this.transform);
+
+            openedDoor = true;
         }
     }
 
@@ -170,6 +184,8 @@ public class Room : MonoBehaviour
     {
         // Check if player collision
         if (collision.gameObject.tag != "Player") return;
+
+        playerEntered = true;
 
         // Close room & Spawn enemies
         if (!isCleared)

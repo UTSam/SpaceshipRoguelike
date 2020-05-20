@@ -13,10 +13,10 @@ public class RifleWeapon : BasicWeapon
         // Bullet attributes
         bulletSize = 1f;
         bulletSpeed = 15f;
-        bulletDamages = 10f;
+        bulletDamages = 50f;
 
         // Weapon attribute
-        weaponName = "Riflegun";
+        weaponName = "Pistol";
         magazineSize = 15;
         reloadTime = 2; // in seconds
         fireRate = 2f;

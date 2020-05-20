@@ -817,3 +817,5 @@ MonoBehaviour:
   possibleEnemies:
   - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
   - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
+  spongebob: {fileID: 8426461079039651973, guid: 579b763442b9a0a4aad283b4db4d6d9b,
+    type: 3}

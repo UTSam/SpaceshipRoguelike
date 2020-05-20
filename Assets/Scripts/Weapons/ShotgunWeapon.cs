@@ -12,7 +12,7 @@ public class ShotgunWeapon : BasicWeapon
         // Bullet attributes
         bulletSize = 1f;
         bulletSpeed = 13f;
-        bulletDamages = 10f;
+        bulletDamages = 50f;
         // Weapon attribute
         weaponName = "Shotgun";
         magazineSize = 5;

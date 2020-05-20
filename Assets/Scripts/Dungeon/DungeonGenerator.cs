@@ -128,6 +128,11 @@ public class DungeonGenerator : MonoBehaviour
             placedRooms.Add(newRoom);
             count++;
 
+            if(count == roomCount)
+            {
+                newRoom.lastRoom = true;
+            }
+
             yield return null;
         }
 
