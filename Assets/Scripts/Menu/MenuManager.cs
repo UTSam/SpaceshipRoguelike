@@ -9,6 +9,8 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] string sceneToLoad;
     [SerializeField] TMP_InputField inputField;
+    [SerializeField] Button playButton;
+    [SerializeField] Button quitButton;
     public void ExitGame()
     {
         Application.Quit();
@@ -17,7 +19,12 @@ public class MenuManager : MonoBehaviour
     {
         if (inputField.text != "")
             GlobalValues.Seed = int.Parse(inputField.text);
+        else
+            GlobalValues.Seed = Random.Range(int.MinValue, int.MaxValue);
 
+        inputField.enabled = false;
+        playButton.enabled = false;
+        quitButton.enabled = false;
         StartCoroutine(LoadAsync());
     }
 
