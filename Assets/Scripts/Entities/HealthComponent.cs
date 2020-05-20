@@ -29,7 +29,15 @@ public class HealthComponent : MonoBehaviour
         if (GetComponent<Player>())
             SceneManager.LoadScene("DeathScreen");
         else
+        {
+            if (Random.value < 0.05f)
+            {
+                GameObject pack = Instantiate(Main.Instance.HealthPackPrefab) as GameObject;
+                pack.transform.position = transform.position;
+            }
+
             Destroy(this.gameObject);
+        }
     }
 
     public virtual void Damage(float damageValue, ElementType elem)

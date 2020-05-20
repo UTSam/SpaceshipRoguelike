@@ -8,6 +8,7 @@ public class Main : MonoBehaviour
 	public GameObject PlayerGO;
 	public GameObject DungeonGO;
 	public GameObject StopWatchGO;
+	public GameObject HealthPackPrefab;
 
 	private static Main instance = null;
 
