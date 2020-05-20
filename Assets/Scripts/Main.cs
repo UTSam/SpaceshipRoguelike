@@ -7,7 +7,7 @@ public class Main : MonoBehaviour
 {
 	public GameObject PlayerGO;
 	public GameObject DungeonGO;
-
+	public GameObject StopWatchGO;
 
 	private static Main instance = null;
 

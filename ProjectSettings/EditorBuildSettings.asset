@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DeathScreen.unity
     guid: 00ee887ce301f6b46b5e5a97e51c166c
+  - enabled: 1
+    path: Assets/Scenes/VictoryScreen.unity
+    guid: 0179f6abb4f245945b3250a2a11f12eb
   m_configObjects: {}
