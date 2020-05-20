@@ -2903,7 +2903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 0
-  roomCount: 50
+  roomCount: 10
   seed: 0
   additionalDistance: 10
   maxOffset: 20

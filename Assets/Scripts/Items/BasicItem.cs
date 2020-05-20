@@ -16,7 +16,6 @@ public class BasicItem : BasicEntity
 
     public virtual void OnPickUp(GameObject other)
     {
-        Debug.Log("Item picked up");
         Destroy(this.gameObject);
     }
 }

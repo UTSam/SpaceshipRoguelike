@@ -345,7 +345,7 @@ MonoBehaviour:
   wallAvoidanceON: 1
   wallForce: 6
   kamikazeON: 1
-  kamikazeForce: 20
+  kamikazeForce: 30
 --- !u!60 &2022710723293101066
 PolygonCollider2D:
   m_ObjectHideFlags: 0

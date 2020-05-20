@@ -8,10 +8,8 @@ public class KamiKaze : BasicMovingEnemy
     {
         if (collision.gameObject.GetComponent<Player>())
         {
-            Debug.Log("in the damage statement");
             collision.gameObject.GetComponentInParent<HealthComponent>().Damage(kamikazeeDamage);
             Destroy(this.gameObject);
         }
-        Debug.Log("outside damage statement");
     }
 }

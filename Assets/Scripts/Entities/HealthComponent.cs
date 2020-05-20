@@ -31,7 +31,7 @@ public class HealthComponent : MonoBehaviour
             SceneManager.LoadScene("DeathScreen");
         else
         {
-            if (Random.value < 1f)
+            if (Random.value < 0.3f)
             {
                 GameObject pack = Instantiate(Main.Instance.HealthPackPrefab) as GameObject;
                 pack.transform.position = transform.position;
