@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 339957607941272975}
   - component: {fileID: 339957607941272974}
   - component: {fileID: 339957607941272973}
+  - component: {fileID: 8017853985539383848}
+  - component: {fileID: 3755602773928152001}
   m_Layer: 0
-  m_Name: spaceship
+  m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,3 +136,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &8017853985539383848
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339957607941272972}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5977839, y: -2.1387162}
+  serializedVersion: 2
+  m_Radius: 16.421293
+--- !u!114 &3755602773928152001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339957607941272972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34acdaf1414693418a335439d6febce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 1
+  Shield: 0
+  MaxHealth: 100
+  MaxShield: 100
+  FireWeakeness: 0.5
+  ElecWeakness: 0.5

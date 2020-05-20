@@ -24,7 +24,7 @@ public class StopWatchScript : MonoBehaviour
 
         if (timerString.LastIndexOf('.') > 0)
         {
-            timerString.Remove(timerString.LastIndexOf('.'));
+            timerString = timerString.Remove(timerString.LastIndexOf('.') + 1);
         }
 
         textZone.text = timerString.Remove(timerString.Length - 1);

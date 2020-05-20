@@ -6795,7 +6795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc63c4e92667f054e857cbba340f0927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundSpeed: 40
+  backgroundSpeed: 100
 --- !u!1001 &639747648
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7035,40 +7035,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 904982780}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &988448789
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339957607372829644}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5977839, y: -2.1387162}
-  serializedVersion: 2
-  m_Radius: 16.421293
---- !u!114 &988448794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339957607372829644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a34acdaf1414693418a335439d6febce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 1
-  Shield: 0
-  MaxHealth: 100
-  MaxShield: 100
-  FireWeakeness: 0.5
-  ElecWeakness: 0.5
 --- !u!114 &1348750565 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4892083800256483771, guid: fd0fcc72619702f4ea6e4442fb932eb6,
@@ -7396,6 +7362,8 @@ MonoBehaviour:
   PlayerGO: {fileID: 339957607372829644}
   DungeonGO: {fileID: 0}
   StopWatchGO: {fileID: 904982781}
+  HealthPackPrefab: {fileID: 9057909179316814408, guid: b850272f70238c04fb835666df935454,
+    type: 3}
 --- !u!4 &1988177386
 Transform:
   m_ObjectHideFlags: 0

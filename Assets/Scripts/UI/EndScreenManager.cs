@@ -9,7 +9,7 @@ public class EndScreenManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI seedDisplay;
     void Start()
     {
-        timerDisplay.text = "Timer : " + GlobalValues.Timer.Remove(GlobalValues.Timer.LastIndexOf('.'));
+        timerDisplay.text = "Timer : " + GlobalValues.Timer;
         seedDisplay.text = "Seed : " + GlobalValues.Seed;
     }
 }

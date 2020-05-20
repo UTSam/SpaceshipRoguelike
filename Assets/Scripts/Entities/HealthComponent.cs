@@ -24,13 +24,14 @@ public class HealthComponent : MonoBehaviour
         bar = GetComponentInChildren<LifeBar>();
         UpdateBar();
     }
+
     public virtual void OnDeath()
     {
         if (GetComponent<Player>())
             SceneManager.LoadScene("DeathScreen");
         else
         {
-            if (Random.value < 0.05f)
+            if (Random.value < 1f)
             {
                 GameObject pack = Instantiate(Main.Instance.HealthPackPrefab) as GameObject;
                 pack.transform.position = transform.position;
