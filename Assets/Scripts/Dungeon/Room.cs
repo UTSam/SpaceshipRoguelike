@@ -189,9 +189,13 @@ public class Room : MonoBehaviour
 
     public void SpawnEnemies()
     {
+        System.Random rnd = new System.Random();
         foreach (GameObject enemy in possibleEnemies)
         {
-            Instantiate(enemy, this.transform, false);
+            int offsetRandom = 3;
+            Vector3 postition = new Vector3(transform.position.x + rnd.Next(-offsetRandom, offsetRandom), transform.position.y + rnd.Next(-offsetRandom, offsetRandom), 0);
+
+            Instantiate(enemy, postition, Quaternion.identity, this.transform);
         }
     }
 
