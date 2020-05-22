@@ -24,7 +24,7 @@ public class Tiles
 // GVC = GlobalVariableContainer
 public class GVC : MonoBehaviour
 {
-	private static GVC instance = null;
+	public static GVC Instance { get; private set; } = null;
 
 	public Tilemaps tilemap;
 	public Tiles tiles;
@@ -34,17 +34,15 @@ public class GVC : MonoBehaviour
 	public GameObject StopWatchGO;
 	public GameObject HealthPackPrefab;
 
-	public static GVC Instance { get { return instance; } }
-
 	private void Awake()
 	{
-		if (instance != null && instance != this)
+		if (Instance != null && Instance != this)
 		{
 			Destroy(this.gameObject);
 		}
 		else
 		{
-			instance = this;
+			Instance = this;
 		}
 	}
 }

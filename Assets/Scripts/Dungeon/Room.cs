@@ -32,7 +32,6 @@ public class Room : MonoBehaviour
     [SerializeField]
     private List<GameObject> enemiesToSpawn;
 
-    internal bool lastRoom = false;
     private bool playerEntered = false;
     private bool openedDoors = false;
 
@@ -111,9 +110,7 @@ public class Room : MonoBehaviour
         foreach (Door door in doors)
         {
             if (door.direction == direction)
-            {
                 return door;
-            }
         }
 
         return null;
@@ -190,7 +187,7 @@ public class Room : MonoBehaviour
         if (!isCleared)
         {
             this.CloseDoors();
-            this.SpawnEnemies();
+            //this.SpawnEnemies();
             isCleared = true;
 
             foreach (BoxCollider2D bc in colliderList)
@@ -201,19 +198,58 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void SpawnEnemies()
+    // Spawn the enemies over the whole room.
+    public void SpawnEnemies(System.Random rnd)
     {
-        System.Random rnd = new System.Random();
-        int offsetRandom = 5;
+        // In an extremely rare case this could freeze the game, so just making sure that it doesn't
+        int maxNumberOfTries = 100;
 
         foreach (GameObject enemy in enemiesToSpawn)
         {
+            int numberOfTries = 0;
+            bool didntFoundFloorTile = true;
 
-            Vector3 postition = new Vector3(transform.position.x + rnd.Next(-offsetRandom, offsetRandom), transform.position.y + rnd.Next(-offsetRandom, offsetRandom), 0);
+            while (didntFoundFloorTile)
+            {
+                // Get an random position which tries to be inside the room
+                Vector3Int spawnPosition = new Vector3Int(
+                    (int)transform.position.x + rnd.Next(roomBorders.xMin, roomBorders.xMax),
+                    (int)transform.position.y + rnd.Next(roomBorders.yMin, roomBorders.yMax), 
+                    0);
+                if (PositionIsNearDoor(spawnPosition)) continue;
 
-            // Check if position is in the room
-            Instantiate(enemy, postition, Quaternion.identity, this.transform);
+                Tile tile = GVC.Instance.tilemap.floor.GetTile<Tile>(spawnPosition);
+                if (tile != null && tile.name.StartsWith("Floor"))
+                {
+                    Instantiate(enemy, spawnPosition, Quaternion.identity, this.transform);
+                    didntFoundFloorTile = false;
+                }
+                else
+                {
+                    if (numberOfTries++ >= maxNumberOfTries)
+                        didntFoundFloorTile = false;
+                }
+
+            }
         }
+    }
+
+    // Little yikes code, but kinda works.
+    // Get a random position in the room. Also make sure it isn't to close to a door
+    private bool PositionIsNearDoor(Vector3Int spawnPosition)
+    {
+        int maxDistance = 8;
+
+        foreach (Door door in doors)
+        {
+            float distance = Vector3.Distance(spawnPosition, door.position + this.position);
+            if (distance <= maxDistance)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void OnDrawGizmos()

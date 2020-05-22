@@ -32,7 +32,6 @@ public class DungeonGenerator : MonoBehaviour
         LoadAllRoomsInResources();
 
         startTime = Time.time;
-        seed = GlobalValues.Seed;
         StartCoroutine(GenerateDungeon());
     }
 
@@ -120,7 +119,7 @@ public class DungeonGenerator : MonoBehaviour
             newRoom.previousRoom = initialRoom;
             newRoom.SetDoorConnected(newRoomDoor);
             newRoom.DrawRoom();
-            newRoom.SpawnEnemies();
+            newRoom.SpawnEnemies(rand);
 
             Door initialDoor = door + initialRoom.position;
             Corridor corridor = new Corridor();
@@ -128,11 +127,6 @@ public class DungeonGenerator : MonoBehaviour
 
             placedRooms.Add(newRoom);
             count++;
-
-            if(count == roomCount)
-            {
-                newRoom.lastRoom = true;
-            }
 
             yield return null;
         }
@@ -142,6 +136,7 @@ public class DungeonGenerator : MonoBehaviour
             room.OpenDoors();
             room.AddDoorTriggers();
         }
+
         Debug.Log("Dungeon generation time: " + (Time.time - startTime));
     }
 
