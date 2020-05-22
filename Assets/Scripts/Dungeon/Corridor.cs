@@ -9,18 +9,18 @@ namespace Assets.Scripts.Dungeon
         #region Spawn Tile functions
         private void SpawnCorridorTile(Vector3Int position)
         {
-            DungeonManager.tilemap_walls.SetTile(position, null);
-            DungeonManager.tilemap_floors.SetTile(position, DungeonManager.tile_Floor);
+            GVC.Instance.tilemap.walls.SetTile(position, null);
+            GVC.Instance.tilemap.floor.SetTile(position, GVC.Instance.tiles.floor);
         }
 
         private void SpawnWallHorizontalTile(Vector3Int position)
         {
-            DungeonManager.tilemap_walls.SetTile(position, DungeonManager.tile_Corridor_Horizontal);
+            GVC.Instance.tilemap.walls.SetTile(position, GVC.Instance.tiles.corridorHorizontal);
         }
 
         private void SpawnWallVerticalTile(Vector3Int position)
         {
-            DungeonManager.tilemap_walls.SetTile(position, DungeonManager.tile_Corridor_Vertical);
+            GVC.Instance.tilemap.walls.SetTile(position, GVC.Instance.tiles.corridorVertical);
         }
 
         private void SpawnHorizontalCorridor(Vector3Int currentCorridorPosition)

@@ -22,7 +22,7 @@ public class RoomGenerator : MonoBehaviour
 
     public Room GetRoom()
     {
-        Tilemap tilemap = DungeonManager.tilemap_walls;
+        Tilemap tilemap = GVC.Instance.tilemap.walls;
 
         List<Tile> tiles = new List<Tile>();
         List<Door> doors = new List<Door>();
@@ -53,19 +53,19 @@ public class RoomGenerator : MonoBehaviour
                         {
                             case "DoorIndicator_Up":
                                 newDoor.direction = Direction.Up;
-                                tile = DungeonManager.tile_Corridor_Horizontal;
+                                tile = GVC.Instance.tiles.corridorHorizontal;
                                 break;
                             case "DoorIndicator_Down":
                                 newDoor.direction = Direction.Down;
-                                tile = DungeonManager.tile_Corridor_Horizontal;
+                                tile = GVC.Instance.tiles.corridorHorizontal;
                                 break;
                             case "DoorIndicator_Left":
                                 newDoor.direction = Direction.Left;
-                                tile = DungeonManager.tile_Corridor_Vertical;
+                                tile = GVC.Instance.tiles.corridorVertical;
                                 break;
                             case "DoorIndicator_Right":
                                 newDoor.direction = Direction.Right;
-                                tile = DungeonManager.tile_Corridor_Vertical;
+                                tile = GVC.Instance.tiles.corridorVertical;
                                 break;
                         }
                         doors.Add(newDoor);

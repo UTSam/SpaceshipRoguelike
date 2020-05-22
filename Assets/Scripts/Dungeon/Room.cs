@@ -30,7 +30,7 @@ public class Room : MonoBehaviour
     private List<BoxCollider2D> colliderList = new List<BoxCollider2D>();
 
     [SerializeField]
-    private GameObject[] enemiesToSpawn;
+    private List<GameObject> enemiesToSpawn;
 
     internal bool lastRoom = false;
     private bool playerEntered = false;
@@ -58,7 +58,7 @@ public class Room : MonoBehaviour
 
     public void DrawRoom()
     {
-        if (DungeonManager.tilemap_walls == null)
+        if (GVC.Instance.tilemap.walls == null)
         {
             Debug.LogError("DungeonManager.tilemap_walls == null in drawroom");
             return;
@@ -77,11 +77,11 @@ public class Room : MonoBehaviour
             // TODO FIX this bullshit
             if(tiles[i].name.StartsWith("floor") || tiles[i].name.StartsWith("Floor"))
             {
-                DungeonManager.tilemap_floors.SetTile((tilePositions[i] + position), tiles[i]);
+                GVC.Instance.tilemap.floor.SetTile((tilePositions[i] + position), tiles[i]);
             }
             else
             {
-                DungeonManager.tilemap_walls.SetTile((tilePositions[i] + position), tiles[i]);
+                GVC.Instance.tilemap.walls.SetTile((tilePositions[i] + position), tiles[i]);
             }
         }
     }
@@ -204,11 +204,14 @@ public class Room : MonoBehaviour
     public void SpawnEnemies()
     {
         System.Random rnd = new System.Random();
+        int offsetRandom = 5;
+
         foreach (GameObject enemy in enemiesToSpawn)
         {
-            int offsetRandom = 5;
+
             Vector3 postition = new Vector3(transform.position.x + rnd.Next(-offsetRandom, offsetRandom), transform.position.y + rnd.Next(-offsetRandom, offsetRandom), 0);
 
+            // Check if position is in the room
             Instantiate(enemy, postition, Quaternion.identity, this.transform);
         }
     }
