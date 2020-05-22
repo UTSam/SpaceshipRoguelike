@@ -30,18 +30,21 @@ public class Room : MonoBehaviour
     private List<BoxCollider2D> colliderList = new List<BoxCollider2D>();
 
     [SerializeField]
-    private GameObject[] possibleEnemies;
+    private GameObject[] enemiesToSpawn;
 
-    [SerializeField]
-    private GameObject spongebob;
     internal bool lastRoom = false;
     private bool playerEntered = false;
-    private bool openedDoor = false;
+    private bool openedDoors = false;
 
     private void Update()
     {
+        OpenRoomIfEnemiesAreDead();
+    }
+
+    private void OpenRoomIfEnemiesAreDead()
+    {
         if (!playerEntered) return;
-        if (openedDoor) return;
+        if (openedDoors) return;
 
         // TODO FIX: Performance heavy probably
         BasicMovingEnemy[] gameObjects = GetComponentsInChildren<BasicMovingEnemy>(true) as BasicMovingEnemy[];
@@ -49,11 +52,7 @@ public class Room : MonoBehaviour
         if (gameObjects.Length == 0)
         {
             this.OpenDoors();
-
-            if (lastRoom)
-                Instantiate(spongebob, this.transform);
-
-            openedDoor = true;
+            openedDoors = true;
         }
     }
 
@@ -138,7 +137,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void AddTriggers()
+    public void AddDoorTriggers()
     {
         if (isCleared) return;
 
@@ -183,7 +182,7 @@ public class Room : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if player collision
-        if (collision.gameObject.tag != "Player") return;
+        if (!collision.gameObject.CompareTag("Player")) return;
 
         playerEntered = true;
 
@@ -194,7 +193,6 @@ public class Room : MonoBehaviour
             this.SpawnEnemies();
             isCleared = true;
 
-            // TODO: Maybe remove colliders (There's no use for them anyways)
             foreach (BoxCollider2D bc in colliderList)
             {
                 Destroy(bc);
@@ -206,9 +204,9 @@ public class Room : MonoBehaviour
     public void SpawnEnemies()
     {
         System.Random rnd = new System.Random();
-        foreach (GameObject enemy in possibleEnemies)
+        foreach (GameObject enemy in enemiesToSpawn)
         {
-            int offsetRandom = 3;
+            int offsetRandom = 5;
             Vector3 postition = new Vector3(transform.position.x + rnd.Next(-offsetRandom, offsetRandom), transform.position.y + rnd.Next(-offsetRandom, offsetRandom), 0);
 
             Instantiate(enemy, postition, Quaternion.identity, this.transform);

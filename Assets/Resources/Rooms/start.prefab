@@ -814,9 +814,8 @@ MonoBehaviour:
     direction: 2
   previousRoom: {fileID: 0}
   isCleared: 0
-  possibleEnemies:
+  enemiesToSpawn:
   - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
-  - {fileID: 3830163017004307943, guid: 8a9d9d92fa4d54d418eb480308c63966, type: 3}
+  - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
   - {fileID: 7783866754064367463, guid: 8630312d311857947be45af15ce09fa9, type: 3}
-  spongebob: {fileID: 8426461079039651973, guid: 579b763442b9a0a4aad283b4db4d6d9b,
-    type: 3}
+  - {fileID: 7783866754064367463, guid: 8630312d311857947be45af15ce09fa9, type: 3}
