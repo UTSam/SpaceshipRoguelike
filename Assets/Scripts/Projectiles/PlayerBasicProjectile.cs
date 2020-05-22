@@ -23,6 +23,10 @@ public class PlayerBasicProjectile : BasicProjectile
             if (other.GetComponentInParent<HealthComponent>())
             {
                 other.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
+                if (GetComponent<Animate>())
+                {
+                    GetComponent<Animate>().DoAnimationOnHit();
+                }
             }
             Destroy(this.gameObject);
         }

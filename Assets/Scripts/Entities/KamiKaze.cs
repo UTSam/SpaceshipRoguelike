@@ -9,6 +9,10 @@ public class KamiKaze : BasicMovingEnemy
         if (collision.gameObject.GetComponent<Player>())
         {
             collision.gameObject.GetComponentInParent<HealthComponent>().Damage(kamikazeeDamage);
+            if (GetComponent<Animate>())
+            {
+                GetComponent<Animate>().DoAnimationOnHit();
+            }
             Destroy(this.gameObject);
         }
     }

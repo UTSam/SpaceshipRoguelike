@@ -151,6 +151,11 @@ public class Player: MovingEntity
 
             acceleration *= dashFactor;
             forceBack *= dashFactor / 2;
+
+            if (GetComponent<Animate>())
+            {
+                GetComponent<Animate>().DoAnimationSpecial();
+            }
         }
 
         if (specialMovementActivated)

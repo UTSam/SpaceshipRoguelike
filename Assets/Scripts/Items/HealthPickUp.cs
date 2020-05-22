@@ -9,6 +9,12 @@ public class HealthPickUp : BasicItem
     {
         HealthComponent health = playerGO.GetComponent<HealthComponent>();
         if (health.Heal(HealValue))
+        {
+            if (GetComponent<Animate>())
+            {
+                GetComponent<Animate>().DoAnimationSpecial();
+            }
             Destroy(this.gameObject);
+        }
     }
 }

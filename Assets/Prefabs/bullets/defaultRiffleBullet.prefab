@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5645941038550472849}
   - component: {fileID: 481378856}
   - component: {fileID: 3422062672985464184}
+  - component: {fileID: -8921756193603104267}
   m_Layer: 0
   m_Name: defaultRiffleBullet
   m_TagString: Untagged
@@ -55,7 +56,7 @@ MonoBehaviour:
   maxForce: 2
   maxTurnRate: 2
   DamageValue: 10
-  LifeSpan: 3
+  LifeSpan: 1
   InitialSpeed: 15
   element: 2
 --- !u!212 &5645941038550472849
@@ -155,3 +156,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.23176268, y: 0.09825909}
   m_EdgeRadius: 0
+--- !u!114 &-8921756193603104267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5397038310933703808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15578b0d0794eb4e89de60a55a51ff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullitOnHitAnimation: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+  specialAnimation: {fileID: 0}

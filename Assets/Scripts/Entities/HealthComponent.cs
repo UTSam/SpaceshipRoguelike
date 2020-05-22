@@ -36,7 +36,6 @@ public class HealthComponent : MonoBehaviour
                 GameObject pack = Instantiate(Main.Instance.HealthPackPrefab) as GameObject;
                 pack.transform.position = transform.position;
             }
-
             Destroy(this.gameObject);
         }
     }
@@ -71,6 +70,7 @@ public class HealthComponent : MonoBehaviour
                 damageToLife = 0f;
         }
 
+
         if (damageToLife > 0f)
         {
             if (elem == ElementType.Fire)
@@ -90,6 +90,13 @@ public class HealthComponent : MonoBehaviour
                 OnDeath();
             }
         }
+
+
+        if (GetComponent<Animate>() && GetComponent<Player>() && GetComponent<Player>().GetComponent<Animate>())
+        {
+            GetComponent<Animate>().DoAnimationOnHit();
+        }
+
         UpdateBar();
     }
 
@@ -116,6 +123,12 @@ public class HealthComponent : MonoBehaviour
                 OnDeath();
             }
         }
+
+        if (GetComponent<Animate>() && GetComponent<Player>() && GetComponent<Player>().GetComponent<Animate>())
+        {
+            GetComponent<Animate>().DoAnimationOnHit();
+        }
+
         UpdateBar();
     }
 

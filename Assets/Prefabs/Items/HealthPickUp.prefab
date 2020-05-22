@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2389954615676757577}
   - component: {fileID: 9057909179316814409}
   - component: {fileID: 6405497288631155475}
+  - component: {fileID: 5168413706954021514}
   m_Layer: 0
   m_Name: HealthPickUp
   m_TagString: Untagged
@@ -144,3 +145,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.21060419, y: 0.14186871}
   m_EdgeRadius: 0
+--- !u!114 &5168413706954021514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9057909179316814408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15578b0d0794eb4e89de60a55a51ff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullitOnHitAnimation: {fileID: 0}
+  specialAnimation: {fileID: 100004, guid: 3af6f68141914ca43ba39b2403757bd0, type: 3}

@@ -40,17 +40,30 @@ public class BasicProjectile : MovingEntity
         if (other.GetComponentInParent<Player>())
         {
             other.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
+            MyAnimation();
             Destroy(this.gameObject);
-        } 
-        
+
+        }
+
         if (other.GetComponentInParent<TilemapCollider2D>())
         {
+            MyAnimation();
             Destroy(this.gameObject);
         }
+
+
     }
 
-    protected void OnTriggerEnter2D(Collider2D other)
+    virtual protected void OnTriggerEnter2D(Collider2D other)
     {
         OnHit(other);
+    }
+
+    private void MyAnimation()
+    {
+        if (GetComponent<Animate>())
+        {
+            GetComponent<Animate>().DoAnimationOnHit();
+        }
     }
 }
