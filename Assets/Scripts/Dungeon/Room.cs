@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Dungeon;
 using Assets.Scripts.Rooms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -163,7 +164,7 @@ public class Room : MonoBehaviour
         if (!isCleared)
         {
             this.CloseDoors();
-            //this.SpawnEnemies();
+            this.SpawnEnemies();
             isCleared = true;
 
             foreach (BoxCollider2D bc in colliderList)
@@ -175,38 +176,38 @@ public class Room : MonoBehaviour
     }
 
     // Spawn the enemies over the whole room.
-    public void SpawnEnemies(System.Random rnd)
+    public void SpawnEnemies()
     {
         // In an extremely rare case this could freeze the game, so just making sure that it doesn't
-        int maxNumberOfTries = 100;
+        System.Random rnd = new System.Random();
+
+        // Get the correct tiledate
+        PleaveGiveMeGoodName tileData = null;
+        foreach (PleaveGiveMeGoodName _tileData in tileDataArray)
+        {
+            if(_tileData.tilemapName == "Floors")
+            {
+                tileData = _tileData;
+            }
+        }
+
+        List<Vector3Int> spawnablePositions = new List<Vector3Int>();
+        //Remove position we dont want the enemies to spawn in
+        for (int i = 0; i < tileData.tilePositions.Count; i++)
+        {
+            Vector3Int tilePos = tileData.tilePositions[i];
+            if (PositionIsNearDoor(tilePos))
+                continue;
+
+            spawnablePositions.Add(tilePos);
+        }
 
         foreach (GameObject enemy in enemiesToSpawn)
         {
-            int numberOfTries = 0;
-            bool didntFoundFloorTile = true;
+            int index = rnd.Next(spawnablePositions.Count);
+            Vector3Int spawnPosition = spawnablePositions[index] + position;
 
-            while (didntFoundFloorTile)
-            {
-                // Get an random position which tries to be inside the room
-                Vector3Int spawnPosition = new Vector3Int(
-                    (int)transform.position.x + rnd.Next(roomBorders.xMin, roomBorders.xMax),
-                    (int)transform.position.y + rnd.Next(roomBorders.yMin, roomBorders.yMax), 
-                    0);
-                if (PositionIsNearDoor(spawnPosition)) continue;
-
-                Tile tile = GVC.Instance.tilemap.floor.GetTile<Tile>(spawnPosition);
-                if (tile != null && tile.name.StartsWith("Floor"))
-                {
-                    Instantiate(enemy, spawnPosition, Quaternion.identity, this.transform);
-                    didntFoundFloorTile = false;
-                }
-                else
-                {
-                    if (numberOfTries++ >= maxNumberOfTries)
-                        didntFoundFloorTile = false;
-                }
-
-            }
+            Instantiate(enemy, spawnPosition, Quaternion.identity, this.transform);
         }
     }
 

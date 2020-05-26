@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,15 +8,14 @@ namespace Assets.Scripts.Dungeon
     [System.Serializable]
     public class PleaveGiveMeGoodName
     {
-        [SerializeField]
-        private string tilemapString = "";
+        public string tilemapName = "";
         
         public List<Tile> tiles = new List<Tile>();
         public List<Vector3Int> tilePositions = new List<Vector3Int>();
 
         public PleaveGiveMeGoodName(string _tilemapName)
         {
-            tilemapString = _tilemapName;
+            tilemapName = _tilemapName;
         }
 
         public void SpawnTiles(Vector3Int position, Tilemap drawOnThis = null)
@@ -39,18 +39,22 @@ namespace Assets.Scripts.Dungeon
 
         private Tilemap SetTilemap()
         {
-            GameObject tilemapGo = GameObject.Find("Tilemap_" + tilemapString);
-            
-            if (tilemapGo.GetComponent<Tilemap>())
+            GameObject tilemapGo = GameObject.Find("Tilemap_" + tilemapName);
+
+            if (tilemapGo == null)
             {
-                return tilemapGo.GetComponent<Tilemap>();
-            }
-            else
-            {
-                Debug.LogError("Couldn't find the tilemap: Tilemap_" + tilemapString);
+                Debug.LogError("Couldn't find the gameobject: Tilemap_" + tilemapName);
+                Debug.Break();
             }
             
-            return null;
+            if (!tilemapGo.GetComponent<Tilemap>())
+            {
+                Debug.LogError("Couldn't find the tilemap in gameobject: Tilemap_" + tilemapName);
+                Debug.Break();
+            }
+
+            return tilemapGo.GetComponent<Tilemap>();
+            
         }
     }
 }

@@ -151,7 +151,7 @@ public class RoomGeneratorEditor : Editor
 
     private void DrawGameObjectToTilemap(Room room)
     {
-        GVC.Instance.tilemap.ClearAllTiles();
+        gen.tilemap.ClearAllTiles();
 
         room = (Room)Instantiate(room, new Vector3(0, 0, 0), Quaternion.identity) as Room;
         room.name = room.name.Remove(room.name.Length - 7); // nice and hardcoded substring for '(clone)'
@@ -230,7 +230,7 @@ public class RoomGeneratorEditor : Editor
                 SaveTilemapAsAsset(room.name, true);
             }
 
-            GVC.Instance.tilemap.ClearAllTiles();
+            gen.tilemap.ClearAllTiles();
         }
     }
 }

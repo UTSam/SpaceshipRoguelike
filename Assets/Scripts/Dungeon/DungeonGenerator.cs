@@ -119,7 +119,6 @@ public class DungeonGenerator : MonoBehaviour
             newRoom.previousRoom = initialRoom;
             newRoom.SetDoorConnected(newRoomDoor);
             newRoom.DrawRoom();
-            newRoom.SpawnEnemies(rand);
 
             Door initialDoor = door + initialRoom.position;
             Corridor corridor = new Corridor();

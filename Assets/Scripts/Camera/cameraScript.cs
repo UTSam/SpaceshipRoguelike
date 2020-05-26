@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cameraScript : MonoBehaviour
+public class CameraScript : MonoBehaviour
 {
-
-    public GameObject cameraCenter;
-    private Quaternion rotation;
-    private Vector3 localPosition;
+    private Transform playerTransform;
 
     // Start is called before the first frame update
     void Start()
     {
-        rotation = transform.rotation;
-        localPosition = transform.localPosition;
+        playerTransform = GVC.Instance.PlayerGO.transform;
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
-        transform.rotation = rotation;
-        this.transform.position = transform.root.position + localPosition * transform.root.localScale.y;
+        Vector3 jacco = playerTransform.position;
+        Vector3 cursorPosition = Input.mousePosition;
+        cursorPosition = Camera.main.ScreenToWorldPoint(cursorPosition);
+
+        Vector3 middlePoint = Vector3.Lerp(jacco, cursorPosition, 0.3f);
+        middlePoint.z = -60;
+
+        transform.position = middlePoint;
     }
 }
