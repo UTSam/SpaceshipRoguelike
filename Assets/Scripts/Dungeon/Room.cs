@@ -1,6 +1,5 @@
-﻿using Assets.Scripts.Rooms;
-using System;
-using System.Collections;
+﻿using Assets.Scripts.Dungeon;
+using Assets.Scripts.Rooms;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,8 +15,7 @@ public class Room : MonoBehaviour
 
     public RoomBorders roomBorders;
 
-    public Tile[] tiles;
-    public Vector3Int[] tilePositions;
+    public List<PleaveGiveMeGoodName> tileDataArray = new List<PleaveGiveMeGoodName>();
 
     public Vector3Int position;
 
@@ -55,33 +53,11 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void DrawRoom()
+    public void DrawRoom(Tilemap drawOnThis = null)
     {
-        if (GVC.Instance.tilemap.walls == null)
+        foreach(PleaveGiveMeGoodName pls in tileDataArray)
         {
-            Debug.LogError("DungeonManager.tilemap_walls == null in drawroom");
-            return;
-        }
-
-        if (position == null)
-        {
-            Debug.LogError("position == null in drawroom");
-            return;
-        }
-
-        for (int i = 0; i < tiles.Length; i++)
-        {
-            if (tiles[i] == null) continue;
-
-            // TODO FIX this bullshit
-            if(tiles[i].name.StartsWith("floor") || tiles[i].name.StartsWith("Floor"))
-            {
-                GVC.Instance.tilemap.floor.SetTile((tilePositions[i] + position), tiles[i]);
-            }
-            else
-            {
-                GVC.Instance.tilemap.walls.SetTile((tilePositions[i] + position), tiles[i]);
-            }
+            pls.SpawnTiles(position, drawOnThis);
         }
     }
 

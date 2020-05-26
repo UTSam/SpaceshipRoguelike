@@ -9,6 +9,18 @@ public class Tilemaps
 	public Tilemap walls;
 	public Tilemap floor;
 	public Tilemap doors;
+
+	public void ClearAllTiles()
+	{
+		if(this.doors)
+			this.doors.ClearAllTiles();
+
+		if (this.floor)
+			this.floor.ClearAllTiles();
+
+		if (this.walls)
+			this.walls.ClearAllTiles();
+	}
 }
 
 [System.Serializable]
