@@ -11,10 +11,10 @@ public class BasicItem : BasicEntity
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.transform.root.GetComponent<Player>() != null)
-            OnPickUp(other.transform.root.gameObject);
+            OnPickUp();
     }
 
-    public virtual void OnPickUp(GameObject other)
+    public virtual void OnPickUp()
     {
         Destroy(this.gameObject);
     }
