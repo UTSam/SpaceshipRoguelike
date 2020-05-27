@@ -41,7 +41,9 @@ public class Boss : MonoBehaviour
     public void SetPhase(int nextPhase)
     {
         if (nextPhase > Phase)
+        {
             Phase = nextPhase;
+        }
     }
     
 }

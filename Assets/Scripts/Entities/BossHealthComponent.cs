@@ -28,6 +28,8 @@ public class BossHealthComponent : HealthComponent
     private void updatePhase()
     {
         if (Health < phase3HPTrigger)
-
+            boss.SetPhase(3);
+        else if (Health < phase2HPTrigger)
+            boss.SetPhase(3);
     }
 }
