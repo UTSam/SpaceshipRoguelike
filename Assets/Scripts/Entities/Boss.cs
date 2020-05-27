@@ -6,7 +6,11 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public List<BossWeapon> weaponList = new List<BossWeapon>();
+    public int Phase;
     protected List<BossWeapon> firingWeaponList = new List<BossWeapon>();
+
+    public bool IsFiring = false;
+    public float TimeBetweenShots = 1.0f;
 
     private BossWeapon lastShotWeapon;
     // Start is called before the first frame update
@@ -33,4 +37,11 @@ public class Boss : MonoBehaviour
         weaponList[index].InitShotSequence();
         lastShotWeapon = weaponList[index];
     }
+
+    public void SetPhase(int nextPhase)
+    {
+        if (nextPhase > Phase)
+            Phase = nextPhase;
+    }
+    
 }

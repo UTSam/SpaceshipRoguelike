@@ -17,7 +17,7 @@ public class HealthComponent : MonoBehaviour
 
    private LifeBar bar; //HealthBar is not required but can be used for visual indications
 
-    void Start()
+    protected void Start()
     {
         Health = MaxHealth;
         Shield = MaxShield;
