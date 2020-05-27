@@ -16,9 +16,9 @@ public class Room : MonoBehaviour
 
     public RoomBorders roomBorders;
 
-    public List<PleaveGiveMeGoodName> tileDataArray = new List<PleaveGiveMeGoodName>();
+    public List<Assets.Scripts.Dungeon.TileData> tileDataArray = new List<Assets.Scripts.Dungeon.TileData>();
 
-    public Vector3Int position;
+    public Vector3Int globalPosition;
 
     [SerializeField]
     public List<Door> doors = new List<Door>();
@@ -56,9 +56,9 @@ public class Room : MonoBehaviour
 
     public void DrawRoom(Tilemap drawOnThis = null)
     {
-        foreach(PleaveGiveMeGoodName pls in tileDataArray)
+        foreach(Assets.Scripts.Dungeon.TileData pls in tileDataArray)
         {
-            pls.SpawnTiles(position, drawOnThis);
+            pls.SpawnTiles(globalPosition, drawOnThis);
         }
     }
 
@@ -98,7 +98,7 @@ public class Room : MonoBehaviour
         foreach (Door door in doors)
         {
             if (door.connected)
-                door.Unlock(this.position);
+                door.Unlock(this.globalPosition);
         }
     }
 
@@ -107,7 +107,7 @@ public class Room : MonoBehaviour
         foreach (Door door in doors)
         {
             if (door.connected)
-                door.Lock(this.position);
+                door.Lock(this.globalPosition);
         }
     }
 
@@ -182,8 +182,8 @@ public class Room : MonoBehaviour
         System.Random rnd = new System.Random();
 
         // Get the correct tiledate
-        PleaveGiveMeGoodName tileData = null;
-        foreach (PleaveGiveMeGoodName _tileData in tileDataArray)
+        Assets.Scripts.Dungeon.TileData tileData = null;
+        foreach (Assets.Scripts.Dungeon.TileData _tileData in tileDataArray)
         {
             if(_tileData.tilemapName == "Floors")
             {
@@ -193,9 +193,9 @@ public class Room : MonoBehaviour
 
         List<Vector3Int> spawnablePositions = new List<Vector3Int>();
         //Remove position we dont want the enemies to spawn in
-        for (int i = 0; i < tileData.tilePositions.Count; i++)
+        for (int i = 0; i < tileData.tileLocalPositions.Count; i++)
         {
-            Vector3Int tilePos = tileData.tilePositions[i];
+            Vector3Int tilePos = tileData.tileLocalPositions[i];
             if (PositionIsNearDoor(tilePos))
                 continue;
 
@@ -205,7 +205,7 @@ public class Room : MonoBehaviour
         foreach (GameObject enemy in enemiesToSpawn)
         {
             int index = rnd.Next(spawnablePositions.Count);
-            Vector3Int spawnPosition = spawnablePositions[index] + position;
+            Vector3Int spawnPosition = spawnablePositions[index] + globalPosition;
 
             Instantiate(enemy, spawnPosition, Quaternion.identity, this.transform);
         }
@@ -219,7 +219,7 @@ public class Room : MonoBehaviour
 
         foreach (Door door in doors)
         {
-            float distance = Vector3.Distance(spawnPosition, door.position + this.position);
+            float distance = Vector3.Distance(spawnPosition, door.position + this.globalPosition);
             if (distance <= maxDistance)
             {
                 return true;
@@ -234,28 +234,28 @@ public class Room : MonoBehaviour
         Gizmos.color = Color.red;
         RoomBorders rb = roomBorders;
 
-        Gizmos.DrawSphere(position + new Vector3(rb.xMin, rb.yMin), .2f);
-        Gizmos.DrawSphere(position + new Vector3(rb.xMin, rb.yMax), .2f);
-        Gizmos.DrawSphere(position + new Vector3(rb.xMax, rb.yMin), .2f);
-        Gizmos.DrawSphere(position + new Vector3(rb.xMax, rb.yMax), .2f);
+        Gizmos.DrawSphere(globalPosition + new Vector3(rb.xMin, rb.yMin), .2f);
+        Gizmos.DrawSphere(globalPosition + new Vector3(rb.xMin, rb.yMax), .2f);
+        Gizmos.DrawSphere(globalPosition + new Vector3(rb.xMax, rb.yMin), .2f);
+        Gizmos.DrawSphere(globalPosition + new Vector3(rb.xMax, rb.yMax), .2f);
 
         Gizmos.DrawLine(
-            position + new Vector3(rb.xMax, rb.yMin),
-            position + new Vector3(rb.xMin, rb.yMin));
+            globalPosition + new Vector3(rb.xMax, rb.yMin),
+            globalPosition + new Vector3(rb.xMin, rb.yMin));
         Gizmos.DrawLine(
-            position + new Vector3(rb.xMax, rb.yMax),
-            position + new Vector3(rb.xMin, rb.yMax));
+            globalPosition + new Vector3(rb.xMax, rb.yMax),
+            globalPosition + new Vector3(rb.xMin, rb.yMax));
         Gizmos.DrawLine(
-            position + new Vector3(rb.xMin, rb.yMin),
-            position + new Vector3(rb.xMin, rb.yMax));
+            globalPosition + new Vector3(rb.xMin, rb.yMin),
+            globalPosition + new Vector3(rb.xMin, rb.yMax));
         Gizmos.DrawLine(
-            position + new Vector3(rb.xMax, rb.yMax),
-            position + new Vector3(rb.xMax, rb.yMin));
+            globalPosition + new Vector3(rb.xMax, rb.yMax),
+            globalPosition + new Vector3(rb.xMax, rb.yMin));
 
         if (previousRoom)
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(position, previousRoom.position);
+            Gizmos.DrawLine(globalPosition, previousRoom.globalPosition);
         }
     }
 }

@@ -6,14 +6,14 @@ using UnityEngine.Tilemaps;
 namespace Assets.Scripts.Dungeon
 {
     [System.Serializable]
-    public class PleaveGiveMeGoodName
+    public class TileData
     {
         public string tilemapName = "";
         
         public List<Tile> tiles = new List<Tile>();
-        public List<Vector3Int> tilePositions = new List<Vector3Int>();
+        public List<Vector3Int> tileLocalPositions = new List<Vector3Int>();
 
-        public PleaveGiveMeGoodName(string _tilemapName)
+        public TileData(string _tilemapName)
         {
             tilemapName = _tilemapName;
         }
@@ -28,11 +28,11 @@ namespace Assets.Scripts.Dungeon
             {
                 if (drawOnThis)
                 {
-                    tilemap.SetTile(tilePositions[i], tiles[i]);
+                    tilemap.SetTile(tileLocalPositions[i], tiles[i]);
                 }
                 else
                 {
-                    tilemap.SetTile(tilePositions[i] + position, tiles[i]);
+                    tilemap.SetTile(tileLocalPositions[i] + position, tiles[i]);
                 }
             }
         }

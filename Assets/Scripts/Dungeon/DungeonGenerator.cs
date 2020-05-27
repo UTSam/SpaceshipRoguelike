@@ -103,9 +103,9 @@ public class DungeonGenerator : MonoBehaviour
             }
 
             // Find new position
-            Vector3Int newPosition = initialRoom.position + newRoomPosition;
+            Vector3Int newPosition = initialRoom.globalPosition + newRoomPosition;
             Room newRoom = Instantiate(roomToConnect, newPosition, Quaternion.identity, parentFolder);
-            newRoom.position = newPosition;
+            newRoom.globalPosition = newPosition;
 
             if (RoomInteractsWithPlacedRooms(newRoom, additionalDistance))
             {
@@ -120,9 +120,9 @@ public class DungeonGenerator : MonoBehaviour
             newRoom.SetDoorConnected(newRoomDoor);
             newRoom.DrawRoom();
 
-            Door initialDoor = door + initialRoom.position;
+            Door initialDoor = door + initialRoom.globalPosition;
             Corridor corridor = new Corridor();
-            corridor.DrawCorridor(initialDoor, newRoomDoor.position + newRoom.position);
+            corridor.DrawCorridor(initialDoor, newRoomDoor.position + newRoom.globalPosition);
 
             placedRooms.Add(newRoom);
             count++;
@@ -172,16 +172,16 @@ public class DungeonGenerator : MonoBehaviour
         {
             // Check if either room is completely left of the other
             if (
-                placedRoom.position.x + placedRoom.roomBorders.xMin - additionalDistance >= roomToCheck.position.x + roomToCheck.roomBorders.xMax ||
-                roomToCheck.position.x + roomToCheck.roomBorders.xMin - additionalDistance >= placedRoom.position.x + placedRoom.roomBorders.xMax)
+                placedRoom.globalPosition.x + placedRoom.roomBorders.xMin - additionalDistance >= roomToCheck.globalPosition.x + roomToCheck.roomBorders.xMax ||
+                roomToCheck.globalPosition.x + roomToCheck.roomBorders.xMin - additionalDistance >= placedRoom.globalPosition.x + placedRoom.roomBorders.xMax)
             {
                 continue;
             }
 
             // Check if either room is completely above the other
             if (
-                placedRoom.position.y + placedRoom.roomBorders.yMin - additionalDistance >= roomToCheck.position.y + roomToCheck.roomBorders.yMax ||
-                roomToCheck.position.y + roomToCheck.roomBorders.yMin - additionalDistance >= placedRoom.position.y + placedRoom.roomBorders.yMax)
+                placedRoom.globalPosition.y + placedRoom.roomBorders.yMin - additionalDistance >= roomToCheck.globalPosition.y + roomToCheck.roomBorders.yMax ||
+                roomToCheck.globalPosition.y + roomToCheck.roomBorders.yMin - additionalDistance >= placedRoom.globalPosition.y + placedRoom.roomBorders.yMax)
             {
                 continue;
             }

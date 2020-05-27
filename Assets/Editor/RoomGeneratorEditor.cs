@@ -176,7 +176,7 @@ public class RoomGeneratorEditor : Editor
                     tile = gen.doorRight;
                     break;
             }
-            gen.tilemap.SetTile((door.position + room.position), tile);
+            gen.tilemap.SetTile((door.position + room.globalPosition), tile);
         }
 
         DestroyImmediate(room.gameObject);

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Room">
+    <Position X="6" Y="1" Width="2.25" />
+    <Members>
+      <Method Name="OnDrawGizmos" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="Room.RoomBorders" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Dungeon\Room.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQEAABABAAQAgAAgAAABAABAEAJAAEACCEBQAoIgAI=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\Room.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="previousRoom" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="doors" />
+      <Field Name="tileDataArray" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Assets.Scripts.Rooms.Door">
+    <Position X="9.5" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAQAABAAAAAIgAAQAQAIAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\Door.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="direction" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Assets.Scripts.Dungeon.PleaveGiveMeGoodName">
+    <Position X="2.75" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IEAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAACAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\PleaveGiveMeGoodName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Assets.Scripts.Rooms.Direction">
+    <Position X="9.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Dungeon\Door.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

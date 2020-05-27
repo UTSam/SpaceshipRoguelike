@@ -23,9 +23,9 @@ public class RoomGenerator : MonoBehaviour
 
     public Room GetRoom()
     {
-        PleaveGiveMeGoodName tilesWalls = new PleaveGiveMeGoodName("Walls");
-        PleaveGiveMeGoodName tilesFloor = new PleaveGiveMeGoodName("Floors");
-        PleaveGiveMeGoodName tilesDoors = new PleaveGiveMeGoodName("Doors");
+        Assets.Scripts.Dungeon.TileData tilesWalls = new Assets.Scripts.Dungeon.TileData("Walls");
+        Assets.Scripts.Dungeon.TileData tilesFloor = new Assets.Scripts.Dungeon.TileData("Floors");
+        Assets.Scripts.Dungeon.TileData tilesDoors = new Assets.Scripts.Dungeon.TileData("Doors");
 
         List<Door> doors = new List<Door>();
 
@@ -71,21 +71,21 @@ public class RoomGenerator : MonoBehaviour
                     doors.Add(newDoor);
 
                     tilesDoors.tiles.Add(tile);
-                    tilesDoors.tilePositions.Add(tilePos);
+                    tilesDoors.tileLocalPositions.Add(tilePos);
                 }
 
                 // Check for door
                 if (tile.name.StartsWith("Floor"))
                 {
                     tilesFloor.tiles.Add(tile);
-                    tilesFloor.tilePositions.Add(tilePos);
+                    tilesFloor.tileLocalPositions.Add(tilePos);
                 }
 
                 // Check for door
                 if (tile.name.StartsWith("Wall"))
                 {
                     tilesWalls.tiles.Add(tile);
-                    tilesWalls.tilePositions.Add(tilePos);
+                    tilesWalls.tileLocalPositions.Add(tilePos);
                 }
 
                 // Update borders
@@ -122,11 +122,11 @@ public class RoomGenerator : MonoBehaviour
         int dx = -(rb.xMax + rb.xMin) / 2;
         int dy = -(rb.yMax + rb.yMin) / 2;
 
-        foreach (PleaveGiveMeGoodName pls in room.tileDataArray)
+        foreach (Assets.Scripts.Dungeon.TileData pls in room.tileDataArray)
         {
-            for (int i = 0; i < pls.tilePositions.Count; i++)
+            for (int i = 0; i < pls.tileLocalPositions.Count; i++)
             {
-                pls.tilePositions[i] += new Vector3Int(dx, dy, 0);
+                pls.tileLocalPositions[i] += new Vector3Int(dx, dy, 0);
             }
         }
 
