@@ -14,6 +14,11 @@ public class BasicMovingEnemy : MovingEntity
         steering = GetComponent<SteeringBehaviours>();
         this.mass = 1;
         this.target = Main.Instance.PlayerGO.GetComponent<Player>();
+
+        if (GetComponent<SFX_Player>())
+        {
+            GetComponent<SFX_Player>().PlayOnStart();
+        }
     }
 
     // Update is called once per frame

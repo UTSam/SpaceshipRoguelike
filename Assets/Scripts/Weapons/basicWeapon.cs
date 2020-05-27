@@ -46,7 +46,7 @@ public class BasicWeapon : MonoBehaviour
 
 
         ShootFunction();
-        
+
         // Reloads if the number of bullets is null or if the user ask for it, only if it is not already reloading or if its bullet number is max
         ReloadFunction();
 
@@ -78,7 +78,7 @@ public class BasicWeapon : MonoBehaviour
         }
     }
 
-    public void SetBulletSpeed(Transform transform,float min, float max)
+    public void SetBulletSpeed(Transform transform, float min, float max)
     // float min and max represents the limit angles that can be added to the original spaceship orientation
     {
         Vector2 direction = Vector2.zero;
