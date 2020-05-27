@@ -23,8 +23,8 @@
       <Field Name="previousRoom" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Field Name="doors" />
       <Field Name="tileDataArray" />
+      <Field Name="doors" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Assets.Scripts.Rooms.Door">
@@ -37,11 +37,11 @@
       <Field Name="direction" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="Assets.Scripts.Dungeon.PleaveGiveMeGoodName">
+  <Class Name="Assets.Scripts.Dungeon.TileData">
     <Position X="2.75" Y="2.75" Width="2" />
     <TypeIdentifier>
       <HashCode>IEAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAACAAIAA=</HashCode>
-      <FileName>Assets\Scripts\Dungeon\PleaveGiveMeGoodName.cs</FileName>
+      <FileName>Assets\Scripts\Dungeon\TileData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="Assets.Scripts.Rooms.Direction">
