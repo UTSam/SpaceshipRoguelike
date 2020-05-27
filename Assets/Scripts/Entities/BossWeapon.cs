@@ -7,6 +7,9 @@ public class BossWeapon : ShootingComponent
     [SerializeField]protected int NbShotToFire = 0; //Nb shot fire per suqeuence
     [SerializeField]public int DefaultNbShotToFire = 0; //Nb shot fire per suqeuence
     protected Vector3 aimingPosition; //Last position of the target
+
+    protected bool movingFront = false;
+    protected bool movingBack = false;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -28,14 +31,9 @@ public class BossWeapon : ShootingComponent
         NbShotToFire--;
     }
 
-    public void InitShotSequence()
+    public void InitFireSequence()
     {
         NbShotToFire = DefaultNbShotToFire;
         aimingPosition = Target.position;
-    }
-
-    public void InitShotSequence(int nbShot)
-    {
-        NbShotToFire = nbShot;
     }
 }
