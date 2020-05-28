@@ -17,7 +17,7 @@ public class ShootingComponent : MonoBehaviour
     protected void Start()
     {
         mask = LayerMask.GetMask("Wall");
-        this.Target = Main.Instance.PlayerGO.transform;
+        this.Target = GVC.Instance.PlayerGO.transform;
     }
 
     // Update is called once per frame

@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Rooms;
+﻿using Assets.Scripts.Dungeon;
+using Assets.Scripts.Rooms;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,10 +16,9 @@ public class Room : MonoBehaviour
 
     public RoomBorders roomBorders;
 
-    public Tile[] tiles;
-    public Vector3Int[] tilePositions;
+    public List<Assets.Scripts.Dungeon.TileData> tileDataArray = new List<Assets.Scripts.Dungeon.TileData>();
 
-    public Vector3Int position;
+    public Vector3Int globalPosition;
 
     [SerializeField]
     public List<Door> doors = new List<Door>();
@@ -30,18 +29,20 @@ public class Room : MonoBehaviour
     private List<BoxCollider2D> colliderList = new List<BoxCollider2D>();
 
     [SerializeField]
-    private GameObject[] possibleEnemies;
+    private List<GameObject> enemiesToSpawn;
 
-    [SerializeField]
-    private GameObject spongebob;
-    internal bool lastRoom = false;
     private bool playerEntered = false;
-    private bool openedDoor = false;
+    private bool openedDoors = false;
 
     private void Update()
     {
+        OpenRoomIfEnemiesAreDead();
+    }
+
+    private void OpenRoomIfEnemiesAreDead()
+    {
         if (!playerEntered) return;
-        if (openedDoor) return;
+        if (openedDoors) return;
 
         // TODO FIX: Performance heavy probably
         BasicMovingEnemy[] gameObjects = GetComponentsInChildren<BasicMovingEnemy>(true) as BasicMovingEnemy[];
@@ -49,41 +50,15 @@ public class Room : MonoBehaviour
         if (gameObjects.Length == 0)
         {
             this.OpenDoors();
-
-            if (lastRoom)
-                Instantiate(spongebob, this.transform);
-
-            openedDoor = true;
+            openedDoors = true;
         }
     }
 
-    public void DrawRoom()
+    public void DrawRoom(Tilemap drawOnThis = null)
     {
-        if (DungeonManager.tilemap_walls == null)
+        foreach(Assets.Scripts.Dungeon.TileData pls in tileDataArray)
         {
-            Debug.LogError("DungeonManager.tilemap_walls == null in drawroom");
-            return;
-        }
-
-        if (position == null)
-        {
-            Debug.LogError("position == null in drawroom");
-            return;
-        }
-
-        for (int i = 0; i < tiles.Length; i++)
-        {
-            if (tiles[i] == null) continue;
-
-            // TODO FIX this bullshit
-            if(tiles[i].name.StartsWith("floor") || tiles[i].name.StartsWith("Floor"))
-            {
-                DungeonManager.tilemap_floors.SetTile((tilePositions[i] + position), tiles[i]);
-            }
-            else
-            {
-                DungeonManager.tilemap_walls.SetTile((tilePositions[i] + position), tiles[i]);
-            }
+            pls.SpawnTiles(globalPosition, drawOnThis);
         }
     }
 
@@ -112,9 +87,7 @@ public class Room : MonoBehaviour
         foreach (Door door in doors)
         {
             if (door.direction == direction)
-            {
                 return door;
-            }
         }
 
         return null;
@@ -125,7 +98,7 @@ public class Room : MonoBehaviour
         foreach (Door door in doors)
         {
             if (door.connected)
-                door.Unlock(this.position);
+                door.Unlock(this.globalPosition);
         }
     }
 
@@ -134,11 +107,11 @@ public class Room : MonoBehaviour
         foreach (Door door in doors)
         {
             if (door.connected)
-                door.Lock(this.position);
+                door.Lock(this.globalPosition);
         }
     }
 
-    public void AddTriggers()
+    public void AddDoorTriggers()
     {
         if (isCleared) return;
 
@@ -183,7 +156,7 @@ public class Room : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if player collision
-        if (collision.gameObject.tag != "Player") return;
+        if (!collision.gameObject.CompareTag("Player")) return;
 
         playerEntered = true;
 
@@ -194,7 +167,6 @@ public class Room : MonoBehaviour
             this.SpawnEnemies();
             isCleared = true;
 
-            // TODO: Maybe remove colliders (There's no use for them anyways)
             foreach (BoxCollider2D bc in colliderList)
             {
                 Destroy(bc);
@@ -203,16 +175,58 @@ public class Room : MonoBehaviour
         }
     }
 
+    // Spawn the enemies over the whole room.
     public void SpawnEnemies()
     {
+        // In an extremely rare case this could freeze the game, so just making sure that it doesn't
         System.Random rnd = new System.Random();
-        foreach (GameObject enemy in possibleEnemies)
-        {
-            int offsetRandom = 3;
-            Vector3 postition = new Vector3(transform.position.x + rnd.Next(-offsetRandom, offsetRandom), transform.position.y + rnd.Next(-offsetRandom, offsetRandom), 0);
 
-            Instantiate(enemy, postition, Quaternion.identity, this.transform);
+        // Get the correct tiledate
+        Assets.Scripts.Dungeon.TileData tileData = null;
+        foreach (Assets.Scripts.Dungeon.TileData _tileData in tileDataArray)
+        {
+            if(_tileData.tilemapName == "Floors")
+            {
+                tileData = _tileData;
+            }
         }
+
+        List<Vector3Int> spawnablePositions = new List<Vector3Int>();
+        //Remove position we dont want the enemies to spawn in
+        for (int i = 0; i < tileData.tileLocalPositions.Count; i++)
+        {
+            Vector3Int tilePos = tileData.tileLocalPositions[i];
+            if (PositionIsNearDoor(tilePos))
+                continue;
+
+            spawnablePositions.Add(tilePos);
+        }
+
+        foreach (GameObject enemy in enemiesToSpawn)
+        {
+            int index = rnd.Next(spawnablePositions.Count);
+            Vector3Int spawnPosition = spawnablePositions[index] + globalPosition;
+
+            Instantiate(enemy, spawnPosition, Quaternion.identity, this.transform);
+        }
+    }
+
+    // Little yikes code, but kinda works.
+    // Get a random position in the room. Also make sure it isn't to close to a door
+    private bool PositionIsNearDoor(Vector3Int spawnPosition)
+    {
+        int maxDistance = 8;
+
+        foreach (Door door in doors)
+        {
+            float distance = Vector3.Distance(spawnPosition, door.position + this.globalPosition);
+            if (distance <= maxDistance)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void OnDrawGizmos()
@@ -220,28 +234,28 @@ public class Room : MonoBehaviour
         Gizmos.color = Color.red;
         RoomBorders rb = roomBorders;
 
-        Gizmos.DrawSphere(position + new Vector3(rb.xMin, rb.yMin), .2f);
-        Gizmos.DrawSphere(position + new Vector3(rb.xMin, rb.yMax), .2f);
-        Gizmos.DrawSphere(position + new Vector3(rb.xMax, rb.yMin), .2f);
-        Gizmos.DrawSphere(position + new Vector3(rb.xMax, rb.yMax), .2f);
+        Gizmos.DrawSphere(globalPosition + new Vector3(rb.xMin, rb.yMin), .2f);
+        Gizmos.DrawSphere(globalPosition + new Vector3(rb.xMin, rb.yMax), .2f);
+        Gizmos.DrawSphere(globalPosition + new Vector3(rb.xMax, rb.yMin), .2f);
+        Gizmos.DrawSphere(globalPosition + new Vector3(rb.xMax, rb.yMax), .2f);
 
         Gizmos.DrawLine(
-            position + new Vector3(rb.xMax, rb.yMin),
-            position + new Vector3(rb.xMin, rb.yMin));
+            globalPosition + new Vector3(rb.xMax, rb.yMin),
+            globalPosition + new Vector3(rb.xMin, rb.yMin));
         Gizmos.DrawLine(
-            position + new Vector3(rb.xMax, rb.yMax),
-            position + new Vector3(rb.xMin, rb.yMax));
+            globalPosition + new Vector3(rb.xMax, rb.yMax),
+            globalPosition + new Vector3(rb.xMin, rb.yMax));
         Gizmos.DrawLine(
-            position + new Vector3(rb.xMin, rb.yMin),
-            position + new Vector3(rb.xMin, rb.yMax));
+            globalPosition + new Vector3(rb.xMin, rb.yMin),
+            globalPosition + new Vector3(rb.xMin, rb.yMax));
         Gizmos.DrawLine(
-            position + new Vector3(rb.xMax, rb.yMax),
-            position + new Vector3(rb.xMax, rb.yMin));
+            globalPosition + new Vector3(rb.xMax, rb.yMax),
+            globalPosition + new Vector3(rb.xMax, rb.yMin));
 
         if (previousRoom)
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(position, previousRoom.position);
+            Gizmos.DrawLine(globalPosition, previousRoom.globalPosition);
         }
     }
 }

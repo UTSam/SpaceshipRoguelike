@@ -8,7 +8,7 @@ public class SpongeBob : BasicItem
 {
     public override void OnPickUp()
     {
-        GlobalValues.Timer = Main.Instance.StopWatchGO.GetComponentInChildren<Text>().text;
+        GlobalValues.Timer = GVC.Instance.StopWatchGO.GetComponentInChildren<Text>().text;
         SceneManager.LoadScene("VictoryScreen");
     }
 }

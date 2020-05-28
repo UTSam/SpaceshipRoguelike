@@ -8,18 +8,22 @@ using UnityEngine.Tilemaps;
 [CustomEditor(typeof(RoomGenerator))]
 public class RoomGeneratorEditor : Editor
 {
-    RoomGenerator gen;
 
     GUIStyle Header;
     GUIStyle SubHeader;
     GUIStyle SubSubHeader;
     GUIStyle error;
 
+    RoomGenerator gen;
+
+    void OnEnable()
+    {
+        gen = GameObject.Find("RoomGenerator").GetComponent<RoomGenerator>();
+    }
+
     public override void OnInspectorGUI()
     {
         InitializeCss();
-
-        gen = (RoomGenerator)target;
 
         GUILayout.Space(3f);
         GUILayout.Label("CUSTOM ROOM GENERATION", Header);
@@ -27,7 +31,7 @@ public class RoomGeneratorEditor : Editor
 
         if (GUILayout.Button("Clear drawing"))
         {
-            DungeonManager.ClearAllTiles();
+            gen.tilemap.ClearAllTiles();
         }
 
         GUILayout.Space(10f);
@@ -56,24 +60,32 @@ public class RoomGeneratorEditor : Editor
 
     private void InitializeCss()
     {
-        Header = new GUIStyle();
-        Header.fontSize = 15;
-        Header.fontStyle = FontStyle.Bold;
-        Header.alignment = TextAnchor.MiddleCenter;
+        Header = new GUIStyle
+        {
+            fontSize = 15,
+            fontStyle = FontStyle.Bold,
+            alignment = TextAnchor.MiddleCenter
+        };
 
-        SubHeader = new GUIStyle();
-        SubHeader.fontSize = 15;
+        SubHeader = new GUIStyle
+        {
+            fontSize = 15
+        };
 
-        SubSubHeader = new GUIStyle();
-        SubSubHeader.fontSize = 14;
+        SubSubHeader = new GUIStyle
+        {
+            fontSize = 14
+        };
 
-        error = new GUIStyle();
-        error.alignment = TextAnchor.UpperRight;
+        error = new GUIStyle
+        {
+            alignment = TextAnchor.UpperRight
+        };
         error.normal.textColor = Color.red;
     }
 
     // Get all the tiles from the current tilemap and save them into a new file.
-    private void saveTilemapAsAsset(string filename, bool showDialog = true)
+    private void SaveTilemapAsAsset(string filename, bool showDialog = true)
     {
         GameObject thingy = gen.GetGameObject();
         thingy.name = filename;
@@ -126,7 +138,7 @@ public class RoomGeneratorEditor : Editor
         {
             if (GUILayout.Button("Generate new room prefab"))
             {
-                saveTilemapAsAsset(newRoomName);
+                SaveTilemapAsAsset(newRoomName);
             }
         }
         else
@@ -139,31 +151,32 @@ public class RoomGeneratorEditor : Editor
 
     private void DrawGameObjectToTilemap(Room room)
     {
-        DungeonManager.ClearAllTiles();
+        gen.tilemap.ClearAllTiles();
 
         room = (Room)Instantiate(room, new Vector3(0, 0, 0), Quaternion.identity) as Room;
         room.name = room.name.Remove(room.name.Length - 7); // nice and hardcoded substring for '(clone)'
-        room.DrawRoom();
+        room.DrawRoom(gen.tilemap);
 
+        // Since the doors tiles are removed upon saving we need to extract it and display it again.
         foreach (Door door in room.doors)
         {
             Tile tile = null;
             switch (door.direction)
             {
                 case Direction.Up:
-                    tile = gen.doorU;
+                    tile = gen.doorUp;
                     break;
                 case Direction.Down:
-                    tile = gen.doorD;
+                    tile = gen.doorDown;
                     break;
                 case Direction.Left:
                     tile = gen.doorLeft;
                     break;
                 case Direction.Right:
-                    tile = gen.doorR;
+                    tile = gen.doorRight;
                     break;
             }
-            DungeonManager.tilemap_walls.SetTile((door.position + room.position), tile);
+            gen.tilemap.SetTile((door.position + room.globalPosition), tile);
         }
 
         DestroyImmediate(room.gameObject);
@@ -187,7 +200,7 @@ public class RoomGeneratorEditor : Editor
         {
             if (GUILayout.Button("Save to Assets folder"))
             {
-                saveTilemapAsAsset(roomObject.name);
+                SaveTilemapAsAsset(roomObject.name);
             }
         }
         else
@@ -207,38 +220,17 @@ public class RoomGeneratorEditor : Editor
 
         if (GUILayout.Button("Update all rooms"))
         {
-            string path = "Assets/Resources/Rooms";
-            string pathWithoutAssets = "Rooms";
-            DirectoryInfo dirInfo = new DirectoryInfo(path);
-            FileInfo[] fileInf = dirInfo.GetFiles("*.prefab");
+            string resourceFolder = "Rooms";
+            UnityEngine.Object[] rooms = Resources.LoadAll(resourceFolder, typeof(Room));
 
             //loop through directory loading the game object and checking if it has the component you want
-            foreach (FileInfo fileInfo in fileInf)
+            foreach (Room room in rooms)
             {
-                string fullPath = fileInfo.FullName.Replace(@"\", "/");
-                GameObject prefab = Resources.Load<GameObject>(pathWithoutAssets + "/" + RemoveFileExtension(fileInfo.Name));
-                if (prefab == null) continue;
-
-                Room room = prefab.GetComponent<Room>();
-                if (room != null)
-                {
-                    DrawGameObjectToTilemap(room);
-                    saveTilemapAsAsset(room.name, true);
-                }
+                DrawGameObjectToTilemap(room);
+                SaveTilemapAsAsset(room.name, true);
             }
 
-            DungeonManager.ClearAllTiles();
+            gen.tilemap.ClearAllTiles();
         }
-    }
-
-    private string RemoveFileExtension(string fileName)
-    {
-        string filenameWithoutExt = "";
-        int fileExtPos = fileName.LastIndexOf(".", StringComparison.Ordinal);
-
-        if (fileExtPos >= 0)
-            filenameWithoutExt = fileName.Substring(0, fileExtPos);
-
-        return filenameWithoutExt;
     }
 }

@@ -35,10 +35,9 @@ public class HealthComponent : MonoBehaviour
         {
             if (Random.value < 0.3f)
             {
-                GameObject pack = Instantiate(Main.Instance.HealthPackPrefab) as GameObject;
+                GameObject pack = Instantiate(GVC.Instance.HealthPackPrefab) as GameObject;
                 pack.transform.position = transform.position;
             }
-
             Destroy(this.gameObject);
         }
     }
@@ -74,6 +73,17 @@ public class HealthComponent : MonoBehaviour
                 else
                     damageToLife = 0f;
 
+        if (damageToLife > 0f)
+        {
+            if (elem == ElementType.Fire)
+            {
+                Health -= damageToLife * (1f + FireWeakeness);
+                //Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
+            }
+            else
+            {
+                Health -= damageToLife;
+                //Debug.Log("Damage to life : " + damageToLife);
             }
 
             if (damageToLife > 0f)
@@ -100,6 +110,12 @@ public class HealthComponent : MonoBehaviour
                 StartCoroutine(TurnInvincible());
             UpdateBar();
         }
+        if (GetComponent<Animate>() && GetComponent<Player>() && GetComponent<Player>().GetComponent<Animate>())
+        {
+            GetComponent<Animate>().DoAnimationOnHit();
+        }
+
+        UpdateBar();
     }
 
     public virtual void Damage(float damageValue)
@@ -131,6 +147,13 @@ public class HealthComponent : MonoBehaviour
                 StartCoroutine(TurnInvincible());
             UpdateBar();
         }
+
+        if (GetComponent<Animate>() && GetComponent<Player>() && GetComponent<Player>().GetComponent<Animate>())
+        {
+            GetComponent<Animate>().DoAnimationOnHit();
+        }
+
+        UpdateBar();
     }
 
     public virtual bool Heal(int healValue)
