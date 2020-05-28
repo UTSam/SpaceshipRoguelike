@@ -6,6 +6,8 @@ public class LaserProjectile : MonoBehaviour
 {
     public LineRenderer lr;
 
+    public float laserLength = 10;
+
     public float DamageValue;
     public ElementType element = ElementType.None;
 
@@ -21,7 +23,7 @@ public class LaserProjectile : MonoBehaviour
         lr.SetPosition(0, transform.position);
         RaycastHit2D hit = Physics2D.Linecast(transform.position, transform.position - transform.up * 10);
 
-        lr.SetPosition(1, transform.position - transform.up * 10);
+        lr.SetPosition(1, transform.position - transform.up * laserLength);
 
         if (hit.collider != null)
         {

@@ -53,5 +53,6 @@ public class LaserGunWeapon : BasicWeapon
     {
         bullet.GetComponent<LaserProjectile>().DamageValue = bulletDamages;
         bullet.GetComponent<LineRenderer>().widthMultiplier = bulletSize;
+        bullet.GetComponent<LaserProjectile>().laserLength = bulletLifeSpan;
     }
 }
