@@ -1214,7 +1214,7 @@ MonoBehaviour:
     - {x: -8, y: -11, z: 0}
     - {x: 5, y: 10, z: 0}
     - {x: 15, y: 5, z: 0}
-  position: {x: 0, y: 0, z: 0}
+  globalPosition: {x: 0, y: 0, z: 0}
   doors:
   - connected: 0
     position: {x: -15, y: -5, z: 0}
@@ -1230,4 +1230,7 @@ MonoBehaviour:
     direction: 2
   previousRoom: {fileID: 0}
   isCleared: 0
-  enemiesToSpawn: []
+  enemiesToSpawn:
+  - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
+  - {fileID: 3830163017004307943, guid: 8a9d9d92fa4d54d418eb480308c63966, type: 3}
+  - {fileID: 3830163017004307943, guid: 8a9d9d92fa4d54d418eb480308c63966, type: 3}
