@@ -31,7 +31,7 @@ public class weaponUIScript : MonoBehaviour
     {
         maxBulletNumber = weapon.magazineSize; // At start the currentBulletNumberisMaxed /!\ Needs to be updated with modifiers
 
-        currentBulletNumber.text = weapon.currentBulletNumber.ToString();
+        currentBulletNumber.text = ((int)weapon.currentBulletNumber).ToString();
         bulletsBar.fillAmount = (float)weapon.currentBulletNumber / maxBulletNumber;
 
         reloadBar.fillAmount = (float)weapon.reloadCooldown / (float)weapon.reloadTime;

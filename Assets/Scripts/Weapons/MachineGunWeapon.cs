@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RifleWeapon : BasicWeapon
+public class MachineGunWeapon : BasicWeapon
 {
-    // Start is called before the first frame update
     public override void Start()
     {
         // Bullet attributes
-        bulletSize = 1f;
-        bulletSpeed = 15f;
-        bulletDamages = 50f;
+        bulletSize = 0.5f;
+        bulletSpeed = 25f;
+        bulletDamages = 25f;
         bulletLifeSpan = 3f;
 
         // Weapon attribute
-        weaponName = "Pistol";
-        magazineSize = 15;
-        reloadTime = 2; // in seconds
-        fireRate = 2f;
-        maxModifierNumber = 2;
+        weaponName = "Machine Gun";
+        magazineSize = 50;
+        reloadTime = 8; // in seconds
+        fireRate = 5f;
+        maxModifierNumber = 1;
 
         base.Start();
     }
@@ -41,7 +40,6 @@ public class RifleWeapon : BasicWeapon
             bulletGO.GetComponent<MovingEntity>().speed = (bulletDirection.position - bulletSpawnPoint.position).normalized * bulletGO.GetComponent<BasicProjectile>().InitialSpeed;*/
 
             GameObject projectile = Instantiate(bullet) as GameObject;
-
             projectile.transform.position = bulletSpawnPoint.position;
             projectile.GetComponent<MovingEntity>().speed = (bulletDirection.position - bulletSpawnPoint.position).normalized * projectile.GetComponent<BasicProjectile>().InitialSpeed;
 

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerBasicProjectile : BasicProjectile
 {
+
+    public enum EffectsList {explosive, penetrate, bounce, multiply };
+
     // Start is called before the first frame update
     void Start()
     {

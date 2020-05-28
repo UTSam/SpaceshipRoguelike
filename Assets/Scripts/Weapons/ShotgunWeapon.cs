@@ -10,15 +10,17 @@ public class ShotgunWeapon : BasicWeapon
     public override void Start()
     {
         // Bullet attributes
-        bulletSize = 1f;
+        bulletSize = 0.5f;
         bulletSpeed = 13f;
         bulletDamages = 50f;
+        bulletLifeSpan = 0.5f;
+
         // Weapon attribute
         weaponName = "Shotgun";
         magazineSize = 5;
         reloadTime = 3; // in seconds
         fireRate = 0.8f;
-        maxModifierNumber = 3;
+        maxModifierNumber = 1;
         bulletsPerShot = 10;
 
         base.Start();
@@ -29,7 +31,6 @@ public class ShotgunWeapon : BasicWeapon
     void Update()
     {
         base.Update();
-        setLifeSpan(1.0f);
     }
 
     public override void ShootFunction()
@@ -58,6 +59,8 @@ public class ShotgunWeapon : BasicWeapon
 
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 projectile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+                projectile.SetActive(true);
             }
             
         }

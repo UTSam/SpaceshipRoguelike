@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3045033326104773090}
   - component: {fileID: 9078981282956975825}
   m_Layer: 0
-  m_Name: riffle
+  m_Name: rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   bulletSize: 0
   bulletSpeed: 0
   bulletDamages: 0
+  bulletLifeSpan: 0
   effectsList: 
   weaponName: 
   magazineSize: 0
@@ -160,6 +161,7 @@ MonoBehaviour:
   maxModifierNumber: 0
   bullet: {fileID: 5397038310933703808, guid: c088ced9cc5678c44b063816286d420b, type: 3}
   bulletSpawnPoint: {fileID: 1379018518}
+  bulletDirection: {fileID: 0}
   reloadCooldown: 0
   shotCooldown: 0
 --- !u!1 &8421006861588276545

@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class BasicWeapon : MonoBehaviour
 {
-    public enum EffectsList { fire, poison, electric, explosive, penetrate, bounce, multiply };
+    public enum EffectsList { explosive, penetrate, bounce, multiply };
+    public enum ElementType { Fire, Elec, None };
 
     // Bullet attributes
     public float bulletSize;
     public float bulletSpeed;
     public float bulletDamages;
+    public float bulletLifeSpan;
     public List<EffectsList> effectsList;
 
     // Weapon attribute
     public string weaponName;
     public int magazineSize;
-    public int currentBulletNumber;
+    public float currentBulletNumber;
     public int reloadTime; // in seconds
     public float fireRate;
     public int maxModifierNumber;
@@ -36,17 +38,15 @@ public class BasicWeapon : MonoBehaviour
     public virtual void Start()
     {
         currentBulletNumber = magazineSize;
-        //transform.localPosition = transform.parent.position;
+
+        SetBulletValues();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        //OrientWeapon();
-
-
         ShootFunction();
-        
+
         // Reloads if the number of bullets is null or if the user ask for it, only if it is not already reloading or if its bullet number is max
         ReloadFunction();
 
@@ -87,8 +87,12 @@ public class BasicWeapon : MonoBehaviour
         bullet.GetComponent<MovingEntity>().speed = direction.normalized * bulletSpeed;
     }
 
-    public void SetBullet()
+    public virtual void SetBulletValues()
     {
+        bullet.GetComponent<BasicProjectile>().LifeSpan = bulletLifeSpan;
+        bullet.GetComponent<Transform>().localScale = new Vector3(bulletSize, bulletSize, bulletSize);
+        bullet.GetComponent<BasicProjectile>().DamageValue = bulletDamages;
+        bullet.GetComponent<BasicProjectile>().InitialSpeed = bulletSpeed;
     }
 
     protected Vector2 AddNoiseOnAngle(float min, float max)
@@ -104,7 +108,7 @@ public class BasicWeapon : MonoBehaviour
         return noise;
     }
 
-    protected void setLifeSpan(float newValue)
+    protected void SetLifeSpan(float newValue)
     {
         bullet.GetComponent<BasicProjectile>().LifeSpan = newValue;
     }
