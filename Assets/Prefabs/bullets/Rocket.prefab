@@ -33,8 +33,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
+<<<<<<< HEAD
   m_Children:
   - {fileID: 2941580469841166844}
+=======
+  m_Children: []
+>>>>>>> b64570ce3512baa2227cca368113fbf1930f2ed1
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -202,7 +206,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b3b810a5147f3c94e8319f90405a3117, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -287,6 +291,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+<<<<<<< HEAD
 --- !u!1 &8424118982998045492
 GameObject:
   m_ObjectHideFlags: 0
@@ -5041,3 +5046,5 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+=======
+>>>>>>> b64570ce3512baa2227cca368113fbf1930f2ed1

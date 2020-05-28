@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15578b0d0794eb4e89de60a55a51ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullitOnHitAnimation: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+  bullitOnHitAnimation: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
   specialAnimation: {fileID: 0}
 --- !u!114 &-878131997235163737
 MonoBehaviour:
