@@ -16,4 +16,18 @@ public class KamiKaze : BasicMovingEnemy
             Destroy(this.gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        DeathAnimation();
+        Debug.Log("animation death");
+    }
+
+    private void DeathAnimation()
+    {
+        if (GetComponent<Animate>())
+        {
+            GetComponent<Animate>().DoAnimationSpecial();
+        }
+    }
 }

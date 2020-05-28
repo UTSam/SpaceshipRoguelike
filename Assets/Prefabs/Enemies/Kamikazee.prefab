@@ -412,8 +412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15578b0d0794eb4e89de60a55a51ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullitOnHitAnimation: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
-  specialAnimation: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
+  bullitOnHitAnimation: {fileID: 9168066668034074587, guid: 0e68a0a6fead0d947b0d4c63da6fcb09,
+    type: 3}
+  specialAnimation: {fileID: 9168066668034074587, guid: 0e68a0a6fead0d947b0d4c63da6fcb09,
+    type: 3}
 --- !u!114 &8799760645155752279
 MonoBehaviour:
   m_ObjectHideFlags: 0

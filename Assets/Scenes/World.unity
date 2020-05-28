@@ -6903,6 +6903,11 @@ PrefabInstance:
       propertyPath: aimType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3755602773928152001, guid: 57ce2109cbe833b40ba7f7295bd8670b,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 10000000
+      objectReference: {fileID: 0}
     - target: {fileID: 3916742341280939556, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}
       propertyPath: weaponList.Array.size
