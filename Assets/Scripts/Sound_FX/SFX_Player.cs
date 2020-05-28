@@ -10,6 +10,8 @@ public class SFX_Player : MonoBehaviour
     [SerializeField] private AudioSource _onDeath;
     [SerializeField] private AudioSource _onStart;
 
+
+
     public void PlaySpecialAnimationAudio()
     {
         if (_specialAnimationAudio != null) this._specialAnimationAudio.Play();
@@ -33,5 +35,15 @@ public class SFX_Player : MonoBehaviour
     public void PlayOnStart()
     {
         if (_onStart != null) this._onStart.Play();
+    }
+
+    public void OnDeathSound(AudioSource onDeathSound)
+    {
+        _onDeath = onDeathSound;
+    }
+
+    public AudioSource getDeathSound()
+    {
+        return _onDeath;
     }
 }
