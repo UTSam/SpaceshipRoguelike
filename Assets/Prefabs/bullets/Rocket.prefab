@@ -33,12 +33,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1} 
-  m_LocalScale: {x: 4, y: 4, z: 1}
->>>>>>> 8c8bc46bec3c77c6a3d92bf4737e2b380a9ad067
   m_Children:
   - {fileID: 2941580469841166844}
-  m_Children: []
->>>>>>> b64570ce3512baa2227cca368113fbf1930f2ed1
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5045,4 +5041,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
->>>>>>> b64570ce3512baa2227cca368113fbf1930f2ed1
