@@ -21,7 +21,7 @@ public class PlayerBasicProjectile : BasicProjectile
 
     public override void OnHit(Collider2D other)
     {
-        if (!other.GetComponentInParent<Player>() && !other.GetComponentInParent<BasicProjectile>())
+        if (!other.GetComponentInParent<Player>() && !other.GetComponentInParent<BasicProjectile>() && !other.GetComponent<BasicItem>())
         {
             if (other.GetComponentInParent<HealthComponent>())
             {

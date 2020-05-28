@@ -40,7 +40,7 @@ public class BasicProjectile : MovingEntity
 
     public virtual void OnHit(Collider2D other)
     {
-        if (other.GetComponentInParent<Player>())
+        if (other.GetComponentInParent<Player>() && !other.GetComponentInParent<HealthComponent>().isInvincible)
         {
             other.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
             MyAnimation();
