@@ -15,11 +15,13 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 jacco = playerTransform.position;
+        if (playerTransform == null) return;
+
+        Vector3 playerPosition = playerTransform.position;
         Vector3 cursorPosition = Input.mousePosition;
         cursorPosition = Camera.main.ScreenToWorldPoint(cursorPosition);
 
-        Vector3 middlePoint = Vector3.Lerp(jacco, cursorPosition, 0.3f);
+        Vector3 middlePoint = Vector3.Lerp(playerPosition, cursorPosition, 0.3f);
         middlePoint.z = -60;
 
         transform.position = middlePoint;
