@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2749131726962229641
+--- !u!1 &5639568974074816402
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5887661980405629439}
-  - component: {fileID: 1302870971166599868}
+  - component: {fileID: 7548400909168732769}
+  - component: {fileID: 7863153876086228300}
   m_Layer: 0
-  m_Name: start
+  m_Name: sample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5887661980405629439
+--- !u!4 &7548400909168732769
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2749131726962229641}
+  m_GameObject: {fileID: 5639568974074816402}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,13 +31,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1302870971166599868
+--- !u!114 &7863153876086228300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2749131726962229641}
+  m_GameObject: {fileID: 5639568974074816402}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c44d06b326e93864da87df84382e583d, type: 3}
@@ -238,6 +238,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
+    - {fileID: 11400000, guid: 5c2a26e8cac811a40943fdfb15cd73fa, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
@@ -262,6 +263,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
+    - {fileID: 11400000, guid: 5c2a26e8cac811a40943fdfb15cd73fa, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
@@ -461,6 +463,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
+    - {fileID: 11400000, guid: 5c2a26e8cac811a40943fdfb15cd73fa, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
@@ -470,10 +473,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
-    - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
-    - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
-    - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
-    - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
+    - {fileID: 11400000, guid: 5c2a26e8cac811a40943fdfb15cd73fa, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
     - {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
@@ -848,7 +848,7 @@ MonoBehaviour:
     - {x: -1, y: -8, z: 0}
     - {x: -1, y: 8, z: 0}
     - {x: 11, y: 0, z: 0}
-  position: {x: 0, y: 0, z: 0}
+  globalPosition: {x: 0, y: 0, z: 0}
   doors:
   - connected: 0
     position: {x: -11, y: 0, z: 0}
@@ -866,3 +866,6 @@ MonoBehaviour:
   isCleared: 0
   enemiesToSpawn:
   - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
+  - {fileID: 2243354708607630551, guid: e2359ea1ad7ae2941b31cd6164eef40d, type: 3}
+  - {fileID: 7783866754064367463, guid: 8630312d311857947be45af15ce09fa9, type: 3}
+  - {fileID: 7783866754064367463, guid: 8630312d311857947be45af15ce09fa9, type: 3}
