@@ -11,9 +11,15 @@ public class HealthUIHandler : MonoBehaviour
     public Image dashBar;
     public Image ultiBar;
 
+    private void Start()
+    {
+        spaceship = GVC.Instance.PlayerGO;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (spaceship == null) return;
 
         healthBar.fillAmount = spaceship.GetComponent<HealthComponent>().Health / ( spaceship.GetComponent<HealthComponent>().MaxHealth * 2 );
         shieldBar.fillAmount = spaceship.GetComponent<HealthComponent>().Shield / ( spaceship.GetComponent<HealthComponent>().MaxShield * 2 );

@@ -33,7 +33,7 @@ public class HealthComponent : MonoBehaviour
         {
             if (Random.value < 0.3f)
             {
-                GameObject pack = Instantiate(Main.Instance.HealthPackPrefab) as GameObject;
+                GameObject pack = Instantiate(GVC.Instance.HealthPackPrefab) as GameObject;
                 pack.transform.position = transform.position;
             }
             Destroy(this.gameObject);
