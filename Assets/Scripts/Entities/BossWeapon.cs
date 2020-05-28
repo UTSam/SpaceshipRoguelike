@@ -7,7 +7,8 @@ public class BossWeapon : ShootingComponent
     [SerializeField]protected int NbShotToFire = 0; //Nb shot fire per suqeuence
     [SerializeField]public int DefaultNbShotToFire = 0; //Nb shot fire per suqeuence
     protected Vector3 aimingPosition; //Last position of the target
-    private Boss boss;
+    protected Boss boss;
+    public bool IsAiming;
 
     // Start is called before the first frame update
     protected void Start()
@@ -23,6 +24,18 @@ public class BossWeapon : ShootingComponent
             FireSequence();
         }
         lastShotTimer += Time.deltaTime;
+        if (IsAiming || NbShotToFire <=0)
+        {
+            Vector3 lookPos = Target.position - Muzzle.position;
+            float canonAngle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(canonAngle - 90, Vector3.forward);
+        }
+    }
+
+    public virtual void StopShooting()
+    {
+        NbShotToFire = 0;
+        StartCoroutine(MoveIn());
     }
 
     protected virtual void FireSequence()
@@ -48,7 +61,7 @@ public class BossWeapon : ShootingComponent
         aimingPosition = Target.position;
     }
 
-    protected IEnumerator MoveIn()
+    public IEnumerator MoveIn()
     {
         while (transform.localPosition.y < 0.0f)
         {

@@ -69,6 +69,7 @@ public class Boss : MonoBehaviour
 
     private IEnumerator InitNextPhaseRoutine()
      {
+        lastShotWeapon.StopShooting();
         IsFiring = false;
         StartCoroutine(ShieldDropCoroutine(2));
         GetComponent<BossHealthComponent>().RestoreShield(int.MaxValue);
@@ -76,7 +77,7 @@ public class Boss : MonoBehaviour
         IsFiring = true;
     }
 
-        private void LootShield()
+    private void LootShield()
     {
         GameObject shield = Instantiate(ShieldPrefab) as GameObject;
         shield.transform.position = weaponList[Random.Range(0, weaponList.Count)].transform.position;
