@@ -6,11 +6,13 @@ using TileData = Assets.Scripts.Dungeon.TileData;
 public class Minimap : MonoBehaviour
 {
     public GameObject dungeon;
-    private Tilemap tilemap;
+    public Tilemap tilemap;
 
     private Transform player;
     private Texture2D texture;
     public Texture2D playerIndicator;
+
+    private Texture2D test_texture;
 
     private int dx, dy;
 
@@ -27,6 +29,19 @@ public class Minimap : MonoBehaviour
     [SerializeField]
     [Range(1, 30)]
     private float playerIndicatorSize = 10;
+
+    void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    void Start()
+    {
+        // Create test texture for GUI
+        test_texture = new Texture2D(1, 1);
+        test_texture.SetPixel(0, 0, Color.blue);
+    }
+
 
     public void Generate()
     {
@@ -147,21 +162,6 @@ public class Minimap : MonoBehaviour
 
         texture.Apply();
     }
-
-    private Texture2D test_texture;
-
-    void Awake()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
-    void Start()
-    {
-        // Create test texture for GUI
-        test_texture = new Texture2D(1, 1);
-        test_texture.SetPixel(0, 0, Color.blue);
-    }
-
     void OnGUI()
     {
         if (!texture)
