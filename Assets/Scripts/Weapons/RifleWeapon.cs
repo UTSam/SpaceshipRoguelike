@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class RifleWeapon : BasicWeapon
 {
-
-
-
     // Start is called before the first frame update
     public override void Start()
     {
@@ -14,13 +11,14 @@ public class RifleWeapon : BasicWeapon
         bulletSize = 1f;
         bulletSpeed = 15f;
         bulletDamages = 50f;
+        bulletLifeSpan = 3f;
 
         // Weapon attribute
         weaponName = "Pistol";
         magazineSize = 15;
         reloadTime = 2; // in seconds
         fireRate = 2f;
-        maxModifierNumber = 3;
+        maxModifierNumber = 2;
 
         base.Start();
     }
@@ -30,7 +28,6 @@ public class RifleWeapon : BasicWeapon
     void Update()
     {
         base.Update();
-        setLifeSpan(3.0f);
     }
 
     public override void ShootFunction()
@@ -44,6 +41,7 @@ public class RifleWeapon : BasicWeapon
             bulletGO.GetComponent<MovingEntity>().speed = (bulletDirection.position - bulletSpawnPoint.position).normalized * bulletGO.GetComponent<BasicProjectile>().InitialSpeed;*/
 
             GameObject projectile = Instantiate(bullet) as GameObject;
+
             projectile.transform.position = bulletSpawnPoint.position;
             projectile.GetComponent<MovingEntity>().speed = (bulletDirection.position - bulletSpawnPoint.position).normalized * projectile.GetComponent<BasicProjectile>().InitialSpeed;
 
@@ -51,6 +49,8 @@ public class RifleWeapon : BasicWeapon
             Vector3 lookPos = bulletDirection.position - bulletSpawnPoint.position;
             float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
             projectile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            projectile.SetActive(true);
         }
     }
 }

@@ -31,8 +31,11 @@ public class BasicProjectile : MovingEntity
     // Update is called once per frame
     protected void Update()
     {
+
         UpdatePosition();
         LifeSpan -= Time.deltaTime;
+
+        
 
         if (LifeSpan <= 0.0f)
         {
@@ -42,7 +45,7 @@ public class BasicProjectile : MovingEntity
 
     public virtual void OnHit(Collider2D other)
     {
-        if (other.GetComponentInParent<Player>())
+        if (other.GetComponentInParent<Player>() && !other.GetComponentInParent<HealthComponent>().isInvincible)
         {
             other.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
             MyAnimation();

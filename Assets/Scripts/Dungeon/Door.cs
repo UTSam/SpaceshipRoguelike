@@ -104,24 +104,24 @@ namespace Assets.Scripts.Rooms
 
             if (locked)
             {
-                wall = DungeonManager.tile_Door_Locked;
+                wall = GVC.Instance.tiles.doorLocked;
             }
             else
             {
-                door = DungeonManager.tile_Door_Unlocked;
+                door = GVC.Instance.tiles.doorUnlocked;
             }
 
             Vector3Int dir = RotateBasedOnDirection();
 
             // Add tiles on tilemap_doors
-            DungeonManager.tilemap_doors.SetTile(roomPos + position, door);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position + dir, door);
-            DungeonManager.tilemap_doors.SetTile(roomPos + position - dir, door);
+            GVC.Instance.tilemap.doors.SetTile(roomPos + position, door);
+            GVC.Instance.tilemap.doors.SetTile(roomPos + position + dir, door);
+            GVC.Instance.tilemap.doors.SetTile(roomPos + position - dir, door);
 
             // Remove tiles on tilemap_walls
-            DungeonManager.tilemap_walls.SetTile(roomPos + position, wall);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position + dir, wall);
-            DungeonManager.tilemap_walls.SetTile(roomPos + position - dir, wall);
+            GVC.Instance.tilemap.walls.SetTile(roomPos + position, wall);
+            GVC.Instance.tilemap.walls.SetTile(roomPos + position + dir, wall);
+            GVC.Instance.tilemap.walls.SetTile(roomPos + position - dir, wall);
         }
     }
 }

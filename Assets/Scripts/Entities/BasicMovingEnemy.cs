@@ -13,7 +13,8 @@ public class BasicMovingEnemy : MovingEntity
         base.Start();
         steering = GetComponent<SteeringBehaviours>();
         this.mass = 1;
-        this.target = Main.Instance.PlayerGO.GetComponent<Player>();
+        
+        this.target = GVC.Instance.PlayerGO.GetComponent<Player>();
 
         if (GetComponent<SFX_Player>())
         {

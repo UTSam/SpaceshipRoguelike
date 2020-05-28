@@ -7,4 +7,5 @@ public static class GlobalValues
 {
     public static int Seed = 0;
     public static string Timer;
+    public static int Golds = 0;
 }

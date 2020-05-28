@@ -5,9 +5,9 @@ using UnityEngine;
 public class HealthPickUp : BasicItem
 {
     public int HealValue = 50;
-    public override void OnPickUp(GameObject playerGO)
+    public override void OnPickUp()
     {
-        HealthComponent health = playerGO.GetComponent<HealthComponent>();
+        HealthComponent health = Main.Instance.PlayerGO.GetComponent<HealthComponent>();
         if (health.Heal(HealValue))
         {
             if (GetComponent<Animate>())

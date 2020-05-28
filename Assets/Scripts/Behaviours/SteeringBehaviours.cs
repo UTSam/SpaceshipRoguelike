@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(BasicMovingEnemy))]
+//[RequireComponent(typeof(BasicMovingEnemy))]
 
 public class SteeringBehaviours : MonoBehaviour
 {

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerBasicProjectile : BasicProjectile
 {
+
+    public enum EffectsList {explosive, penetrate, bounce, multiply };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +21,7 @@ public class PlayerBasicProjectile : BasicProjectile
 
     public override void OnHit(Collider2D other)
     {
-        if (!other.GetComponentInParent<Player>() && !other.GetComponentInParent<BasicProjectile>())
+        if (!other.GetComponentInParent<Player>() && !other.GetComponentInParent<BasicProjectile>() && !other.GetComponent<BasicItem>())
         {
             if (other.GetComponentInParent<HealthComponent>())
             {

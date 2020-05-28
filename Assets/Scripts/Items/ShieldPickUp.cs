@@ -5,9 +5,9 @@ using UnityEngine;
 public class ShieldPickUp : BasicItem
 {
     public int RestoreValue = 50;
-    public override void OnPickUp(GameObject playerGO)
+    public override void OnPickUp()
     {
-        HealthComponent health = playerGO.GetComponent<HealthComponent>();
+        HealthComponent health = Main.Instance.PlayerGO.GetComponent<HealthComponent>();
         if (health.RestoreShield(RestoreValue))
             Destroy(this.gameObject);
     }
