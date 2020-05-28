@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Dungeon;
-using Assets.Scripts.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +30,25 @@ public class Room : MonoBehaviour
     [SerializeField]
     private List<GameObject> enemiesToSpawn;
 
-    private bool playerEntered = false;
+    public bool playerEntered = false;
     private bool openedDoors = false;
 
     private void Update()
     {
         OpenRoomIfEnemiesAreDead();
+
+        // Update minimap 
+        GameObject minimapGO = GameObject.Find("Minimap");
+        if (minimapGO != null)
+        {
+            Minimap minimap = minimapGO.GetComponent(typeof(Minimap)) as Minimap;
+            if (minimap != null)
+            {
+                minimap.Generate();
+            }
+            else Debug.LogWarning("Room: Did not find Minimap Component!");
+        }
+        else Debug.LogWarning("Room: Did not find Minimap GameObject!");
     }
 
     private void OpenRoomIfEnemiesAreDead()
