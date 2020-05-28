@@ -6966,7 +6966,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeon: {fileID: 915067539}
-  tilemap: {fileID: 0}
   playerIndicator: {fileID: 0}
   mapSize: 200
   mapScale: 2
