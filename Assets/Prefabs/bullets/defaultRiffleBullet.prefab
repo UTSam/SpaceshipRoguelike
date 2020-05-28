@@ -187,6 +187,8 @@ MonoBehaviour:
   _specialAnimationAudio: {fileID: 0}
   _shootingAnimationAudio: {fileID: 4989908764802791198}
   _onImpact: {fileID: 0}
+  _onDeath: {fileID: 0}
+  _onStart: {fileID: 0}
 --- !u!82 &4989908764802791198
 AudioSource:
   m_ObjectHideFlags: 0
@@ -200,7 +202,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: cc021591fe0ebaf43a15e242154a455f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.02
-  m_Pitch: 1
+  m_Pitch: 0.9
   Loop: 0
   Mute: 0
   Spatialize: 0

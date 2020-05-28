@@ -6928,6 +6928,16 @@ PrefabInstance:
       propertyPath: weaponList.Array.data[3]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8017853985539383848, guid: 57ce2109cbe833b40ba7f7295bd8670b,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017853985539383848, guid: 57ce2109cbe833b40ba7f7295bd8670b,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57ce2109cbe833b40ba7f7295bd8670b, type: 3}
 --- !u!1001 &904982780
@@ -7096,7 +7106,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 52821c176e091a04bb00d3f8ee45caa3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6288ec5978395df4eb1da83a6104cb79, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.164
   m_Pitch: 1
@@ -7214,6 +7224,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _specialAnimationAudio: {fileID: 0}
   _shootingAnimationAudio: {fileID: 0}
+  _onImpact: {fileID: 0}
+  _onDeath: {fileID: 0}
+  _onStart: {fileID: 0}
 --- !u!114 &1415941249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7663,6 +7676,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _specialAnimationAudio: {fileID: 1145362247}
   _shootingAnimationAudio: {fileID: 0}
+  _onImpact: {fileID: 0}
+  _onDeath: {fileID: 0}
+  _onStart: {fileID: 0}
 --- !u!1001 &2140864552952278676
 PrefabInstance:
   m_ObjectHideFlags: 0

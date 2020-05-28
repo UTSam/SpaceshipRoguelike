@@ -76,4 +76,14 @@ public class BasicProjectile : MovingEntity
         }
 
     }
+
+    private void OnDestroy()
+    {
+        GetComponent<Animate>().DoAnimationOnHit();
+        if (GetComponent<SFX_Player>())
+        {
+            GetComponent<SFX_Player>().PlayOnDeath();
+
+        }
+    }
 }
