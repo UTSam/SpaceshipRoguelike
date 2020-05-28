@@ -39,5 +39,9 @@ public class BossWaveRifle : BossWeapon
 
         lastShotTimer = 0.0f;
         NbShotToFire--;
+        if (NbShotToFire <= 0)
+        {
+            StartCoroutine(MoveIn());
+        }
     }
 }

@@ -14,6 +14,7 @@ public class Boss : MonoBehaviour
     private float lastShotTimer = 0.0f;
 
     private BossWeapon lastShotWeapon;
+    public bool IsReadyToFIre = true;
 
     [SerializeField] private GameObject ShieldPrefab;
     // Start is called before the first frame update
@@ -29,7 +30,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastShotTimer > TimeBetweenShots && IsFiring)
+        if (lastShotTimer > TimeBetweenShots && IsFiring && IsReadyToFIre)
             FireRandomWeapons();
 
         lastShotTimer += Time.deltaTime;
@@ -37,14 +38,14 @@ public class Boss : MonoBehaviour
     private void FireRandomWeapons()
     {
         int index = 0;
-        if (Phase < 2)
-        {
+        /*if (Phase < 2)
+        {*/
             do { index = Random.Range(0, weaponList.Count); }
             while (weaponList[index] == lastShotWeapon);//never fire the same weapon twice in a row
-
             weaponList[index].InitFireSequence();
+
             lastShotWeapon = weaponList[index];
-        }
+        /*}
         else
         {
             List<BossWeapon> tmpList = new List<BossWeapon>(weaponList);
@@ -53,7 +54,7 @@ public class Boss : MonoBehaviour
             tmpList.RemoveAt(index);
             index = Random.Range(0, tmpList.Count);
             tmpList[index].InitFireSequence();
-        }
+        }*/
         lastShotTimer = 0.0f;
     }
 
@@ -62,8 +63,6 @@ public class Boss : MonoBehaviour
         if (nextPhase > Phase)
         {
             Phase = nextPhase;
-
-            Debug.Log("phase : " + Phase);
             StartCoroutine(InitNextPhaseRoutine());
         }
     }
@@ -77,7 +76,7 @@ public class Boss : MonoBehaviour
         IsFiring = true;
     }
 
-    private void LootShield()
+        private void LootShield()
     {
         GameObject shield = Instantiate(ShieldPrefab) as GameObject;
         shield.transform.position = weaponList[Random.Range(0, weaponList.Count)].transform.position;

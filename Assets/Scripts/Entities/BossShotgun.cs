@@ -18,7 +18,6 @@ public class BossShotgun : BossWeapon
         base.Update();
     }
 
-    // Update is called once per frame
     protected override void FireSequence()
     {
         float angleOffset = 0;
@@ -45,5 +44,10 @@ public class BossShotgun : BossWeapon
 
         lastShotTimer = 0.0f;
         NbShotToFire--;
+
+        if (NbShotToFire <= 0)
+        {
+            StartCoroutine(MoveIn());
+        }
     }
 }

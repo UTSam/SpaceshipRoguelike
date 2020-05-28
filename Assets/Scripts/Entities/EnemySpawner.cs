@@ -25,5 +25,10 @@ public class EnemySpawner : BossWeapon
         Vector3 lookPos = aimingPosition - Muzzle.position;
         float canonAngle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(canonAngle - 90, Vector3.forward);
+
+        if (NbShotToFire <= 0)
+        {
+            StartCoroutine(MoveIn());
+        }
     }
 }
