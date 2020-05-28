@@ -7,7 +7,7 @@ public class SFX_Player : MonoBehaviour
     [SerializeField] private AudioSource _specialAnimationAudio;
     [SerializeField] private AudioSource _shootingAnimationAudio;
     [SerializeField] private AudioSource _onImpact;
-    [SerializeField] private AudioSource _onDeath;
+    [SerializeField] private AudioSource _onDestroy;
     [SerializeField] private AudioSource _onStart;
 
 
@@ -29,21 +29,12 @@ public class SFX_Player : MonoBehaviour
 
     public void PlayOnDeath()
     {
-        if (_onDeath != null) this._onDeath.Play();
+        if (_onDestroy != null) this._onDestroy.Play();
     }
 
     public void PlayOnStart()
     {
         if (_onStart != null) this._onStart.Play();
     }
-
-    public void OnDeathSound(AudioSource onDeathSound)
-    {
-        _onDeath = onDeathSound;
-    }
-
-    public AudioSource getDeathSound()
-    {
-        return _onDeath;
-    }
 }
+

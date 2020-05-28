@@ -431,7 +431,7 @@ MonoBehaviour:
   _specialAnimationAudio: {fileID: 0}
   _shootingAnimationAudio: {fileID: 0}
   _onImpact: {fileID: 0}
-  _onDeath: {fileID: 0}
+  _onDestroy: {fileID: 0}
   _onStart: {fileID: 5983831005500981386}
 --- !u!82 &5983831005500981386
 AudioSource:
@@ -443,7 +443,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1f92f1cd1513a8749bc7a02ceca780b2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b4bfbf3d1fc70a44b925fffd75ca3fc6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -451,7 +451,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 155
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

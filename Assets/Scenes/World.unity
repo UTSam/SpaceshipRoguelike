@@ -6548,7 +6548,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7958748600948352365}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415941246}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ea10a40adbdd204bb6c11c0e5e01313, type: 3}
@@ -6688,26 +6688,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!1 &536909592 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1988548444873067933, guid: a1b0f00773f1ab04eb92fbce6e847881,
-    type: 3}
-  m_PrefabInstance: {fileID: 1769050145}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &536909593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536909592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15578b0d0794eb4e89de60a55a51ff7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullitOnHitAnimation: {fileID: 0}
-  specialAnimation: {fileID: 0}
 --- !u!1 &551859561
 GameObject:
   m_ObjectHideFlags: 0
@@ -7203,69 +7183,12 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2140864552952278676}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787716895}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61e0c0b37c9dbe344ba10b49a329ffe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1415941246 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1988548444873067933, guid: a1b0f00773f1ab04eb92fbce6e847881,
-    type: 3}
-  m_PrefabInstance: {fileID: 7958748600948352365}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1415941248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415941246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ffd75bca0ec27409efcdc8a7140981, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _specialAnimationAudio: {fileID: 0}
-  _shootingAnimationAudio: {fileID: 0}
-  _onImpact: {fileID: 0}
-  _onDeath: {fileID: 0}
-  _onStart: {fileID: 0}
---- !u!114 &1415941249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415941246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15578b0d0794eb4e89de60a55a51ff7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullitOnHitAnimation: {fileID: 0}
-  specialAnimation: {fileID: 0}
---- !u!1 &1489239401 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6868662918975605535, guid: fd0fcc72619702f4ea6e4442fb932eb6,
-    type: 3}
-  m_PrefabInstance: {fileID: 165501657}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1489239404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489239401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15578b0d0794eb4e89de60a55a51ff7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullitOnHitAnimation: {fileID: 0}
-  specialAnimation: {fileID: 0}
 --- !u!1 &1584033786
 GameObject:
   m_ObjectHideFlags: 0
@@ -7493,26 +7416,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1b0f00773f1ab04eb92fbce6e847881, type: 3}
---- !u!1 &1787716895 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6868662918975605535, guid: fd0fcc72619702f4ea6e4442fb932eb6,
-    type: 3}
-  m_PrefabInstance: {fileID: 2140864552952278676}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1787716898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787716895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15578b0d0794eb4e89de60a55a51ff7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullitOnHitAnimation: {fileID: 0}
-  specialAnimation: {fileID: 0}
 --- !u!1 &1879895457
 GameObject:
   m_ObjectHideFlags: 0
@@ -7563,7 +7466,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1769050145}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536909592}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ea10a40adbdd204bb6c11c0e5e01313, type: 3}
@@ -7623,7 +7526,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 165501657}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489239401}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61e0c0b37c9dbe344ba10b49a329ffe5, type: 3}
@@ -7682,7 +7585,7 @@ MonoBehaviour:
   _specialAnimationAudio: {fileID: 1145362247}
   _shootingAnimationAudio: {fileID: 0}
   _onImpact: {fileID: 0}
-  _onDeath: {fileID: 0}
+  _onDestroy: {fileID: 0}
   _onStart: {fileID: 0}
 --- !u!1001 &2140864552952278676
 PrefabInstance:

@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 394980960632430211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1} 
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
   - {fileID: 2941580469841166844}
   m_Father: {fileID: 0}
@@ -186,11 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ffd75bca0ec27409efcdc8a7140981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _specialAnimationAudio: {fileID: 0}
-  _shootingAnimationAudio: {fileID: 0}
+  _specialAnimationAudio: {fileID: 4362614324197903117}
+  _shootingAnimationAudio: {fileID: 4362614324197903117}
   _onImpact: {fileID: 4362614324197903117}
-  _onDeath: {fileID: 0}
-  _onStart: {fileID: 0}
+  _onDeath: {fileID: 4362614324197903117}
+  _onStart: {fileID: 4362614324197903117}
 --- !u!82 &4362614324197903117
 AudioSource:
   m_ObjectHideFlags: 0

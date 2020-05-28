@@ -22,7 +22,7 @@ public class BasicMovingEnemy : MovingEntity
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         //Calculate force of steering behaviours
         Vector2 steeringForce = this.steering.Calculate();
@@ -44,7 +44,6 @@ public class BasicMovingEnemy : MovingEntity
             float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-
         UpdatePosition();
     }
 }
