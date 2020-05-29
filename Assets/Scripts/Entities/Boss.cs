@@ -7,7 +7,6 @@ public class Boss : MonoBehaviour
 {
     public List<BossWeapon> weaponList = new List<BossWeapon>();
     public int Phase;
-    protected List<BossWeapon> firingWeaponList = new List<BossWeapon>();
 
     public bool IsFiring = true;
     public float TimeBetweenShots = 1.0f;
@@ -25,6 +24,7 @@ public class Boss : MonoBehaviour
         {
             weaponList.Add(arr[i]);
         }
+        StartCoroutine(WaitForShooting(1f));
     }
 
     // Update is called once per frame
@@ -90,5 +90,11 @@ public class Boss : MonoBehaviour
             LootShield();
             yield return new WaitForSeconds(1);
         }
+    }
+
+    private IEnumerator WaitForShooting(float time)
+    {
+        yield return new WaitForSeconds(time);
+        IsFiring = true;
     }
 }

@@ -37,6 +37,7 @@ public class BossHealthComponent : HealthComponent
 
     public override void OnDeath()
     {
+        GlobalValues.Timer = GVC.Instance.StopWatchGO.GetComponent<StopWatchScript>().textZone.text;
         SceneManager.LoadScene("VictoryScreen");
     }
 }
