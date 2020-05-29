@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
-using System;
-using Assets.Scripts.Rooms;
 using UnityEngine.Tilemaps;
+using Assets.Scripts.Dungeon;
 
 [CustomEditor(typeof(RoomGenerator))]
 public class RoomGeneratorEditor : Editor

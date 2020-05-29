@@ -54,7 +54,16 @@ namespace Assets.Scripts.Dungeon
             }
 
             return tilemapGo.GetComponent<Tilemap>();
-            
+        }
+        public string GetTilemapString()
+        {
+            return this.tilemapName;
+        }
+
+        public void AddTile(Tile tile, Vector3Int position)
+        {
+            this.tiles.Add(tile);
+            this.tileLocalPositions.Add(position);
         }
     }
 }

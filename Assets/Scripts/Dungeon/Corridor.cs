@@ -1,11 +1,16 @@
-﻿using Assets.Scripts.Rooms;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Assets.Scripts.Dungeon
 {
-    class Corridor
+    public class Corridor
     {
+        public List<Door> connectedDoors = new List<Door>();
+
+        public TileData tileData = new TileData("Walls");
+
         #region Spawn Tile functions
         private void SpawnCorridorTile(Vector3Int position)
         {
@@ -15,12 +20,16 @@ namespace Assets.Scripts.Dungeon
 
         private void SpawnWallHorizontalTile(Vector3Int position)
         {
-            GVC.Instance.tilemap.walls.SetTile(position, GVC.Instance.tiles.corridorHorizontal);
+            Tile tile = GVC.Instance.tiles.corridorHorizontal;
+            tileData.AddTile(tile, position);
+            GVC.Instance.tilemap.walls.SetTile(position, tile);
         }
 
         private void SpawnWallVerticalTile(Vector3Int position)
         {
-            GVC.Instance.tilemap.walls.SetTile(position, GVC.Instance.tiles.corridorVertical);
+            Tile tile = GVC.Instance.tiles.corridorVertical;
+            tileData.AddTile(tile, position);
+            GVC.Instance.tilemap.walls.SetTile(position, tile);
         }
 
         private void SpawnHorizontalCorridor(Vector3Int currentCorridorPosition)

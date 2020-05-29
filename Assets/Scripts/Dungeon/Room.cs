@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Dungeon;
-using Assets.Scripts.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +30,7 @@ public class Room : MonoBehaviour
     [SerializeField]
     private List<GameObject> enemiesToSpawn;
 
-    private bool playerEntered = false;
+    public bool playerEntered = false;
     private bool openedDoors = false;
     public bool spawnPatrick = false;
 
@@ -179,6 +178,8 @@ public class Room : MonoBehaviour
                 Destroy(bc);
             }
             colliderList.Clear();
+
+            GVC.Instance.Minimap.Generate();
         }
     }
 
