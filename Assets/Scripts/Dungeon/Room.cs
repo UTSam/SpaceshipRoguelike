@@ -36,19 +36,6 @@ public class Room : MonoBehaviour
     private void Update()
     {
         OpenRoomIfEnemiesAreDead();
-
-        // Update minimap 
-        GameObject minimapGO = GameObject.Find("Minimap");
-        if (minimapGO != null)
-        {
-            Minimap minimap = minimapGO.GetComponent(typeof(Minimap)) as Minimap;
-            if (minimap != null)
-            {
-                minimap.Generate();
-            }
-            else Debug.LogWarning("Room: Did not find Minimap Component!");
-        }
-        else Debug.LogWarning("Room: Did not find Minimap GameObject!");
     }
 
     private void OpenRoomIfEnemiesAreDead()
@@ -184,6 +171,8 @@ public class Room : MonoBehaviour
                 Destroy(bc);
             }
             colliderList.Clear();
+
+            GVC.Instance.Minimap.Generate();
         }
     }
 

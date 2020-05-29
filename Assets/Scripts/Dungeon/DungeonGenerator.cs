@@ -140,6 +140,7 @@ public class DungeonGenerator : MonoBehaviour
             room.AddDoorTriggers();
         }
 
+        GVC.Instance.Minimap.Generate();
         Debug.Log("Dungeon generation time: " + (Time.time - startTime));
     }
 

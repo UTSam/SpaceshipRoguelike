@@ -7304,6 +7304,11 @@ PrefabInstance:
       propertyPath: StopWatchGO
       value: 
       objectReference: {fileID: 904982781}
+    - target: {fileID: 2032333077035873544, guid: f715e1542cb2d6c448f24d52e41f6d13,
+        type: 3}
+      propertyPath: Minimap
+      value: 
+      objectReference: {fileID: 1202657245}
     - target: {fileID: 2032333077035873545, guid: f715e1542cb2d6c448f24d52e41f6d13,
         type: 3}
       propertyPath: m_Name
