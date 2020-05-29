@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossHealthComponent : HealthComponent
 {
@@ -32,5 +33,10 @@ public class BossHealthComponent : HealthComponent
             boss.SetPhase(3);
         else if (Health / MaxHealth < phase2HPTrigger)
             boss.SetPhase(2);
+    }
+
+    public override void OnDeath()
+    {
+        SceneManager.LoadScene("VictoryScreen");
     }
 }

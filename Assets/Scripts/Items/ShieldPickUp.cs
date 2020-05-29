@@ -7,7 +7,7 @@ public class ShieldPickUp : BasicItem
     public int RestoreValue = 50;
     public override void OnPickUp()
     {
-        HealthComponent health = Main.Instance.PlayerGO.GetComponent<HealthComponent>();
+        HealthComponent health = GVC.Instance.PlayerGO.GetComponent<HealthComponent>();
         if (health.RestoreShield(RestoreValue))
             Destroy(this.gameObject);
     }

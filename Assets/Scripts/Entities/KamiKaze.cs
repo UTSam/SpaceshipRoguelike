@@ -28,7 +28,7 @@ public class KamiKaze : BasicMovingEnemy
 
     private void OnDestroy()
     {
-        DeathAnimation();
+        //DeathAnimation();
     }
 
     private void DeathAnimation()

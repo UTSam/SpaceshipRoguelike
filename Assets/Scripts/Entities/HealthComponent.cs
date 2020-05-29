@@ -72,20 +72,7 @@ public class HealthComponent : MonoBehaviour
                 }
                 else
                     damageToLife = 0f;
-
-        if (damageToLife > 0f)
-        {
-            if (elem == ElementType.Fire)
-            {
-                Health -= damageToLife * (1f + FireWeakeness);
-                //Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
             }
-            else
-            {
-                Health -= damageToLife;
-                //Debug.Log("Damage to life : " + damageToLife);
-            }
-
             if (damageToLife > 0f)
             {
                 if (elem == ElementType.Fire)
@@ -99,23 +86,36 @@ public class HealthComponent : MonoBehaviour
                     //Debug.Log("Damage to life : " + damageToLife);
                 }
 
-                Health = Mathf.Round(Health);
-                if (Health <= 0f)
+                if (damageToLife > 0f)
                 {
-                    OnDeath();
-                }
-            }
+                    if (elem == ElementType.Fire)
+                    {
+                        Health -= damageToLife * (1f + FireWeakeness);
+                        //Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
+                    }
+                    else
+                    {
+                        Health -= damageToLife;
+                        //Debug.Log("Damage to life : " + damageToLife);
+                    }
 
-            if (GetComponent<Player>())
-                StartCoroutine(TurnInvincible());
+                    Health = Mathf.Round(Health);
+                    if (Health <= 0f)
+                    {
+                        OnDeath();
+                    }
+                }
+
+                if (GetComponent<Player>())
+                    StartCoroutine(TurnInvincible());
+                UpdateBar();
+            }
+            if (GetComponent<Animate>() && GetComponent<Player>() && GetComponent<Player>().GetComponent<Animate>())
+            {
+                GetComponent<Animate>().DoAnimationOnHit();
+            }
             UpdateBar();
         }
-        if (GetComponent<Animate>() && GetComponent<Player>() && GetComponent<Player>().GetComponent<Animate>())
-        {
-            GetComponent<Animate>().DoAnimationOnHit();
-        }
-
-        UpdateBar();
     }
 
     public virtual void Damage(float damageValue)

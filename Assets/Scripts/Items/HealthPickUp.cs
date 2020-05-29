@@ -7,7 +7,7 @@ public class HealthPickUp : BasicItem
     public int HealValue = 50;
     public override void OnPickUp()
     {
-        HealthComponent health = Main.Instance.PlayerGO.GetComponent<HealthComponent>();
+        HealthComponent health = GVC.Instance.PlayerGO.GetComponent<HealthComponent>();
         if (health.Heal(HealValue))
         {
             if (GetComponent<Animate>())

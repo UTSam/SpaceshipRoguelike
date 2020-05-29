@@ -294,6 +294,7 @@ MonoBehaviour:
   maxTurnRate: 2
   target: {fileID: 0}
   kamikazeeDamage: 50
+  howLongToWait: 0.6
 --- !u!114 &8002399353498972915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +330,6 @@ MonoBehaviour:
   panicDistance: 4
   wallAvoidanceON: 1
   wallForce: 6
-  kamikazeON: 1
   kamikazeForce: 30
 --- !u!60 &2022710723293101066
 PolygonCollider2D:
@@ -400,6 +400,7 @@ MonoBehaviour:
   MaxShield: 0
   FireWeakeness: 3
   ElecWeakness: 3
+  isInvincible: 0
 --- !u!114 &4562210732815440494
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SpongeBob : BasicItem
+public class Patrick : BasicItem
 {
     public override void OnPickUp()
     {
-        GlobalValues.Timer = GVC.Instance.StopWatchGO.GetComponentInChildren<Text>().text;
-        SceneManager.LoadScene("VictoryScreen");
+        //GlobalValues.Timer = GVC.Instance.StopWatchGO.GetComponentInChildren<Text>().text;
+        SceneManager.LoadScene("BossScene");
     }
 }
