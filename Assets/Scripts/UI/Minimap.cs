@@ -176,14 +176,10 @@ public class Minimap : MonoBehaviour
         int y = 20;
         Rect positionRect = new Rect(x, y, w, h);
 
-        // Draw test texture where the map will need to be
-        GUI.DrawTexture(positionRect, test_texture);
-        GUI.DrawTexture(new Rect(0,0,texture.width,texture.height), test_texture);
-
         // Draw map texture for testing
-        GUI.DrawTexture(
-            new Rect(0, 0, texture.width, texture.height),
-            texture);
+        //GUI.DrawTexture(
+        //    new Rect(0, 0, texture.width, texture.height),
+        //    texture);
 
         //////////////////////////////////////////////////////////////////////
         // Create coordinates Rect that centers on the player
