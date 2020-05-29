@@ -5,7 +5,7 @@ using TileData = Assets.Scripts.Dungeon.TileData;
 
 public class Minimap : MonoBehaviour
 {
-    public GameObject dungeon;
+    public DungeonGenerator dungeon;
     public Tilemap tilemap;
 
     private Transform player;
@@ -32,23 +32,25 @@ public class Minimap : MonoBehaviour
 
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
-    void Start()
-    {
-        // Create test texture for GUI
+        player = GVC.Instance.PlayerGO.transform;
         test_texture = new Texture2D(1, 1);
-        test_texture.SetPixel(0, 0, Color.blue);
+        test_texture.SetPixel(0, 0, Color.black);
+        test_texture.Apply();
     }
 
+    void OnValidate()
+    {
+        Generate();
+    }
 
     public void Generate()
     {
+        int padding = (int) (mapSize / mapScale);
+
         // Create new texture with width and height of the tilemap
         Vector3Int tilemapSize = tilemap.cellBounds.size;
-        int width = tilemapSize.x + 1;
-        int height = tilemapSize.y + 1;
+        int width = tilemapSize.x + 1 + padding;
+        int height = tilemapSize.y + 1 + padding;
         texture = new Texture2D(width, height);
 
         // Get delta x and y to the top left of the tilemap bounds (and the texture)
@@ -64,9 +66,6 @@ public class Minimap : MonoBehaviour
         // Loop through each room
         foreach (Room r in dg.placedRooms)
         {
-            // TODO: Skip if not visited
-            if (false) continue;
-
             // Get TileData object with Walls 
             TileData tileData = null;
             foreach (TileData td in r.tileDataArray)
@@ -103,7 +102,7 @@ public class Minimap : MonoBehaviour
                 if (!r.playerEntered) c = Color.grey;
 
                 // Set pixel
-                colors[y * width + x] = c;
+                colors[(y * width) + x] = c;
             }
 
             // Draw doors 
@@ -119,7 +118,7 @@ public class Minimap : MonoBehaviour
                 int x = pos.x - dx;
                 int y = pos.y - dy;
 
-                colors[y * width + x] = Color.cyan;
+                colors[(y * width) + x] = Color.cyan;
 
                 // Draw connected corridors
                 if (door.corridor != null)
@@ -170,11 +169,6 @@ public class Minimap : MonoBehaviour
             return;
         }
 
-        // Draw map texture for testing
-        //GUI.DrawTexture(
-        //    new Rect(0, 0, texture.width, texture.height),
-        //    texture);
-
         // Create positionRect (Rectangle where the map will be displayed)
         int w = (int)mapSize;
         int h = (int)mapSize;
@@ -182,8 +176,10 @@ public class Minimap : MonoBehaviour
         int y = 20;
         Rect positionRect = new Rect(x, y, w, h);
 
-        // Draw test texture where the map will need to be
-        //GUI.DrawTexture(positionRect, test_texture);
+        // Draw map texture for testing
+        //GUI.DrawTexture(
+        //    new Rect(0, 0, texture.width, texture.height),
+        //    texture);
 
         //////////////////////////////////////////////////////////////////////
         // Create coordinates Rect that centers on the player
