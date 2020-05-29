@@ -155,6 +155,10 @@ public class Player: MovingEntity
             if (GetComponent<Animate>())
             {
                 GetComponent<Animate>().DoAnimationSpecial();
+                if (GetComponent<SFX_Player>())
+                {
+                    GetComponent<SFX_Player>().PlaySpecialAnimationAudio();
+                }
             }
         }
 

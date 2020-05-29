@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(BasicMovingEnemy))]
+//[RequireComponent(typeof(BasicMovingEnemy))]
 
 public class SteeringBehaviours : MonoBehaviour
 {
@@ -47,7 +47,7 @@ public class SteeringBehaviours : MonoBehaviour
     [SerializeField] private bool wallAvoidanceON = true;
     [SerializeField] private float wallForce = 5f;
 
-    [SerializeField] private bool kamikazeON = true;
+    private bool kamikazeON = false;
     [SerializeField] private float kamikazeForce = 1f;
 
 
@@ -250,6 +250,11 @@ public class SteeringBehaviours : MonoBehaviour
                 Gizmos.DrawSphere(host.GetPosition() + wanderCircle, 0.4f);
             }
         }
+    }
+
+    public void ENDISableKam()
+    {
+        this.kamikazeON = !this.kamikazeON;
     }
 }
 enum Deceleration

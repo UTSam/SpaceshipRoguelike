@@ -6,5 +6,7 @@ using UnityEngine;
 public static class GlobalValues
 {
     public static int Seed = 0;
+    public static float TimerValue = 0f;
     public static string Timer;
+    public static int Golds = 0;
 }

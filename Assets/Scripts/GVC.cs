@@ -46,6 +46,7 @@ public class GVC : MonoBehaviour
 	public GameObject StopWatchGO;
 	public GameObject HealthPackPrefab;
 	public Minimap Minimap;
+	public GameObject Patrick;
 
 	private void Awake()
 	{

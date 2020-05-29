@@ -62,7 +62,6 @@ public class ShotgunWeapon : BasicWeapon
 
                 projectile.SetActive(true);
             }
-            
         }
     }
 }
