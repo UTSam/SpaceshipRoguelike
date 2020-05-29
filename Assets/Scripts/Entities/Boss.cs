@@ -69,7 +69,9 @@ public class Boss : MonoBehaviour
 
     private IEnumerator InitNextPhaseRoutine()
      {
-        lastShotWeapon.StopShooting();
+        if (lastShotWeapon != null)
+            lastShotWeapon.StopShooting();
+
         IsFiring = false;
         StartCoroutine(ShieldDropCoroutine(2));
         GetComponent<BossHealthComponent>().RestoreShield(int.MaxValue);
