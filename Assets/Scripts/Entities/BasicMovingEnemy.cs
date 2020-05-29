@@ -23,7 +23,7 @@ public class BasicMovingEnemy : MovingEntity
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected virtual void Update()
     {
         //Calculate force of steering behaviours
         Vector2 steeringForce = this.steering.Calculate();
