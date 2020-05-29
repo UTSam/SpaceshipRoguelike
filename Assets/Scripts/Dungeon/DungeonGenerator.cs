@@ -22,7 +22,6 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private int roomCount = 50;
     [SerializeField] private int additionalDistance = 4;
     [SerializeField] private int maxOffset = 20;
-    [SerializeField] private GameObject patrick;
 
     private float startTime;
     private Transform parentFolder;

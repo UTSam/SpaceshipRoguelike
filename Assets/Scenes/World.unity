@@ -383,7 +383,7 @@ PrefabInstance:
     - target: {fileID: 920596474070257623, guid: 6df8cdc84948ad14188fb4c8981382a6,
         type: 3}
       propertyPath: roomCount
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 920596474070257623, guid: 6df8cdc84948ad14188fb4c8981382a6,
         type: 3}
@@ -7265,6 +7265,12 @@ PrefabInstance:
       propertyPath: StopWatchGO
       value: 
       objectReference: {fileID: 904982781}
+    - target: {fileID: 2032333077035873544, guid: f715e1542cb2d6c448f24d52e41f6d13,
+        type: 3}
+      propertyPath: Patrick
+      value: 
+      objectReference: {fileID: 8426461079039651973, guid: 579b763442b9a0a4aad283b4db4d6d9b,
+        type: 3}
     - target: {fileID: 2032333077035873545, guid: f715e1542cb2d6c448f24d52e41f6d13,
         type: 3}
       propertyPath: m_Name
