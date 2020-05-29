@@ -13,6 +13,9 @@ public class BossHealthComponent : HealthComponent
     {
         base.Start();
         boss = GetComponent<Boss>();
+
+        GVC.Instance.PlayerGO.GetComponent<HealthComponent>().Health = GlobalValues.health;
+        GVC.Instance.PlayerGO.GetComponent<HealthComponent>().Shield = GlobalValues.shield;
     }
 
     public override void Damage(float damageValue)

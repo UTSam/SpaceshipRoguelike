@@ -105,11 +105,12 @@ public class HealthComponent : MonoBehaviour
                         OnDeath();
                     }
                 }
-
-                if (GetComponent<Player>())
-                    StartCoroutine(TurnInvincible());
-                UpdateBar();
             }
+
+            if (GetComponent<Player>())
+                StartCoroutine(TurnInvincible());
+            UpdateBar();
+
             if (GetComponent<Animate>() && GetComponent<Player>() && GetComponent<Player>().GetComponent<Animate>())
             {
                 GetComponent<Animate>().DoAnimationOnHit();
@@ -211,7 +212,6 @@ public class HealthComponent : MonoBehaviour
             this.GetComponent<SpriteRenderer>().color = color;
             yield return new WaitForSeconds(0.1f);
         }
-
         isInvincible = false;
     }
 }

@@ -94,11 +94,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37692b78e0a3d44098144ea963afa4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 8272244653036306437, guid: f1b41f181536f88459ad9d3b666874f0,
+  ProjectilePrefab: {fileID: 4939278296553413639, guid: 400614024eef6b5459b727c79a947ee2,
     type: 3}
   Target: {fileID: 0}
   Muzzle: {fileID: 4637283747348363600}
   FireRate: 8
   NbShotToFire: 0
   DefaultNbShotToFire: 6
+  IsAiming: 0
   spreadAngle: 40
+  DefaultNbWaveToFire: 1
