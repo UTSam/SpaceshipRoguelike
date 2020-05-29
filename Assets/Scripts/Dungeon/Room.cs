@@ -32,6 +32,7 @@ public class Room : MonoBehaviour
 
     public bool playerEntered = false;
     private bool openedDoors = false;
+    public bool spawnPatrick = false;
 
     private void Update()
     {
@@ -50,6 +51,15 @@ public class Room : MonoBehaviour
         {
             this.OpenDoors();
             openedDoors = true;
+            SpawnPatrick();
+        }
+    }
+
+    private void SpawnPatrick()
+    {
+        if (spawnPatrick)
+        {
+            Instantiate(GVC.Instance.Patrick, this.globalPosition, Quaternion.identity, this.transform);
         }
     }
 
@@ -116,9 +126,6 @@ public class Room : MonoBehaviour
 
         foreach (Door door in doors)
         {
-            // TODO FIX
-            //if (!door.connected) return;
-
             // Add trigger in front of door 
             BoxCollider2D collider = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
             collider.isTrigger = true;

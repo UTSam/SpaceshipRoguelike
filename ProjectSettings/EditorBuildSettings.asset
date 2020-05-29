@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VictoryScreen.unity
     guid: 0179f6abb4f245945b3250a2a11f12eb
+  - enabled: 1
+    path: Assets/Scenes/BossRoom.unity
+    guid: 9b5edc64232d8e5449040a4aa593aa3d
   m_configObjects: {}

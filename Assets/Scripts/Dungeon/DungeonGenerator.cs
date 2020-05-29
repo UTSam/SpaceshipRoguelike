@@ -19,6 +19,7 @@ public class DungeonGenerator : MonoBehaviour
     private float startTime;
     private Transform parentFolder;
 
+
     public void Start()
     {
         parentFolder = this.transform.Find("Rooms");
@@ -141,6 +142,11 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         GVC.Instance.Minimap.Generate();
+        
+        // Spawn patrick in a random room
+        Room roomToSpawnPatrick = placedRooms[placedRooms.Count - 1];
+        roomToSpawnPatrick.spawnPatrick = true;
+
         Debug.Log("Dungeon generation time: " + (Time.time - startTime));
     }
 
