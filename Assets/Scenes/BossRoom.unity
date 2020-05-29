@@ -600,14 +600,8 @@ PrefabInstance:
     - target: {fileID: 4637283747348363606, guid: 9899897fd13d5f24280f71994afa61d6,
         type: 3}
       propertyPath: DefaultNbShotToFire
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 4637283747348363606, guid: 9899897fd13d5f24280f71994afa61d6,
-        type: 3}
-      propertyPath: ProjectilePrefab
-      value: 
-      objectReference: {fileID: 4939278296553413639, guid: 400614024eef6b5459b727c79a947ee2,
-        type: 3}
     - target: {fileID: 4637283747348363606, guid: 9899897fd13d5f24280f71994afa61d6,
         type: 3}
       propertyPath: nbWaves
@@ -1389,8 +1383,8 @@ MonoBehaviour:
   FireWeakeness: 3
   ElecWeakness: 3
   isInvincible: 0
-  phase2HPTrigger: 0.9
-  phase3HPTrigger: 0.5
+  phase2HPTrigger: 0
+  phase3HPTrigger: 0
 --- !u!114 &1379905615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1717,6 +1711,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 339957607941272972, guid: 57ce2109cbe833b40ba7f7295bd8670b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 339957607941272973, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}
       propertyPath: m_Constraints
@@ -1755,22 +1754,22 @@ PrefabInstance:
     - target: {fileID: 3755602773928152001, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}
       propertyPath: MaxHealth
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3755602773928152001, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}
       propertyPath: MaxShield
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3755602773928152001, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}
       propertyPath: Shield
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3755602773928152001, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}
       propertyPath: Health
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3916742341280939556, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}

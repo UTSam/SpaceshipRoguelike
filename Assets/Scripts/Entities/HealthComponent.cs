@@ -110,7 +110,6 @@ public class HealthComponent : MonoBehaviour
             if (GetComponent<Player>())
                 StartCoroutine(TurnInvincible());
             UpdateBar();
-
             if (GetComponent<Animate>() && GetComponent<Player>() && GetComponent<Player>().GetComponent<Animate>())
             {
                 GetComponent<Animate>().DoAnimationOnHit();

@@ -31,7 +31,7 @@ public class DungeonGenerator : MonoBehaviour
 
     IEnumerator GenerateDungeon()
     {
-        System.Random rand = new System.Random(seed);
+        System.Random rand = new System.Random(GlobalValues.Seed);
 
         // Place starting room
         Room spawnRoom = Instantiate(GetAndRemoveStartingRoom(), parentFolder);
