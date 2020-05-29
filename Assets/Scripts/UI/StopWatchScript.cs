@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class StopWatchScript : MonoBehaviour
 {
 
-    private float timer = 0f;
+    public float timer = 0f;
     public Text textZone;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        timer = GlobalValues.TimerValue;
     }
 
     // Update is called once per frame

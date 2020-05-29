@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
         else
             GlobalValues.Seed = Random.Range(int.MinValue, int.MaxValue);
 
+        GlobalValues.TimerValue = 0f;
         inputField.enabled = false;
         playButton.enabled = false;
         quitButton.enabled = false;
