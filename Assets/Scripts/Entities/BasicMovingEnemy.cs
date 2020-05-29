@@ -13,11 +13,17 @@ public class BasicMovingEnemy : MovingEntity
         base.Start();
         steering = GetComponent<SteeringBehaviours>();
         this.mass = 1;
+        
         this.target = GVC.Instance.PlayerGO.GetComponent<Player>();
+
+        if (GetComponent<SFX_Player>())
+        {
+            GetComponent<SFX_Player>().PlayOnStart();
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         //Calculate force of steering behaviours
         Vector2 steeringForce = this.steering.Calculate();
@@ -39,7 +45,6 @@ public class BasicMovingEnemy : MovingEntity
             float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-
         UpdatePosition();
     }
 }

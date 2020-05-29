@@ -6547,7 +6547,9 @@ PrefabInstance:
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 6295750706245852034, guid: 6df8cdc84948ad14188fb4c8981382a6,
     type: 3}
+
   m_PrefabInstance: {fileID: 180306331}
+  
   m_PrefabAsset: {fileID: 0}
 --- !u!1839735485 &180306333 stripped
 Tilemap:
@@ -6767,6 +6769,11 @@ PrefabInstance:
         type: 3}
       propertyPath: aimType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755602773928152001, guid: 57ce2109cbe833b40ba7f7295bd8670b,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 10000000
       objectReference: {fileID: 0}
     - target: {fileID: 3916742341280939556, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}

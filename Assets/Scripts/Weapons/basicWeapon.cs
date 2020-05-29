@@ -78,7 +78,7 @@ public class BasicWeapon : MonoBehaviour
         }
     }
 
-    public void SetBulletSpeed(Transform transform,float min, float max)
+    public void SetBulletSpeed(Transform transform, float min, float max)
     // float min and max represents the limit angles that can be added to the original spaceship orientation
     {
         Vector2 direction = Vector2.zero;
