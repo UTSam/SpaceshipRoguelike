@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Linq;
-using Assets.Scripts.Rooms;
 using Assets.Scripts.Dungeon;
 
 public class RoomGenerator : MonoBehaviour

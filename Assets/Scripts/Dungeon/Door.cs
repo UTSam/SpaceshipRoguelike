@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Dungeon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Assets.Scripts.Rooms
+namespace Assets.Scripts.Dungeon
 {
     [System.Serializable]
     public enum Direction
@@ -30,6 +31,10 @@ namespace Assets.Scripts.Rooms
 
         [SerializeField]
         public Direction direction;
+
+        public Corridor corridor = null;
+
+        public Room room;
 
         public Door(Vector3Int _dir)
         {

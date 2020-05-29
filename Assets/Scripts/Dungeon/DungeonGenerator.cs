@@ -1,21 +1,14 @@
 ﻿using Assets.Scripts.Dungeon;
-using Assets.Scripts.Rooms;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using Unity.Collections;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class DungeonGenerator : MonoBehaviour
 {
     [SerializeField] public int seed = 0;
 
     private List<Room> availableRooms = new List<Room>();
-    private List<Room> placedRooms = new List<Room>();
+    public List<Room> placedRooms = new List<Room>();
 
     [SerializeField] private Dictionary<Direction, List<Room>> roomsByDirection = new Dictionary<Direction, List<Room>>();
     [SerializeField] private int count = 0;
@@ -45,6 +38,7 @@ public class DungeonGenerator : MonoBehaviour
         placedRooms.Add(spawnRoom);
         spawnRoom.DrawRoom();
         spawnRoom.isCleared = true;
+        spawnRoom.playerEntered = true;
 
         bool dontExit = true; 
 
@@ -125,6 +119,16 @@ public class DungeonGenerator : MonoBehaviour
             Corridor corridor = new Corridor();
             corridor.DrawCorridor(initialDoor, newRoomDoor.position + newRoom.globalPosition);
 
+            // Add corridor to door and doors to corridor (: 
+            door.corridor = corridor;
+            newRoomDoor.corridor = corridor;
+            corridor.connectedDoors.Add(door);
+            corridor.connectedDoors.Add(newRoomDoor);
+
+            // Make sure the connected doors have a Room they belong to (For minimap rendering)
+            door.room = initialRoom;
+            newRoomDoor.room = newRoom;
+
             placedRooms.Add(newRoom);
             count++;
 
@@ -137,6 +141,8 @@ public class DungeonGenerator : MonoBehaviour
             room.AddDoorTriggers();
         }
 
+        GVC.Instance.Minimap.Generate();
+        
         // Spawn patrick in a random room
         Room roomToSpawnPatrick = placedRooms[placedRooms.Count - 1];
         roomToSpawnPatrick.spawnPatrick = true;
