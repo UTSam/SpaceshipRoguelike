@@ -8,11 +8,12 @@ public class Boundaries : MonoBehaviour
     private Vector2 screenBounds;
     private float objectWidth;
     private float objectHeight;
-    void Start()
+
+    public void Init()
     {
         screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         objectWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
-        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y; 
+        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
     }
 
     void LateUpdate()
