@@ -205,10 +205,11 @@ public class Minimap : MonoBehaviour
             (texture.width - (float)padding) / texture.width,
             (texture.height - (float)padding) / texture.height);
         Texture2D bgTexture = new Texture2D(1, 1);
-        bgTexture.SetPixel(0, 0, new Color(0,0,0));
+        bgTexture.SetPixel(0, 0, new Color(0,0,0,0.5f));
         bgTexture.Apply();
 
-        GUI.DrawTexture(positionRect, bgTexture);
+        //GUI.DrawTexture(positionRect, bgTexture);
+        GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height), bgTexture);
 
         GUI.DrawTextureWithTexCoords(
             positionRect,
