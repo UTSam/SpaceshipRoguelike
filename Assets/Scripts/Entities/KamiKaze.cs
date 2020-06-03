@@ -6,11 +6,23 @@ public class KamiKaze : BasicMovingEnemy
     [SerializeField] private float kamikazeeDamage = 50;
     [SerializeField] private float howLongToWait = 0.3f;
     private bool ableToMove = false;
+    private float LifeSpan = 4f;
 
     public override void Start()
     {
         base.Start();
         StartCoroutine(waitForMoving());
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        LifeSpan -= Time.deltaTime;
+
+        if (LifeSpan <= 0.0f)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

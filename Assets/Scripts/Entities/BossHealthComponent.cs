@@ -13,6 +13,10 @@ public class BossHealthComponent : HealthComponent
     {
         base.Start();
         boss = GetComponent<Boss>();
+
+        SceneManager.MoveGameObjectToScene(GVC.Instance.PlayerGO, SceneManager.GetActiveScene());
+        GVC.Instance.PlayerGO.GetComponent<Boundaries>().MainCamera = FindObjectOfType<Camera>();
+        GVC.Instance.PlayerGO.GetComponent<Boundaries>().Init();
     }
 
     public override void Damage(float damageValue)
@@ -38,6 +42,7 @@ public class BossHealthComponent : HealthComponent
     public override void OnDeath()
     {
         GlobalValues.Timer = GVC.Instance.StopWatchGO.GetComponent<StopWatchScript>().textZone.text;
+        Destroy(GVC.Instance.PlayerGO);
         SceneManager.LoadScene("VictoryScreen");
     }
 }

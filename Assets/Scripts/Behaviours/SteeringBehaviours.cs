@@ -48,6 +48,7 @@ public class SteeringBehaviours : MonoBehaviour
     [SerializeField] private float wallForce = 5f;
 
     private bool kamikazeON = false;
+    private Vector2 kamikazeDirection = Vector2.zero;
     [SerializeField] private float kamikazeForce = 1f;
 
 
@@ -67,20 +68,31 @@ public class SteeringBehaviours : MonoBehaviour
         }
     }
 
-    public Vector2 Calculate()
+    public virtual Vector2 Calculate()
     {
         returnValue = Vector2.zero;
         if (host.target != null && Vector3.Distance(host.transform.position, host.target.transform.position) < 20f)
         {
-            if (wallAvoidanceON) returnValue += WallAvoidance() * wallForce;
-            if (seekON) returnValue += Seek() * seekForce;
-            if (fleeON) returnValue += Flee() * fleeForce;
-            if (arriveOn) returnValue += Arrive(arriveDeceleration) * arriveForce;
-            if (pursuitOn) returnValue += Pursuit() * pursuitForce;
-            if (evadeOn) returnValue += Evade() * evadeForce;
-            if (wanderOn) returnValue += Wander() * wanderForce;
-            if (OffsetPursuitOn) returnValue += OffsetPursuit() * offsetPursuitForce;
-            if (kamikazeON) returnValue += Kamikazeee() * kamikazeForce;
+            if (kamikazeON)
+            {
+                if (kamikazeDirection == Vector2.zero)
+                {
+                    kamikazeDirection = (Kamikazeee() * kamikazeForce);
+                    return kamikazeDirection;
+                }
+                else return kamikazeDirection;
+            }
+            else
+            {
+                if (wallAvoidanceON) returnValue += WallAvoidance() * wallForce;
+                if (seekON) returnValue += Seek() * seekForce;
+                if (fleeON) returnValue += Flee() * fleeForce;
+                if (arriveOn) returnValue += Arrive(arriveDeceleration) * arriveForce;
+                if (pursuitOn) returnValue += Pursuit() * pursuitForce;
+                if (evadeOn) returnValue += Evade() * evadeForce;
+                if (wanderOn) returnValue += Wander() * wanderForce;
+                if (OffsetPursuitOn) returnValue += OffsetPursuit() * offsetPursuitForce;
+            }
         }
         else
         {
@@ -104,8 +116,8 @@ public class SteeringBehaviours : MonoBehaviour
 
     private Vector2 Kamikazeee()
     {
-        Vector2 desiredVelocity = (host.target.transform.position - host.transform.position).normalized * host.maxSpeed;
-        return desiredVelocity;
+        Vector2 desiredVelocity = (host.target.transform.position - host.transform.position).normalized *host.maxSpeed;
+        return (desiredVelocity - host.speed);
     }
 
     private Vector2 Flee()

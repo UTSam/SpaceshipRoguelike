@@ -9,4 +9,6 @@ public static class GlobalValues
     public static float TimerValue = 0f;
     public static string Timer;
     public static int Golds = 0;
+    public static float health = 100f;
+    public static float shield = 100f;
 }

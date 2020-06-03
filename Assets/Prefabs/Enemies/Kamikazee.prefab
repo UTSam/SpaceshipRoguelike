@@ -288,8 +288,8 @@ MonoBehaviour:
   deceleration: 0
   heading: {x: 0, y: 0}
   perpendicular: {x: 0, y: 0}
-  mass: 10
-  maxSpeed: 20
+  mass: 2
+  maxSpeed: 50
   maxForce: 2
   maxTurnRate: 2
   target: {fileID: 0}
@@ -330,7 +330,7 @@ MonoBehaviour:
   panicDistance: 4
   wallAvoidanceON: 1
   wallForce: 6
-  kamikazeForce: 30
+  kamikazeForce: 40
 --- !u!60 &2022710723293101066
 PolygonCollider2D:
   m_ObjectHideFlags: 0
