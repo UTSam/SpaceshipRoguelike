@@ -185,10 +185,15 @@ public class Minimap : MonoBehaviour
 
     private void drawMapScreen()
     {
-        int height = Screen.height - 20;
-        int width = (int)((float)height * ((float)texture.width / (float)texture.height));
+        //int height = Screen.height - 20;
+        //int width = (int)((float)height * ((float)texture.width / (float)texture.height));
+
+        int height = texture.height;
+        int width = texture.width;
+
         Debug.Log(string.Format("Width: {0}\tHeight: {1}", width, height));
         Debug.Log(string.Format("TWidth: {0}\tTHeight: {1}", texture.width - padding, texture.height - padding));
+        Debug.Log(string.Format("w: {0} h:{1}", (float)width / (float)texture.width, (float)height / (float)texture.height));
 
         Rect positionRect = new Rect(
             (Screen.width / 2) - (width / 2),
