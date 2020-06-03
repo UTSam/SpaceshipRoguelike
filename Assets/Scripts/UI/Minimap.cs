@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Dungeon;
+using System;
+using System.Dynamic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -168,11 +170,8 @@ public class Minimap : MonoBehaviour
     }
     void OnGUI()
     {
-        if (!texture)
-        {
-            // No texture to draw
-            return;
-        }
+        if (!texture) return;
+        if (!player) return;
 
         if (Input.GetKey("m"))
         {
@@ -190,10 +189,6 @@ public class Minimap : MonoBehaviour
 
         int height = texture.height;
         int width = texture.width;
-
-        Debug.Log(string.Format("Width: {0}\tHeight: {1}", width, height));
-        Debug.Log(string.Format("TWidth: {0}\tTHeight: {1}", texture.width - padding, texture.height - padding));
-        Debug.Log(string.Format("w: {0} h:{1}", (float)width / (float)texture.width, (float)height / (float)texture.height));
 
         Rect positionRect = new Rect(
             (Screen.width / 2) - (width / 2),
@@ -215,6 +210,21 @@ public class Minimap : MonoBehaviour
             positionRect,
             this.texture,
             texturecoord);
+
+        //// Add player indicator (:
+        //Rect indicatorRect = new Rect(
+        //    //   relative pos on texture | 
+        //        (Screen.width  / 2) - (width/2) + ((-player.position.x - dx ) * - playerIndicatorSize * 0.5f) / 2,
+        //        (Screen.height / 2) - (height/2)+ ((player.position.y - dy ) * - playerIndicatorSize * 0.5f) / 2,
+        //        playerIndicatorSize, playerIndicatorSize
+        //    );
+
+        //Debug.Log(positionRect);
+        //Debug.Log(indicatorRect);
+
+        //GUI.DrawTexture(
+        //    indicatorRect,
+        //    playerIndicator);
     }
 
     private void drawMinimap()
