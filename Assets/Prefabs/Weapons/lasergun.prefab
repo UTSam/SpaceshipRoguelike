@@ -97,22 +97,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43439aa458f187a41888370ebdbaea0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSize: 0
-  bulletSpeed: 0
-  bulletDamages: 0
-  bulletLifeSpan: 0
-  effectsList: 
   weaponName: 
-  magazineSize: 0
+  magazineSize: 500
   currentBulletNumber: 0
-  reloadTime: 0
-  fireRate: 0
-  maxModifierNumber: 0
+  reloadTime: 2
+  fireRate: 20
+  maxModifierNumber: 2
   bullet: {fileID: 7776950710900859174}
   bulletSpawnPoint: {fileID: 58922193575064431}
   bulletDirection: {fileID: 7160601296490574143}
   reloadCooldown: 0
   shotCooldown: 0
+  fireSound: {fileID: 0}
   laserOverloadFactor: 10
 --- !u!1 &7776950710900859174
 GameObject:
@@ -159,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lr: {fileID: 233277631358298890}
+  laserLength: 10
   DamageValue: 0
   element: 2
 --- !u!120 &233277631358298890

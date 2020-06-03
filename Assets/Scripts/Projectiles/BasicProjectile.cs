@@ -9,23 +9,18 @@ public enum ElementType
     Elec,
     None
 }
+
 public class BasicProjectile : MovingEntity
 {
     public float DamageValue = 10f;
     public float LifeSpan = 3.0f;
-    public float InitialSpeed = 10.0f;
+    public float InitialSpeed = 20.0f;
     public ElementType element = ElementType.None;
-
 
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
-
-        if (GetComponent<SFX_Player>())
-        {
-            GetComponent<SFX_Player>().PlayShootingSFX();
-        }
     }
 
     // Update is called once per frame

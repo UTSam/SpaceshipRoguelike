@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerDashing : State
 {
-    private readonly float dashTime = .1f;
+    private readonly float dashTime = .06f;
     private readonly float dashSpeed = 50f;
     private readonly float maxDistance = 600f;
 
@@ -32,6 +32,7 @@ public class PlayerDashing : State
         if (this.input.magnitude > 1)
             this.input = this.input.normalized;
 
+        player.GetComponent<HealthComponent>().isInvincible = true;
 
         if (animation)
         {
@@ -43,6 +44,7 @@ public class PlayerDashing : State
 
     public override void OnStateExit()
     {
+        player.GetComponent<HealthComponent>().isInvincible = false;
         if (animation) animation.Stop();
     }
 

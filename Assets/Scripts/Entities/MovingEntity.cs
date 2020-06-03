@@ -21,7 +21,6 @@ public class MovingEntity : BasicEntity
 
     public void UpdatePosition()
     {
-        //Speed -= Speed * Deceleration * Time.deltaTime;
         move(speed);
     }
 

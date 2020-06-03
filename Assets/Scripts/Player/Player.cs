@@ -7,6 +7,9 @@ public class Player : MovingEntity
     private State currentState;
     private Rigidbody2D rb;
 
+    public float dashCooldown;
+    public bool canDash = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -15,8 +18,8 @@ public class Player : MovingEntity
 
     private void Update()
     {
-        OrientModel();
-        lookAtMouse();
+        //OrientModel();
+        LookAtMouse();
 
         currentState.Tick();
     }
@@ -37,7 +40,7 @@ public class Player : MovingEntity
             currentState.OnStateEnter();
     }
 
-    private void lookAtMouse()
+    private void LookAtMouse()
     {
         Vector2 objectPosition = rb.position;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
