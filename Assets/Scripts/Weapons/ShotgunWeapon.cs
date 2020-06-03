@@ -35,7 +35,7 @@ public class ShotgunWeapon : BasicWeapon
 
     public override void ShootFunction()
     {
-        if (Input.GetMouseButton(0) && shotCooldown <= 0 && !isReloading)
+        if (Input.GetMouseButton(1) && shotCooldown <= 0 && !isReloading)
         {
             shotCooldown = 1 / fireRate;
             currentBulletNumber--;

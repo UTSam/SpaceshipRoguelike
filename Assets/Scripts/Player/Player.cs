@@ -1,129 +1,67 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
-public class Player: MovingEntity
+[RequireComponent(typeof(Rigidbody2D))]
+public class Player : MovingEntity
 {
-    public int Life { get; set; }
+    private State currentState;
+    private Rigidbody2D rb;
 
-    // Forces variables
-    public Vector2 acceleration;
-    public float accelerationFactor = 0.6f;
-
-    public Vector2 velocity;
-
-    private Vector2 forceBack;
-    public float forceBackFactor = 0.1f;
-
-    // Aim variables
-    public enum AimTypeList { mouse, keyboard };
-    public AimTypeList aimType;
-
-    // Orientation variables
-    public float orientationFactorX = 5f;
-    public float orientationFactorY = 3f;
-
-    // Dash variables
-    public float movementCouldownDefault = 1; // In seconds
-    public float movementCouldown;
-    public float dashFactor = 80;
-    private bool specialMovementActivated = false;
-
-
-    public override void Start()
+    private void Start()
     {
-        base.Start();
-
-        accelerationFactor = 0.6f;
-        forceBackFactor = 0.1f;
-
-        orientationFactorX = 5f;
-        orientationFactorY = 3f;
-
-        dashFactor = 80;
-        movementCouldownDefault = 2; // In seconds
-        movementCouldown = movementCouldownDefault;
-        specialMovementActivated = false;
+        rb = GetComponent<Rigidbody2D>();
+        SetState(new PlayerMovement(this));
     }
 
-    public void Update()
+    private void Update()
     {
-        // model Rotation
-        if (aimType == AimTypeList.keyboard)
-        {
-            KeyboardAim();
-        } else
-        {
-            MouseAim();
-        }
-
-        // Acceleration computation
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        acceleration.Set(horizontalInput, verticalInput);
-        acceleration *= accelerationFactor;
-
-        // Fore back computation
-        forceBack = -velocity * forceBackFactor;
-
-        // special movements computation
         OrientModel();
-        DashFunction();
+        lookAtMouse();
 
-        // Velocity computation
-        velocity += acceleration;
-        velocity += forceBack;       
-
-        Move(velocity); 
+        currentState.Tick();
     }
 
-
-    public void Damage(int damageAmount)
+    private void FixedUpdate()
     {
-        throw new System.NotImplementedException();
+        currentState.FixedTick();
     }
 
-
-    public void MouseAim()
+    public void SetState(State state)
     {
-        Vector2 objectPosition = transform.position;
+        if (currentState != null)
+            currentState.OnStateExit();
+
+        currentState = state;
+
+        if (currentState != null)
+            currentState.OnStateEnter();
+    }
+
+    private void lookAtMouse()
+    {
+        Vector2 objectPosition = rb.position;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition -= objectPosition;
 
-        Vector3 eulerRotation = transform.rotation.eulerAngles;
+        Vector3 eulerRotation = rb.transform.rotation.eulerAngles;
         eulerRotation.z = Mathf.Atan2(mousePosition.y, mousePosition.x) * Mathf.Rad2Deg - 90;
-        transform.rotation = Quaternion.Euler(eulerRotation);
+        rb.transform.rotation = Quaternion.Euler(eulerRotation);
     }
 
-
-    public void KeyboardAim()
+    internal void GotHit(float damageValue, ElementType element)
     {
-        Vector2 targetPosition = Vector2.zero;
-
-        if (Input.GetKey(KeyCode.Keypad5))
-            targetPosition += Vector2.up;
-
-        if(Input.GetKey(KeyCode.Keypad2))
-            targetPosition += Vector2.down;
-
-        if (Input.GetKey(KeyCode.Keypad1))
-            targetPosition += Vector2.left;
-
-        if (Input.GetKey(KeyCode.Keypad3))
-            targetPosition += Vector2.right;
-
-        if(targetPosition != Vector2.zero)
+        HealthComponent hc = GetComponentInParent<HealthComponent>();
+        if (!hc.isInvincible)
         {
-            Vector3 eulerRotation = transform.rotation.eulerAngles;
-            eulerRotation.z = Mathf.Atan2(targetPosition.y, targetPosition.x) * Mathf.Rad2Deg - 90;
-            transform.rotation = Quaternion.Euler(eulerRotation);
+            float shakeDuration = 0.2f;
+            float shakeStrength = 0.3f;
 
-            
+            GetComponentInParent<HealthComponent>().Damage(damageValue, element);
+            CameraShake.Shake(shakeDuration, shakeStrength);
         }
-        
     }
 
-    public void OrientModel()
+    public  void OrientModel()
     {
         Vector3 eulerRotation = transform.rotation.eulerAngles;
         eulerRotation.x = 0;
@@ -132,52 +70,14 @@ public class Player: MovingEntity
 
         // SpaceShip normal orientation
         Vector2 orientationVector = Vector2.zero;
-        orientationVector.y = (velocity.x - acceleration.x) * orientationFactorX;
-        orientationVector.x = (velocity.y - acceleration.y) * orientationFactorY;
+        orientationVector.y = rb.velocity.y;
+        orientationVector.x = rb.velocity.y;
 
 
         // Orientation update
         eulerRotation.x = orientationVector.x;
         eulerRotation.y = orientationVector.y;
         transform.rotation = Quaternion.Euler(eulerRotation);
-    }
-
-
-    public void DashFunction()
-    {
-        if (!specialMovementActivated && (Input.GetKeyDown(KeyCode.LeftShift) || (Input.GetKeyDown(KeyCode.RightShift))))
-        {
-            specialMovementActivated = true;
-
-            acceleration *= dashFactor;
-            forceBack *= dashFactor / 2;
-
-            if (GetComponent<Animate>())
-            {
-                GetComponent<Animate>().DoAnimationSpecial();
-                if (GetComponent<SFX_Player>())
-                {
-                    GetComponent<SFX_Player>().PlaySpecialAnimationAudio();
-                }
-            }
-        }
-
-        if (specialMovementActivated)
-            movementCouldown -= Time.deltaTime;
-
-        if(movementCouldown < 0) // Reset couldown
-        {
-            movementCouldown = movementCouldownDefault;
-            specialMovementActivated = false;
-        }
-    }
-
-    public void Move(Vector2 displacementValue)
-    {
-        rigidBody.velocity = displacementValue;
-        
-        // Moves the weapons
-        //GetComponent<WeaponsHandler>().MoveWeapons(displacementValue);
     }
 
 }

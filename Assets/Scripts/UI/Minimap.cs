@@ -30,7 +30,7 @@ public class Minimap : MonoBehaviour
     [Range(1, 30)]
     private float playerIndicatorSize = 10;
 
-    void Awake()
+    private void Start()
     {
         player = GVC.Instance.PlayerGO.transform;
         test_texture = new Texture2D(1, 1);
