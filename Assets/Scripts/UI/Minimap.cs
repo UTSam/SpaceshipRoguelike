@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Dungeon;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 using TileData = Assets.Scripts.Dungeon.TileData;
 
 public class Minimap : MonoBehaviour
@@ -30,6 +32,9 @@ public class Minimap : MonoBehaviour
     [Range(1, 30)]
     private float playerIndicatorSize = 10;
 
+    // Extra space at the top and right of the image
+    private int padding;
+
     void Awake()
     {
         player = GVC.Instance.PlayerGO.transform;
@@ -45,7 +50,7 @@ public class Minimap : MonoBehaviour
 
     public void Generate()
     {
-        int padding = (int) (mapSize / mapScale);
+        padding = (int) (mapSize / mapScale);
 
         // Create new texture with width and height of the tilemap
         Vector3Int tilemapSize = tilemap.cellBounds.size;
@@ -169,6 +174,45 @@ public class Minimap : MonoBehaviour
             return;
         }
 
+        if (Input.GetKey("m"))
+        {
+            drawMapScreen();
+        } else
+        {
+            drawMinimap();
+        }
+    }
+
+    private void drawMapScreen()
+    {
+        int height = Screen.height - 20;
+        int width = (int)((float)height * ((float)texture.width / (float)texture.height));
+        Debug.Log(string.Format("Width: {0}\tHeight: {1}", width, height));
+        Debug.Log(string.Format("TWidth: {0}\tTHeight: {1}", texture.width - padding, texture.height - padding));
+
+        Rect positionRect = new Rect(
+            (Screen.width / 2) - (width / 2),
+            (Screen.height / 2) - (height / 2),
+            width, height);
+
+        Rect texturecoord = new Rect(
+            0,0,
+            (texture.width - (float)padding) / texture.width,
+            (texture.height - (float)padding) / texture.height);
+        Texture2D bgTexture = new Texture2D(1, 1);
+        bgTexture.SetPixel(0, 0, new Color(0,0,0));
+        bgTexture.Apply();
+
+        GUI.DrawTexture(positionRect, bgTexture);
+
+        GUI.DrawTextureWithTexCoords(
+            positionRect,
+            this.texture,
+            texturecoord);
+    }
+
+    private void drawMinimap()
+    {
         // Create positionRect (Rectangle where the map will be displayed)
         int w = (int)mapSize;
         int h = (int)mapSize;
@@ -176,15 +220,9 @@ public class Minimap : MonoBehaviour
         int y = 20;
         Rect positionRect = new Rect(x, y, w, h);
 
-        // Draw map texture for testing
-        //GUI.DrawTexture(
-        //    new Rect(0, 0, texture.width, texture.height),
-        //    texture);
-
         //////////////////////////////////////////////////////////////////////
         // Create coordinates Rect that centers on the player
         //////////////////////////////////////////////////////////////////////
-
         // Translate player position to texture percentage
         playerPos = new Vector3(
             (player.position.x - dx) / texture.width,
@@ -215,6 +253,5 @@ public class Minimap : MonoBehaviour
         GUI.DrawTexture(
             indicatorRect,
             playerIndicator);
-
     }
 }
