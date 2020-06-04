@@ -20,13 +20,7 @@ public class StopWatchScript : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        String timerString = TimeSpan.FromSeconds(timer).ToString();
 
-        if (timerString.LastIndexOf('.') > 0)
-        {
-            timerString = timerString.Remove(timerString.LastIndexOf('.') + 1);
-        }
-
-        textZone.text = timerString.Remove(timerString.Length - 1);
+        textZone.text = TimeSpan.FromSeconds(timer).ToString(@"mm\:ss");
     }
 }

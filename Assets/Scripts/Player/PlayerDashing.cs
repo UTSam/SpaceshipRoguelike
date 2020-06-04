@@ -45,7 +45,16 @@ public class PlayerDashing : State
     public override void OnStateExit()
     {
         player.GetComponent<HealthComponent>().isInvincible = false;
+        if (animation) player.StartCoroutine(StopDashingAnimation());
+    }
+
+    //Make it so that the animation goes on for a while more, so that it looks better.
+    IEnumerator StopDashingAnimation()
+    {
+        animation.emissionRate = 20;
+        yield return new WaitForSeconds(.1f);
         if (animation) animation.Stop();
+        animation.emissionRate = 70;
     }
 
     public override void Tick()

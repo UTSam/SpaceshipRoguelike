@@ -35,7 +35,7 @@ public class CameraScript : MonoBehaviour
         cursorPosition = Camera.main.ScreenToWorldPoint(cursorPosition);
         cursorPosition.z = 0;
 
-        Vector3 middlePoint = playerPosition;//Vector3.Lerp(playerPosition, cursorPosition, 0.3f);
+        Vector3 middlePoint = Vector3.Lerp(playerPosition, cursorPosition, 0.3f);
 
         middlePoint.z = -60;
         return middlePoint;

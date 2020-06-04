@@ -15,14 +15,16 @@ public class CameraShake : MonoBehaviour
         cameraScript = GetComponent<CameraScript>();
     }
 
-    public static void Shake(float duration, float amount)
+    public static void Shake()
     {
         _instance.StopAllCoroutines();
-        _instance.StartCoroutine(_instance.cShake(duration, amount));
+        _instance.StartCoroutine(_instance.cShake());
     }
 
-    public IEnumerator cShake(float duration, float amount)
+    public IEnumerator cShake()
     {
+        float duration = 0.2f;
+        float amount = 0.05f;
         float endTime = Time.time + duration;
 
         while (Time.time < endTime)

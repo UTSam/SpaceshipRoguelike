@@ -60,7 +60,7 @@ public class Player : MovingEntity
             float shakeStrength = 0.3f;
 
             GetComponentInParent<HealthComponent>().Damage(damageValue, element);
-            CameraShake.Shake(shakeDuration, shakeStrength);
+            CameraShake.Shake();
         }
     }
 
@@ -73,8 +73,8 @@ public class Player : MovingEntity
 
         // SpaceShip normal orientation
         Vector2 orientationVector = Vector2.zero;
-        orientationVector.y = rb.velocity.y;
-        orientationVector.x = rb.velocity.y;
+        orientationVector.y = rb.velocity.y * 4;
+        orientationVector.x = rb.velocity.y * 4;
 
 
         // Orientation update
