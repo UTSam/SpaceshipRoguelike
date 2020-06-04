@@ -41,8 +41,11 @@ public class BossHealthComponent : HealthComponent
 
     public override void OnDeath()
     {
-        GlobalValues.Timer = GVC.Instance.StopWatchGO.GetComponent<StopWatchScript>().textZone.text;
-        Destroy(GVC.Instance.PlayerGO);
-        SceneManager.LoadScene("VictoryScreen");
+        boss.IsFiring = false;
+        if (bar != null)
+        {
+            Destroy(bar.gameObject);
+            boss.StartCoroutine(boss.PlayDeathAnimation(500));
+        } 
     }
 }
