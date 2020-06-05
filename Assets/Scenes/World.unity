@@ -310,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 920596474070257623, guid: 6df8cdc84948ad14188fb4c8981382a6,
         type: 3}
       propertyPath: roomCount
-      value: 124
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 920596474070257623, guid: 6df8cdc84948ad14188fb4c8981382a6,
         type: 3}
@@ -6757,7 +6757,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 180306331}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1496601648}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef0d64c62b9301c4e85832e4a7044122, type: 3}
@@ -6898,6 +6898,12 @@ AudioSource:
 --- !u!1839735485 &1481341706 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 6295750706245852034, guid: 6df8cdc84948ad14188fb4c8981382a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 180306331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1496601648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 920596474070257610, guid: 6df8cdc84948ad14188fb4c8981382a6,
     type: 3}
   m_PrefabInstance: {fileID: 180306331}
   m_PrefabAsset: {fileID: 0}
@@ -7339,6 +7345,11 @@ PrefabInstance:
       propertyPath: Minimap
       value: 
       objectReference: {fileID: 2098126080}
+    - target: {fileID: 2032333077035873544, guid: f715e1542cb2d6c448f24d52e41f6d13,
+        type: 3}
+      propertyPath: DungeonGO
+      value: 
+      objectReference: {fileID: 1496601648}
     - target: {fileID: 2032333077035873545, guid: f715e1542cb2d6c448f24d52e41f6d13,
         type: 3}
       propertyPath: m_Name
