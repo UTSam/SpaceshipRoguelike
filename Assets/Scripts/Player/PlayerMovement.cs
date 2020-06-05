@@ -8,6 +8,8 @@ public class PlayerMovement : State
 
     Rigidbody2D rb;
 
+    private ParticleSystem dashRecharged;
+
     public PlayerMovement(Player player) : base(player)
     {
         rb = player.GetComponent<Rigidbody2D>();
@@ -23,15 +25,8 @@ public class PlayerMovement : State
         if (Input.GetKey(KeyCode.LeftShift) && this.input != Vector2.zero && player.canDash)
         {
             player.canDash = false;
-            player.StartCoroutine(ResetDash());
             player.SetState(new PlayerDashing(player));
         }
-    }
-
-    IEnumerator ResetDash()
-    {
-        yield return new WaitForSeconds(player.dashCooldown);
-        player.canDash = true;
     }
 
     public override void FixedTick()

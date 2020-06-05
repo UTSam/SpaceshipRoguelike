@@ -5,12 +5,13 @@ using System.Collections;
 public class CameraShake : MonoBehaviour
 {
     private CameraScript cameraScript;
-    private Vector3 _originalPos;
     public static CameraShake _instance;
+
+    [SerializeField] private float duration = 2f;
+    [SerializeField] private float amount = 0.02f;
 
     void Awake()
     {
-        _originalPos = transform.localPosition;
         _instance = this;
         cameraScript = GetComponent<CameraScript>();
     }
@@ -23,20 +24,16 @@ public class CameraShake : MonoBehaviour
 
     public IEnumerator cShake()
     {
-        float duration = 0.2f;
-        float amount = 0.05f;
         float endTime = Time.time + duration;
 
         while (Time.time < endTime)
         {
-            transform.localPosition = cameraScript.GetPosition() + Random.insideUnitSphere * amount;
+            Vector3 shakeChange = cameraScript.GetPosition() + Random.insideUnitSphere * amount;
+            shakeChange.z = transform.localPosition.z;
 
-            duration -= Time.deltaTime;
+            transform.localPosition = shakeChange;
 
             yield return null;
         }
-
-        transform.localPosition = _originalPos;
     }
-
 }

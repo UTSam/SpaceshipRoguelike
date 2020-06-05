@@ -12,7 +12,7 @@ public class PlayerDashing : State
     private Rigidbody2D rb;
     private Vector3 originalPosition;
 
-    private ParticleSystem animation;
+    private ParticleSystem dashAnimation;
 
     public PlayerDashing(Player player) : base(player)
     {
@@ -20,11 +20,14 @@ public class PlayerDashing : State
 
         GameObject animationGO = GameObject.Find("dashAnimation");
         if (animationGO)
-            animation = animationGO.GetComponent<ParticleSystem>();
+            dashAnimation = animationGO.GetComponent<ParticleSystem>();
     }
 
     public override void OnStateEnter()
     {
+        player.StartCoroutine(ResetDashTimer());
+        player.StartCoroutine(StopDashing());
+
         originalPosition = rb.position;
 
         this.input.x = Input.GetAxisRaw("Horizontal");
@@ -34,27 +37,31 @@ public class PlayerDashing : State
 
         player.GetComponent<HealthComponent>().isInvincible = true;
 
-        if (animation)
+        if (dashAnimation)
         {
-            ParticleSystem.MainModule newMain = animation.main;
+            ParticleSystem.MainModule newMain = dashAnimation.main;
             newMain.startRotation = -(player.transform.rotation.eulerAngles.z * Mathf.Deg2Rad);
-            animation.Play();
+            dashAnimation.Play();
         }
     }
 
-    public override void OnStateExit()
+    IEnumerator ResetDashTimer()
     {
-        player.GetComponent<HealthComponent>().isInvincible = false;
-        if (animation) player.StartCoroutine(StopDashingAnimation());
+        //animation
+        yield return new WaitForSeconds(player.dashCooldown);
+        player.canDash = true;
+
+        Color color = new Color(0, 164, 255);
+        player.GetComponent<SpriteRenderer>().color = color;
+        player.StartCoroutine(ResetColor());
     }
 
-    //Make it so that the animation goes on for a while more, so that it looks better.
-    IEnumerator StopDashingAnimation()
+    IEnumerator ResetColor()
     {
-        animation.emissionRate = 20;
-        yield return new WaitForSeconds(.1f);
-        if (animation) animation.Stop();
-        animation.emissionRate = 70;
+        yield return new WaitForSeconds(.15f);
+        //animation
+        Color color = new Color(255, 255, 255);
+        player.GetComponent<SpriteRenderer>().color = color;
     }
 
     public override void Tick()
@@ -68,12 +75,26 @@ public class PlayerDashing : State
     public override void FixedTick()
     {
         rb.velocity = input * dashSpeed;
-        player.StartCoroutine(StopDashing());
     }
 
     IEnumerator StopDashing()
     {
         yield return new WaitForSeconds(dashTime);
         player.SetState(new PlayerMovement(player));
+    }
+
+    public override void OnStateExit()
+    {
+        player.GetComponent<HealthComponent>().isInvincible = false;
+        if (dashAnimation) player.StartCoroutine(StopDashingAnimation());
+    }
+
+    //Make it so that the animation goes on for a while more, so that it looks better.
+    IEnumerator StopDashingAnimation()
+    {
+        dashAnimation.emissionRate = 20;
+        yield return new WaitForSeconds(.1f);
+        if (dashAnimation) dashAnimation.Stop();
+        dashAnimation.emissionRate = 70;
     }
 }
