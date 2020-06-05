@@ -9,33 +9,25 @@ public enum ElementType
     Elec,
     None
 }
+
 public class BasicProjectile : MovingEntity
 {
     public float DamageValue = 10f;
     public float LifeSpan = 3.0f;
-    public float InitialSpeed = 10.0f;
+    public float InitialSpeed = 20.0f;
     public ElementType element = ElementType.None;
-
 
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
-
-        if (GetComponent<SFX_Player>())
-        {
-            GetComponent<SFX_Player>().PlayShootingSFX();
-        }
     }
 
     // Update is called once per frame
     protected void Update()
     {
-
         UpdatePosition();
         LifeSpan -= Time.deltaTime;
-
-        
 
         if (LifeSpan <= 0.0f)
         {
@@ -45,21 +37,19 @@ public class BasicProjectile : MovingEntity
 
     public virtual void OnHit(Collider2D other)
     {
-        if (other.GetComponentInParent<Player>() && !other.GetComponentInParent<HealthComponent>().isInvincible)
+        Player player = other.GetComponentInParent<Player>();
+        if (player)
         {
-            other.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
-            MyAnimation();
+            player.GotHit(DamageValue, element);
+            FireAnimations();
             Destroy(this.gameObject);
-
         }
 
         if (other.GetComponentInParent<TilemapCollider2D>())
         {
-            MyAnimation();
+            FireAnimations();
             Destroy(this.gameObject);
         }
-
-
     }
 
     virtual protected void OnTriggerEnter2D(Collider2D other)
@@ -67,7 +57,7 @@ public class BasicProjectile : MovingEntity
         OnHit(other);
     }
 
-    private void MyAnimation()
+    private void FireAnimations()
     {
         if (GetComponent<Animate>())
         {

@@ -5,12 +5,12 @@ using TileData = Assets.Scripts.Dungeon.TileData;
 
 public class Minimap : MonoBehaviour
 {
-    public DungeonGenerator dungeon;
-    public Tilemap tilemap;
+    private DungeonGenerator dungeon;
+    private Tilemap tilemap;
 
     private Transform player;
     private Texture2D texture;
-    public Texture2D playerIndicator;
+    [SerializeField] private Texture2D playerIndicator;
 
     private Texture2D test_texture;
 
@@ -30,18 +30,20 @@ public class Minimap : MonoBehaviour
     [Range(1, 30)]
     private float playerIndicatorSize = 10;
 
-    void Awake()
+    private void Start()
     {
         player = GVC.Instance.PlayerGO.transform;
+        tilemap = GVC.Instance.tilemap.walls;
+        dungeon = GVC.Instance.DungeonGO.GetComponent<DungeonGenerator>();
         test_texture = new Texture2D(1, 1);
         test_texture.SetPixel(0, 0, Color.black);
         test_texture.Apply();
     }
 
-    void OnValidate()
-    {
-        Generate();
-    }
+    //void OnValidate()
+    //{
+    //    Generate();
+    //}
 
     public void Generate()
     {
