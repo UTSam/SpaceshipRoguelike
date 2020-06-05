@@ -20,7 +20,7 @@ public class PlayerMovement : State
         if (this.input.magnitude > 1)
             this.input = this.input.normalized;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && this.input != Vector2.zero && player.canDash)
+        if (Input.GetKey(KeyCode.LeftShift) && this.input != Vector2.zero && player.canDash)
         {
             player.canDash = false;
             player.StartCoroutine(ResetDash());
