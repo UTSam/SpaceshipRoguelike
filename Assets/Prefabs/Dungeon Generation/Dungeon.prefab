@@ -2851,7 +2851,6 @@ GameObject:
   m_Component:
   - component: {fileID: 920596474070257608}
   - component: {fileID: 920596474070257609}
-  - component: {fileID: 920596474070257623}
   - component: {fileID: 710629146723293240}
   m_Layer: 0
   m_Name: Dungeon
@@ -2890,7 +2889,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &920596474070257623
+--- !u!114 &710629146723293240
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2902,36 +2901,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0d64c62b9301c4e85832e4a7044122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: 0
+  placedRooms: []
   count: 0
   roomCount: 10
-  seed: 0
-  additionalDistance: 10
+  additionalDistance: 8
   maxOffset: 20
-  locked: 0
---- !u!114 &710629146723293240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920596474070257610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef67654719efa9d4d998b67a2192b083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tilemap_walls: {fileID: 920596474632322100}
-  _tilemap_doors: {fileID: 5508997489724320037}
-  _tilemap_floors: {fileID: 6295750706245852034}
-  _tile_Corridor_Horizontal: {fileID: 11400000, guid: 2802e388e3e36c747acbf779552b7d28,
-    type: 2}
-  _tile_Corridor_Vertical: {fileID: 11400000, guid: 2cb4e54509b3c494985fd994e5357f18,
-    type: 2}
-  _tile_Floor: {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b, type: 2}
-  _tile_Door_Locked: {fileID: 11400000, guid: 4dccbeda2b4380d4ba2d285abe33e37b, type: 2}
-  _tile_Door_Unlocked: {fileID: 11400000, guid: 93558c8122375f74a8e24e14bc3a1a9b,
-    type: 2}
-  _player: {fileID: 0}
 --- !u!1 &920596474301982080
 GameObject:
   m_ObjectHideFlags: 0
@@ -3314,7 +3289,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3612,14 +3587,14 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: b3351cf1196309b4da05d7fcca642c82, type: 3}
   - m_RefCount: 34
     m_Data: {fileID: 21300000, guid: cf5f357e959fdfe4ca33c2d46d07e9c5, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 8c525e413eb3da143ae808cc07d40ff3, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 65
     m_Data:

@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class HealthUIHandler : MonoBehaviour
 {
-    public GameObject spaceship;
-    public Image healthBar;
-    public Image shieldBar;
-    public Image dashBar;
-    public Image ultiBar;
+    private GameObject spaceship;
+    [SerializeField] private Image healthBar;
+    [SerializeField] private Image shieldBar;
+    [SerializeField] private Image dashBar;
+    [SerializeField] private Image ultiBar;
 
     private void Start()
     {
