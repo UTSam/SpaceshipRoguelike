@@ -60,9 +60,4 @@ public class GVC : MonoBehaviour
 		}
 		PlayerGO = FindObjectOfType<Player>().transform.root.gameObject;
 	}
-
-	private void Start()
-	{
-		//PlayerGO = FindObjectOfType<Player>().transform.root.gameObject;
-	}
 }

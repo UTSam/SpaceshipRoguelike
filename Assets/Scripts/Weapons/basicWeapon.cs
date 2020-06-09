@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class BasicWeapon : MonoBehaviour
 {
-    public enum EffectsList { explosive, penetrate, bounce, multiply };
-    public enum ElementType { Fire, Elec, None };
-
-    // Bullet attributes
-    public float bulletSize;
-    public float bulletSpeed;
-    public float bulletDamages;
-    public float bulletLifeSpan;
-    public List<EffectsList> effectsList;
-
     // Weapon attribute
     public string weaponName;
     public int magazineSize;
@@ -34,21 +24,21 @@ public class BasicWeapon : MonoBehaviour
     // Triger variables
     protected bool isReloading = false;
 
+    [SerializeField] protected AudioSource fireSound;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
         currentBulletNumber = magazineSize;
-
-        SetBulletValues();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        ShootFunction();
+        Shoot();
 
         // Reloads if the number of bullets is null or if the user ask for it, only if it is not already reloading or if its bullet number is max
-        ReloadFunction();
+        Reload();
 
         /* Timer updates */
         if (shotCooldown > 0)
@@ -59,11 +49,9 @@ public class BasicWeapon : MonoBehaviour
         /* End timer updates */
     }
 
-    public virtual void ShootFunction()
-    {
-    }
+    public virtual void Shoot() {}
 
-    public void ReloadFunction()
+    public void Reload()
     {
         if (isReloading && reloadCooldown <= 0)
         {
@@ -76,40 +64,5 @@ public class BasicWeapon : MonoBehaviour
             isReloading = true;
             reloadCooldown = reloadTime;
         }
-    }
-
-    public void SetBulletSpeed(Transform transform, float min, float max)
-    // float min and max represents the limit angles that can be added to the original spaceship orientation
-    {
-        Vector2 direction = Vector2.zero;
-        direction.Set(transform.parent.up.x, transform.parent.up.y);
-        direction += AddNoiseOnAngle(min, max);
-        bullet.GetComponent<MovingEntity>().speed = direction.normalized * bulletSpeed;
-    }
-
-    public virtual void SetBulletValues()
-    {
-        bullet.GetComponent<BasicProjectile>().LifeSpan = bulletLifeSpan;
-        bullet.GetComponent<Transform>().localScale = new Vector3(bulletSize, bulletSize, bulletSize);
-        bullet.GetComponent<BasicProjectile>().DamageValue = bulletDamages;
-        bullet.GetComponent<BasicProjectile>().InitialSpeed = bulletSpeed;
-    }
-
-    protected Vector2 AddNoiseOnAngle(float min, float max)
-    // float min and max represents the limit angles that can be added to the original spaceship orientation
-    {
-        float xNoise = Random.Range(min, max);
-        float yNoise = Random.Range(min, max);
-        // Now get the angle between w.r.t. a vector 2 direction
-        Vector2 noise = new Vector3(
-            Mathf.Sin(2f * 3.1415926f * xNoise / 360),
-            Mathf.Sin(2f * 3.1415926f * yNoise / 360)
-                        );
-        return noise;
-    }
-
-    protected void SetLifeSpan(float newValue)
-    {
-        bullet.GetComponent<BasicProjectile>().LifeSpan = newValue;
     }
 }

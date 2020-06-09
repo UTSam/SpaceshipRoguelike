@@ -21,12 +21,12 @@ public class HealthUIHandler : MonoBehaviour
     {
         if (spaceship == null) return;
 
-        healthBar.fillAmount = spaceship.GetComponent<HealthComponent>().Health / ( spaceship.GetComponent<HealthComponent>().MaxHealth * 2 );
-        shieldBar.fillAmount = spaceship.GetComponent<HealthComponent>().Shield / ( spaceship.GetComponent<HealthComponent>().MaxShield * 2 );
+        healthBar.fillAmount = spaceship.GetComponent<HealthComponent>().Health / (spaceship.GetComponent<HealthComponent>().MaxHealth);
+        shieldBar.fillAmount = spaceship.GetComponent<HealthComponent>().Shield / (spaceship.GetComponent<HealthComponent>().MaxShield);
 
-        if (spaceship.GetComponent<Player>().movementCouldown == spaceship.GetComponent<Player>().movementCouldownDefault)
-            dashBar.fillAmount = 1;
-        else
-            dashBar.fillAmount = (spaceship.GetComponent<Player>().movementCouldownDefault - spaceship.GetComponent<Player>().movementCouldown) / spaceship.GetComponent<Player>().movementCouldownDefault;
+        //if (spaceship.GetComponent<Player>().movementCouldown == spaceship.GetComponent<Player>().movementCouldownDefault)
+        //    dashBar.fillAmount = 1;
+        //else
+        //    dashBar.fillAmount = (spaceship.GetComponent<Player>().movementCouldownDefault - spaceship.GetComponent<Player>().movementCouldown) / spaceship.GetComponent<Player>().movementCouldownDefault;
     }
 }
