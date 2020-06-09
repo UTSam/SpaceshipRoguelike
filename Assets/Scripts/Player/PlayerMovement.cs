@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Robbert Ritsema
+      Jacco Douma
+*/
+
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : State

@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+      Jelle van Urk
+*/
+
+using UnityEngine;
 
 [RequireComponent(typeof(SteeringBehaviours))]
 

@@ -1,4 +1,10 @@
-﻿using Assets.Scripts.Dungeon;
+﻿/*
+    Authors:
+      Robbert Ritsema
+      Jacco Douma
+*/
+
+using Assets.Scripts.Dungeon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

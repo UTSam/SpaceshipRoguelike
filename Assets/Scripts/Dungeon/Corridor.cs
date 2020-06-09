@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+    Authors:
+      Robbert Ritsema
+      Jacco Douma
+*/
+
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;

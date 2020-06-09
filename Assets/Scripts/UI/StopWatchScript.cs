@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Sam Boileau
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;

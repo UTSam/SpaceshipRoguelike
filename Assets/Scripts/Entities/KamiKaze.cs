@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+      Jelle van Urk
+      Robbert Ritsema
+*/
+
+using System.Collections;
 using UnityEngine;
 
 public class KamiKaze : BasicMovingEnemy
