@@ -116,7 +116,8 @@ public class SteeringBehaviours : MonoBehaviour
 
     private Vector2 Kamikazeee()
     {
-        Vector2 desiredVelocity = (host.target.transform.position - host.transform.position).normalized *host.maxSpeed;
+        //Vector2 desiredVelocity = (host.target.transform.position - host.transform.position).normalized *host.maxSpeed;
+        Vector2 desiredVelocity = (host.target.GetPosition() - host.GetPosition()).normalized * host.maxSpeed;
         return (desiredVelocity - host.speed);
     }
 

@@ -104,12 +104,23 @@ public class Boss : MonoBehaviour
 
     private IEnumerator Entrance()
     {
+        GetComponent<BossHealthComponent>().isInvincible = true;
         while (startingPosition.y - transform.position.y < 3.0f)
         {
-            transform.position += new Vector3(0f, -0.01f, 0f);
+            transform.position += new Vector3(0f, -0.02f, 0f);
             //transform.position += new Vector3(0f, -0.5f, 0f);
             yield return null;
         }
+
+        Transform barTransform = GetComponentInChildren<LifeBar>().gameObject.transform;
+        while (barTransform.localScale.x < 0.8f)
+        {
+            barTransform.localScale += new Vector3(0.02f, 0f, 0f);
+            yield return null;
+        }
+
+        GetComponent<BossHealthComponent>().isInvincible = false;
+        yield return new WaitForSeconds(0.5f);
         IsFiring = true;
         yield return null;
     }
@@ -121,16 +132,23 @@ public class Boss : MonoBehaviour
             transform.position += new Vector3(0f, +0.01f, 0f);
             yield return null;
         }
+
         Instantiate(FinalExplosionAnimation, transform.position, Quaternion.identity);
-        
-        yield return null;
-        /*GlobalValues.Timer = GVC.Instance.StopWatchGO.GetComponent<StopWatchScript>().textZone.text;
-        Destroy(GVC.Instance.PlayerGO);
-        SceneManager.LoadScene("VictoryScreen");*/
+
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(3f, 6f));
+            float spawnY = Random.Range
+                (Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y);
+            float spawnX = Random.Range
+                (Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x, Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
+            Instantiate(FinalExplosionAnimation, new Vector3(spawnX, spawnY, 0) , Quaternion.identity);
+        }
     }
 
     public IEnumerator PlayDeathAnimation(int nbExplosions)
     {
+        GVC.Instance.StopWatchGO.GetComponent<StopWatchScript>().IsPaused = true;
         credits.StartCoroutine(credits.Scroll());
         StartCoroutine(LeaveScreen());
         IsFiring = false;

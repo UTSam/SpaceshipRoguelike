@@ -9,6 +9,7 @@ public class StopWatchScript : MonoBehaviour
 
     public float timer = 0f;
     public Text textZone;
+    public bool IsPaused = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,14 +20,17 @@ public class StopWatchScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        String timerString = TimeSpan.FromSeconds(timer).ToString();
-
-        if (timerString.LastIndexOf('.') > 0)
+        if (!IsPaused)
         {
-            timerString = timerString.Remove(timerString.LastIndexOf('.') + 1);
-        }
+            timer += Time.deltaTime;
+            String timerString = TimeSpan.FromSeconds(timer).ToString();
 
-        textZone.text = timerString.Remove(timerString.Length - 1);
+            if (timerString.LastIndexOf('.') > 0)
+            {
+                timerString = timerString.Remove(timerString.LastIndexOf('.') + 1);
+            }
+
+            textZone.text = timerString.Remove(timerString.Length - 1);
+        }
     }
 }
