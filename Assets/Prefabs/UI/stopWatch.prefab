@@ -149,8 +149,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60, y: -40}
-  m_SizeDelta: {x: 132.73999, y: 61.399994}
+  m_AnchoredPosition: {x: 72, y: -40}
+  m_SizeDelta: {x: 178.34277, y: 61.399994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7728871137153171182
 CanvasRenderer:
@@ -205,6 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectColor: {r: 0.18431373, g: 0.14117648, b: 0.09019608, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
