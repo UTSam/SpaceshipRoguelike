@@ -27,10 +27,10 @@ public class BossShotgun : BossWeapon
         Vector3 lookPos = aimingPosition - Muzzle.position;
         if (IsAiming)
             lookPos = Target.position - Muzzle.position;
+
+        if (IsRotating)
+            lookPos += new Vector3(0.5f, 0f, 0f) * (DefaultNbShotToFire - NbShotToFire);
         Vector3 aimingPos;
-        /*
-        float canonAngle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(canonAngle - 90, Vector3.forward);*/
 
         for (int i = 0; i< BulletsPerShot; i++)
         {

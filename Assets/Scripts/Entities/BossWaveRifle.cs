@@ -46,7 +46,8 @@ public class BossWaveRifle : BossWeapon
         if (isLeftToRight)
             lookPos = Quaternion.AngleAxis(-spreadAngle + (DefaultNbShotToFire - NbShotToFire) * angleOffset, Vector3.forward) * lookPos;
         else
-            lookPos = Quaternion.AngleAxis(spreadAngle - (DefaultNbShotToFire - NbShotToFire) * angleOffset, Vector3.forward) * lookPos;
+            lookPos = Quaternion.AngleAxis(spreadAngle-(angleOffset/2f) - (DefaultNbShotToFire - NbShotToFire) * angleOffset, Vector3.forward) * lookPos;
+
         float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
         projectile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 

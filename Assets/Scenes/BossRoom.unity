@@ -1992,7 +1992,7 @@ PrefabInstance:
     - target: {fileID: 339957607941272968, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.91
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 339957607941272968, guid: 57ce2109cbe833b40ba7f7295bd8670b,
         type: 3}
@@ -2700,6 +2700,11 @@ PrefabInstance:
       propertyPath: spreadAngle
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 9182197866534106138, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
+        type: 3}
+      propertyPath: IsRotating
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9182197866534106139, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3113,6 +3118,7 @@ MonoBehaviour:
   NbShotToFire: 0
   DefaultNbShotToFire: 1
   IsAiming: 0
+  IsRotating: 0
   EnemyTospawn: {fileID: 7783866754064367463, guid: 8630312d311857947be45af15ce09fa9,
     type: 3}
 --- !u!4 &4263449156185229942 stripped
@@ -3136,7 +3142,7 @@ PrefabInstance:
     - target: {fileID: 348004227157461362, guid: 005abcff8e7acb341af7765fee8f717b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 348004227157461364, guid: 005abcff8e7acb341af7765fee8f717b,
         type: 3}
@@ -3246,7 +3252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5487953889186295345
 GameObject:
   m_ObjectHideFlags: 0
@@ -3259,12 +3265,12 @@ GameObject:
   - component: {fileID: 3875919837501188640}
   - component: {fileID: 5487953889186295346}
   m_Layer: 0
-  m_Name: BossWave (1)
+  m_Name: SquareGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5487953889186295346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3285,6 +3291,7 @@ MonoBehaviour:
   NbShotToFire: 0
   DefaultNbShotToFire: 15
   IsAiming: 0
+  IsRotating: 0
   BulletsPerShot: 2
   spreadAngle: 0
   maxSpread: 10
