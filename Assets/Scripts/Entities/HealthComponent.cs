@@ -17,7 +17,7 @@ public class HealthComponent : MonoBehaviour
 
     public bool isInvincible = false;
 
-   private LifeBar bar; //HealthBar is not required but can be used for visual indications
+   protected LifeBar bar; //HealthBar is not required but can be used for visual indications
 
     protected void Start()
     {
