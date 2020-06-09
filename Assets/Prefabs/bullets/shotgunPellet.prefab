@@ -55,7 +55,7 @@ MonoBehaviour:
   maxSpeed: 50
   maxForce: 2
   maxTurnRate: 2
-  DamageValue: 50
+  DamageValue: 20
   LifeSpan: 0.5
   InitialSpeed: 13
   element: 2
