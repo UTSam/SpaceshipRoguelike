@@ -25,7 +25,7 @@ public class LaserGunWeapon : BasicWeapon
 
     public override void Shoot()
     {
-        if (Input.GetMouseButton(0) && shotCooldown <= 0 && !isReloading)
+        if (shotCooldown <= 0 && !isReloading)
         {
             bullet.SetActive(true);
             currentBulletNumber -= (laserOverloadFactor/fireRate);

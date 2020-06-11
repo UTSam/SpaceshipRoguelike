@@ -69,9 +69,9 @@ public class Room : MonoBehaviour
             Instantiate(GVC.Instance.Patrick, this.globalPosition, Quaternion.identity, this.transform);
         }
 
-        if (UnityEngine.Random.value < 0.0f)
+        if (UnityEngine.Random.value < 0.3f)
         {
-            GameObject pack = Instantiate(GVC.Instance.HealthPackPrefab) as GameObject;
+            GameObject pack = Instantiate(GVC.Instance.chest) as GameObject;
             pack.transform.position = transform.position;
         }
     }

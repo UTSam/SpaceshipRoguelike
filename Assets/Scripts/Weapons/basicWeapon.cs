@@ -46,10 +46,8 @@ public class BasicWeapon : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (equiped && !inventoryState.GetComponent<InventoryStateScript>().GetState())
+        if (equiped && !GVC.Instance.inventoryState)
         {
-            Shoot();
-
             // Reloads if the number of bullets is null or if the user ask for it, only if it is not already reloading or if its bullet number is max
             Reload();
 
