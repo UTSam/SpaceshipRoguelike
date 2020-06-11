@@ -338,6 +338,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: spaceship
       objectReference: {fileID: 0}
+    - target: {fileID: 3222325492844553496, guid: 457ff8de074067c409f91265c1d557b5,
+        type: 3}
+      propertyPath: maxPickDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3228477616507924341, guid: 457ff8de074067c409f91265c1d557b5,
         type: 3}
       propertyPath: weaponList.Array.size
@@ -356,7 +361,7 @@ PrefabInstance:
     - target: {fileID: 3228477616507924341, guid: 457ff8de074067c409f91265c1d557b5,
         type: 3}
       propertyPath: weaponNumber
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4430506404671848278, guid: 457ff8de074067c409f91265c1d557b5,
         type: 3}
@@ -824,6 +829,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1419262299894538244, guid: d66be7139247f484cb46eb2b4a919883,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419262299894538244, guid: d66be7139247f484cb46eb2b4a919883,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1988548444873067933, guid: d66be7139247f484cb46eb2b4a919883,
         type: 3}
       propertyPath: m_Name
@@ -893,6 +908,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2949797762174920254, guid: 5aabdca5b0860134099aff525feb4c11,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4917534600768410693, guid: 5aabdca5b0860134099aff525feb4c11,
         type: 3}
       propertyPath: m_LocalPosition.x
