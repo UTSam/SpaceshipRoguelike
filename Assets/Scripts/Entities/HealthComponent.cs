@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+      Jelle van Urk
+      Samuel Boileau
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
@@ -17,7 +24,7 @@ public class HealthComponent : MonoBehaviour
 
     public bool isInvincible = false;
 
-   private LifeBar bar; //HealthBar is not required but can be used for visual indications
+   protected LifeBar bar; //HealthBar is not required but can be used for visual indications
 
     protected void Start()
     {

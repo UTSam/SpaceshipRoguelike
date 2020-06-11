@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+      Jelle van Urk
+      Robbert Ritsema
+      Jacco Douma
+      Samuel Boileau
+*/
+
+using System;
 using UnityEngine;
 
 public class Player : MovingEntity

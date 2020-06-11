@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/*
+    Authors:
+      Robbert Ritsema
+*/
+
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(CameraScript))]

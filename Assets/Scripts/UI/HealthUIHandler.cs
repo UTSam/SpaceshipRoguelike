@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Robbert Ritsema
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +14,8 @@ public class BossWeapon : ShootingComponent
     protected Vector3 aimingPosition; //Last position of the target
     protected Boss boss;
     public bool IsAiming;
+    public bool IsRotating = false;
 
-    // Start is called before the first frame update
     protected void Start()
     {
         base.Start();

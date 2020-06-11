@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Sam Boileau
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -9,6 +14,7 @@ public class StopWatchScript : MonoBehaviour
 
     public float timer = 0f;
     public Text textZone;
+    public bool IsPaused = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,8 +25,11 @@ public class StopWatchScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        if (!IsPaused)
+        {
+            timer += Time.deltaTime;
 
-        textZone.text = TimeSpan.FromSeconds(timer).ToString(@"mm\:ss");
+            textZone.text = TimeSpan.FromSeconds(timer).ToString(@"mm\:ss");
+        }
     }
 }

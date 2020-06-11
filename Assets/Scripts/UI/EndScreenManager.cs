@@ -1,4 +1,9 @@
-﻿using TMPro;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+*/
+
+using TMPro;
 using UnityEngine;
 
 public class EndScreenManager : MonoBehaviour

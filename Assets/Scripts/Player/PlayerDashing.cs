@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Robbert Ritsema
+*/
+
+using System.Collections;
 using UnityEngine;
 
 public class PlayerDashing : State

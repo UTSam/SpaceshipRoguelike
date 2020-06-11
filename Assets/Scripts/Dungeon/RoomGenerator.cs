@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿/*
+    Authors:
+      Robbert Ritsema
+      Jacco Douma
+*/
+
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Assets.Scripts.Dungeon;

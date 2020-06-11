@@ -232,6 +232,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 710629146723293240, guid: 6df8cdc84948ad14188fb4c8981382a6,
+        type: 3}
+      propertyPath: roomCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 920596474070257608, guid: 6df8cdc84948ad14188fb4c8981382a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7265,6 +7270,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4570966332903402420, guid: d60a48c7060667e418b1525c94cdae40,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -51.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5128735424138315752, guid: d60a48c7060667e418b1525c94cdae40,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7284,6 +7294,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798496494153890454, guid: d60a48c7060667e418b1525c94cdae40,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -51.3
       objectReference: {fileID: 0}
     - target: {fileID: 6109786128227758334, guid: d60a48c7060667e418b1525c94cdae40,
         type: 3}
