@@ -340,9 +340,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3228477616507924341, guid: 457ff8de074067c409f91265c1d557b5,
         type: 3}
+      propertyPath: weaponList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228477616507924341, guid: 457ff8de074067c409f91265c1d557b5,
+        type: 3}
+      propertyPath: weaponPositionList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228477616507924341, guid: 457ff8de074067c409f91265c1d557b5,
+        type: 3}
       propertyPath: weaponUI
       value: 
       objectReference: {fileID: 2132830164}
+    - target: {fileID: 3228477616507924341, guid: 457ff8de074067c409f91265c1d557b5,
+        type: 3}
+      propertyPath: weaponNumber
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4430506404671848278, guid: 457ff8de074067c409f91265c1d557b5,
         type: 3}
       propertyPath: m_Name
