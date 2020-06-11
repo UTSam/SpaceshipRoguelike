@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+    Authors:
+      Jelle van Urk
+      Robbert Ritsema
+*/
+
+using UnityEngine;
 
 public class BossSquareLauncher : BossShotgun
 {

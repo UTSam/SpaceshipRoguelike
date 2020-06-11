@@ -1,4 +1,9 @@
-﻿using Assets.Scripts.Dungeon;
+﻿/*
+    Authors:
+      Jacco Douma
+*/
+
+using Assets.Scripts.Dungeon;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TileData = Assets.Scripts.Dungeon.TileData;

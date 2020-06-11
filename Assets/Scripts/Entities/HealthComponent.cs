@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+      Jelle van Urk
+      Samuel Boileau
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;

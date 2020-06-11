@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+    Authors:
+      Jelle van Urk
+      Thibaut Rousselet
+*/
+
+using System;
 using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;

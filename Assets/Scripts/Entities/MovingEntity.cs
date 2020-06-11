@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+      Jelle van Urk
+      Robbert Ritsema
+*/
+
+using System;
 using UnityEngine;
 
 public class MovingEntity : BasicEntity

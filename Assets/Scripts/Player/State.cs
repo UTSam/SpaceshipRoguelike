@@ -1,4 +1,9 @@
-﻿public abstract class State
+﻿/*
+    Authors:
+      Robbert Ritsema
+*/
+
+public abstract class State
 {
     protected Player player;
 
