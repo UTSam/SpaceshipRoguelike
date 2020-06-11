@@ -25,11 +25,20 @@ public class InfoUIScript : MonoBehaviour
     public List<GameObject> activeWeaponUIList;
     public List<GameObject> inventorySlotList;
 
+<<<<<<< HEAD
+=======
+    // Pointer on the inventory hud state
+    protected GameObject inventoryState;
+>>>>>>> e214ca5b1275ef865354a3c517131449f7bfd811
 
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< HEAD
         spaceship = GVC.Instance.PlayerGO;
+=======
+        inventoryState = GameObject.Find("Main");
+>>>>>>> e214ca5b1275ef865354a3c517131449f7bfd811
 
         SetSpaceShipImage();
 
@@ -120,7 +129,11 @@ public class InfoUIScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+<<<<<<< HEAD
             GVC.Instance.inventoryState = true;
+=======
+            inventoryState.GetComponent<InventoryStateScript>().SetState(true);
+>>>>>>> e214ca5b1275ef865354a3c517131449f7bfd811
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -130,7 +143,11 @@ public class InfoUIScript : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Tab))
         {
+<<<<<<< HEAD
             GVC.Instance.inventoryState = false;
+=======
+            inventoryState.GetComponent<InventoryStateScript>().SetState(false);
+>>>>>>> e214ca5b1275ef865354a3c517131449f7bfd811
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -186,12 +203,27 @@ public class InfoUIScript : MonoBehaviour
                 {
                     // Instantiate and initialize element
                     GameObject elem = Instantiate(inventoryElementPrefab);
+<<<<<<< HEAD
                     elem.GetComponent<InventoryElementScript>().SetElement(list.transform.GetChild(0).gameObject);
                     elem.transform.SetParent(this.transform);
 
                     //Set the element in the available active weapon slots
                     activeWeaponUIList[i].GetComponent<ActiveWeaponUIScript>().SetElement(elem);
                     elem.SetActive(false);
+=======
+                    GameObject weapon = list.transform.GetChild(0).gameObject;
+                    elem.GetComponent<InventoryElementScript>().SetElement(weapon);
+                    elem.transform.SetParent(this.transform);
+
+
+
+                    //Set the element in the available active weapon slots
+                    //activeWeaponUIList[i].GetComponent<ActiveWeaponUIScript>().SetElement(elem);
+                    inventorySlotList[i].GetComponent<InventorySlotScript>().SetElement(elem);
+                    elem.SetActive(false);
+
+                    //Destroy(weapon);
+>>>>>>> e214ca5b1275ef865354a3c517131449f7bfd811
                 }
             }
         }

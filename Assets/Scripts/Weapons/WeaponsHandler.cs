@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class WeaponsHandler : MonoBehaviour
 {
-    private GameObject spaceship;
+    public GameObject spaceship;
     public List<GameObject> weaponList;
     public GameObject weaponUI;
     public Camera camera;
@@ -21,7 +21,6 @@ public class WeaponsHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spaceship = GVC.Instance.PlayerGO;
         weaponList = spaceship.GetComponent<InventoryScript>().weaponList;
         SetWeaponUI();
     }

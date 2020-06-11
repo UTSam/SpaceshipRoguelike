@@ -1,4 +1,5 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<< HEAD:Assets/Scripts/Dungeon/Diagrams.meta
 guid: 3de7b970cf98f024b87934dc18d612b8
 folderAsset: yes
@@ -6,6 +7,15 @@ folderAsset: yes
 guid: 4e26864f4efe79d4798ba40a99fd092d
 >>>>>>> inventory + pick and drop:Assets/Scenes/development/UI.unity.meta
 DefaultImporter:
+=======
+<<<<<<< HEAD:Assets/Prefabs/UI/ActiveWeaponSlot.prefab.meta
+guid: 09658bb2560f2da449809e94ea44a2c9
+PrefabImporter:
+=======
+guid: 4e26864f4efe79d4798ba40a99fd092d
+DefaultImporter:
+>>>>>>> e214ca5b1275ef865354a3c517131449f7bfd811:Assets/Scenes/development/UI.unity.meta
+>>>>>>> e214ca5b1275ef865354a3c517131449f7bfd811
   externalObjects: {}
   userData: 
   assetBundleName: 
