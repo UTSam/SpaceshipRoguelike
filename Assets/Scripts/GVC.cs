@@ -52,6 +52,7 @@ public class GVC : MonoBehaviour
 	public GameObject HealthPackPrefab;
 	public Minimap Minimap;
 	public GameObject Patrick;
+	public GameObject chest;
 
 
 	public List<GameObject> enemies;
