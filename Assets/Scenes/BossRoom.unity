@@ -2316,6 +2316,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 348004227157461364, guid: 005abcff8e7acb341af7765fee8f717b,
+        type: 3}
+      propertyPath: DefaultNbShotToFire
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 348004227157461364, guid: 005abcff8e7acb341af7765fee8f717b,
+        type: 3}
+      propertyPath: IsAiming
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 348004227157461365, guid: 005abcff8e7acb341af7765fee8f717b,
         type: 3}
       propertyPath: m_LocalPosition.x
