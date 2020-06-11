@@ -7,6 +7,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class KamiKaze : BasicMovingEnemy
 {
@@ -37,6 +38,14 @@ public class KamiKaze : BasicMovingEnemy
         if (collision.gameObject.GetComponent<Player>())
         {
             collision.gameObject.GetComponentInParent<HealthComponent>().Damage(kamikazeeDamage);
+            if (GetComponent<Animate>())
+            {
+                GetComponent<Animate>().DoAnimationOnHit();
+            }
+            Destroy(this.gameObject);
+        }
+        if (collision.gameObject.GetComponent<TilemapCollider2D>())
+        {
             if (GetComponent<Animate>())
             {
                 GetComponent<Animate>().DoAnimationOnHit();
