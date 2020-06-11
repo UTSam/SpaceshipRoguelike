@@ -25,13 +25,11 @@ public class InfoUIScript : MonoBehaviour
     public List<GameObject> activeWeaponUIList;
     public List<GameObject> inventorySlotList;
 
-    // Pointer on the inventory hud state
-    protected GameObject inventoryState;
 
     // Start is called before the first frame update
     void Start()
     {
-        inventoryState = GameObject.Find("Main");
+        spaceship = GVC.Instance.PlayerGO;
 
         SetSpaceShipImage();
 
@@ -122,7 +120,7 @@ public class InfoUIScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            inventoryState.GetComponent<InventoryStateScript>().SetState(true);
+            GVC.Instance.inventoryState = true;
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -132,7 +130,7 @@ public class InfoUIScript : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Tab))
         {
-            inventoryState.GetComponent<InventoryStateScript>().SetState(false);
+            GVC.Instance.inventoryState = false;
 
             for (int i = 0; i < transform.childCount; i++)
             {

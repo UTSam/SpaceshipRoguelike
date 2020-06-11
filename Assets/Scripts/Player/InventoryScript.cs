@@ -21,7 +21,16 @@ public class InventoryScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButton(0))
+        {
+            if (weaponList[0]) weaponList[0].GetComponent<BasicWeapon>().Shoot();
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            Debug.Log("piew");
+            weaponList[1].GetComponent<BasicWeapon>().Shoot();
+        }
     }
 
     public void SetWeapon(int index, GameObject weapon)
