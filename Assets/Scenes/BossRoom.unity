@@ -203,7 +203,7 @@ PrefabInstance:
     - target: {fileID: 2473366779738050854, guid: 457ff8de074067c409f91265c1d557b5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 457ff8de074067c409f91265c1d557b5, type: 3}
@@ -1194,13 +1194,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponList: []
-  Phase: 1
   IsFiring: 0
   TimeBetweenShots: 1
   IsReadyToFIre: 1
   credits: {fileID: 1554885635}
-  ShieldPrefab: {fileID: 1133680920440959637, guid: 50be214d49601be4bb2f96c5a9d3060a,
-    type: 3}
   DeathExplosionAnimation: {fileID: 1995403933065894, guid: 4961a16ba01e09547be3e1c9d16d5ad0,
     type: 3}
   FinalExplosionAnimation: {fileID: 1247311384876784, guid: 4adffb0018aeda44e9263f901167af1f,
@@ -1259,8 +1256,6 @@ MonoBehaviour:
   FireWeakeness: 3
   ElecWeakness: 3
   isInvincible: 0
-  phase2HPTrigger: 0
-  phase3HPTrigger: 0
 --- !u!114 &1379905615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1671,6 +1666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa49327c2f5f20040bf98490c0065801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 2
+  amount: 0.02
 --- !u!4 &1837194137
 Transform:
   m_ObjectHideFlags: 0
@@ -1809,6 +1806,21 @@ PrefabInstance:
     - target: {fileID: 5103826729853628731, guid: f04043a234fa62e408b2cea10da29fbe,
         type: 3}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5103826729853628731, guid: f04043a234fa62e408b2cea10da29fbe,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5103826729853628731, guid: f04043a234fa62e408b2cea10da29fbe,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5103826729853628731, guid: f04043a234fa62e408b2cea10da29fbe,
+        type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5193709119202306217, guid: f04043a234fa62e408b2cea10da29fbe,
@@ -2367,7 +2379,7 @@ PrefabInstance:
     - target: {fileID: 348004227157461362, guid: 005abcff8e7acb341af7765fee8f717b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 348004227157461364, guid: 005abcff8e7acb341af7765fee8f717b,
         type: 3}
@@ -2477,7 +2489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &5487953889186295345
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,7 +2507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5487953889186295346
 MonoBehaviour:
   m_ObjectHideFlags: 0
