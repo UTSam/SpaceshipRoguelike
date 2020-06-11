@@ -24,6 +24,27 @@ public class Boss : MonoBehaviour
     [SerializeField] private CreditsText credits;
     [SerializeField] private GameObject DeathExplosionAnimation;
     [SerializeField] private GameObject FinalExplosionAnimation;
+
+    // Start is called before the first frame update	
+    void Start()
+    {
+        startingPosition = transform.position;
+        BossWeapon[] arr = GetComponentsInChildren<BossWeapon>();
+        for (int i = 0; i < arr.Length; ++i)
+        {
+            weaponList.Add(arr[i]);
+        }
+        StartCoroutine(Entrance());
+    }
+
+    // Update is called once per frame	
+    void Update()
+    {
+        if (lastShotTimer > TimeBetweenShots && IsFiring && IsReadyToFIre)
+            FireRandomWeapons();
+
+        lastShotTimer += Time.deltaTime;
+    }
     private void FireRandomWeapons()
     {
         int index = 0;
