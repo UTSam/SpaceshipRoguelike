@@ -39,6 +39,8 @@ public class InfoUIScript : MonoBehaviour
         SetInventorySlotUI();
 
         SetUIOff(); // Disable the UI at launch
+
+        AddStartingWeapons();
     }
 
     // Update is called once per frame
@@ -81,8 +83,6 @@ public class InfoUIScript : MonoBehaviour
         {
             GameObject wUI = Instantiate(activeWeaponUI);
 
-            //wUI.GetComponent<ActiveWeaponUIScript>().weapon = spaceship.GetComponent<InventoryScript>().weaponList[i];
-
             wUI.transform.SetParent(gameObject.transform, false);
             wUI.transform.position = activeWeaponSpawnPoint.transform.position;
             wUI.transform.position = new Vector3(wUI.transform.position.x - (weaponImageWidth * nbWeapons + spaceshipImageSize * (nbWeapons-1))/2 + (weaponImageWidth + spaceshipImageSize) * i + weaponImageWidth*0.5f,
@@ -104,8 +104,6 @@ public class InfoUIScript : MonoBehaviour
             for (int i = 0; i < inventorySlotColumns; i++)
             {
                 GameObject wUI = Instantiate(inventorySlotUI);
-
-                //wUI.GetComponent<ActiveWeaponUIScript>().weapon = spaceship.GetComponent<InventoryScript>().weaponList[i];
 
                 wUI.transform.SetParent(gameObject.transform, false);
                 wUI.transform.position = inventorySlotSpawnPoint.transform.position;
@@ -160,7 +158,6 @@ public class InfoUIScript : MonoBehaviour
         do
         {
             i++;
-
             if(inventorySlotList[i].GetComponent<InventorySlotScript>().element == null)
             {
                 // Instantiate and initialize element
@@ -176,7 +173,29 @@ public class InfoUIScript : MonoBehaviour
             }
 
         } while (!condition && i < inventorySlotList.Count);
+    }
 
-        
+    public void AddStartingWeapons()
+    {
+        if (transform.Find("startingWeaponList"))
+        {
+            
+            GameObject list = transform.Find("startingWeaponList").gameObject;
+
+            for (int i=0; i< spaceship.GetComponent<InventoryScript>().weaponNumber; i++)
+            {
+                if (list.transform.GetChild(0).gameObject.GetComponent<BasicWeapon>())
+                {
+                    // Instantiate and initialize element
+                    GameObject elem = Instantiate(inventoryElementPrefab);
+                    elem.GetComponent<InventoryElementScript>().SetElement(list.transform.GetChild(0).gameObject);
+                    elem.transform.SetParent(this.transform);
+
+                    //Set the element in the available active weapon slots
+                    activeWeaponUIList[i].GetComponent<ActiveWeaponUIScript>().SetElement(elem);
+                    elem.SetActive(false);
+                }
+            }
+        }
     }
 }
