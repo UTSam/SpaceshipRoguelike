@@ -34,7 +34,9 @@ public class Room : MonoBehaviour
     private List<BoxCollider2D> colliderList = new List<BoxCollider2D>();
 
     [SerializeField]
-    private List<GameObject> enemiesToSpawn;
+    private int numberOfEnemiesMin;
+    [SerializeField]
+    private int numberOfEnemiesMax;
 
     public bool playerEntered = false;
     private bool openedDoors = false;
@@ -216,10 +218,14 @@ public class Room : MonoBehaviour
             spawnablePositions.Add(tilePos);
         }
 
-        foreach (GameObject enemy in enemiesToSpawn)
+        int amountOfEnemies = rnd.Next(numberOfEnemiesMin, numberOfEnemiesMax);
+        for (int i = 0; i < amountOfEnemies; i++)
         {
-            int index = rnd.Next(spawnablePositions.Count);
-            Vector3Int spawnPosition = spawnablePositions[index] + globalPosition;
+            int spawnablePositionsIndex = rnd.Next(spawnablePositions.Count);
+            Vector3Int spawnPosition = spawnablePositions[spawnablePositionsIndex] + globalPosition;
+
+            int enemieIndex = rnd.Next(GVC.Instance.enemies.Count);
+            GameObject enemy = GVC.Instance.enemies[enemieIndex];
 
             Instantiate(enemy, spawnPosition, Quaternion.identity, this.transform);
         }

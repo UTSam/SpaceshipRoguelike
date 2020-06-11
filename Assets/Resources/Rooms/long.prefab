@@ -766,6 +766,7 @@ MonoBehaviour:
   doors: []
   previousRoom: {fileID: 0}
   isCleared: 0
-  enemiesToSpawn:
-  - {fileID: 7783866754064367463, guid: 8630312d311857947be45af15ce09fa9, type: 3}
-  - {fileID: 7783866754064367463, guid: 8630312d311857947be45af15ce09fa9, type: 3}
+  numberOfEnemiesMin: 5
+  numberOfEnemiesMax: 10
+  playerEntered: 0
+  spawnPatrick: 0

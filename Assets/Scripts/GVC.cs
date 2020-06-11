@@ -53,6 +53,9 @@ public class GVC : MonoBehaviour
 	public Minimap Minimap;
 	public GameObject Patrick;
 
+
+	public List<GameObject> enemies;
+
 	private void Awake()
 	{
 		if (Instance != null && Instance != this)

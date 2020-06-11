@@ -10,7 +10,6 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MovingEntity
 {
     private State currentState;
@@ -65,9 +64,6 @@ public class Player : MovingEntity
         HealthComponent hc = GetComponentInParent<HealthComponent>();
         if (!hc.isInvincible)
         {
-            float shakeDuration = 0.2f;
-            float shakeStrength = 0.3f;
-
             GetComponentInParent<HealthComponent>().Damage(damageValue, element);
             CameraShake.Shake();
         }
