@@ -232,11 +232,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 710629146723293240, guid: 6df8cdc84948ad14188fb4c8981382a6,
-        type: 3}
-      propertyPath: roomCount
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 920596474070257608, guid: 6df8cdc84948ad14188fb4c8981382a6,
         type: 3}
       propertyPath: m_LocalPosition.x

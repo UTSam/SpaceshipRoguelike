@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 372e18c9939ddc641ba211175a9b4027, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,9 +98,11 @@ MonoBehaviour:
     type: 3}
   Target: {fileID: 0}
   Muzzle: {fileID: 4637283747348363600}
-  FireRate: 8
+  FireRate: 25
+  fireSound: {fileID: 0}
   NbShotToFire: 0
-  DefaultNbShotToFire: 6
+  DefaultNbShotToFire: 11
   IsAiming: 0
-  spreadAngle: 40
-  DefaultNbWaveToFire: 1
+  IsRotating: 0
+  spreadAngle: 90
+  DefaultNbWaveToFire: 4
