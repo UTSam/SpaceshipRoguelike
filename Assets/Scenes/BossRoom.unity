@@ -550,11 +550,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 310207639}
     m_Modifications:
-    - target: {fileID: 4159593832766111046, guid: 9899897fd13d5f24280f71994afa61d6,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 4637283747348363600, guid: 9899897fd13d5f24280f71994afa61d6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -612,27 +607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4637283747348363606, guid: 9899897fd13d5f24280f71994afa61d6,
         type: 3}
-      propertyPath: spreadAngle
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637283747348363606, guid: 9899897fd13d5f24280f71994afa61d6,
-        type: 3}
-      propertyPath: DefaultNbShotToFire
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637283747348363606, guid: 9899897fd13d5f24280f71994afa61d6,
-        type: 3}
       propertyPath: nbWaves
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637283747348363606, guid: 9899897fd13d5f24280f71994afa61d6,
-        type: 3}
-      propertyPath: FireRate
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637283747348363606, guid: 9899897fd13d5f24280f71994afa61d6,
-        type: 3}
-      propertyPath: DefaultNbWaveToFire
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4637283747348363607, guid: 9899897fd13d5f24280f71994afa61d6,
@@ -1911,36 +1886,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 310207639}
     m_Modifications:
-    - target: {fileID: 9182197866534106138, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
-        type: 3}
-      propertyPath: DefaultNbShotToFire
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182197866534106138, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
-        type: 3}
-      propertyPath: BulletsPerShot
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182197866534106138, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
-        type: 3}
-      propertyPath: FireRate
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182197866534106138, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
-        type: 3}
-      propertyPath: IsAiming
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182197866534106138, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
-        type: 3}
-      propertyPath: spreadAngle
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182197866534106138, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
-        type: 3}
-      propertyPath: IsRotating
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9182197866534106139, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1995,16 +1940,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182197866534106139, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9182197866534106139, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9182197866534106140, guid: eb2d15f0a7d9a3c438474fcc84766d3f,
         type: 3}
@@ -2390,11 +2325,6 @@ PrefabInstance:
         type: 3}
       propertyPath: IsAiming
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 348004227157461364, guid: 005abcff8e7acb341af7765fee8f717b,
-        type: 3}
-      propertyPath: FireRate
-      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 348004227157461365, guid: 005abcff8e7acb341af7765fee8f717b,
         type: 3}

@@ -48,9 +48,12 @@ MonoBehaviour:
     type: 3}
   Target: {fileID: 0}
   Muzzle: {fileID: 348004227157461365}
-  FireRate: 4
+  FireRate: 12
+  fireSound: {fileID: 0}
   NbShotToFire: 0
-  DefaultNbShotToFire: 4
+  DefaultNbShotToFire: 12
+  IsAiming: 1
+  IsRotating: 0
   BulletsPerShot: 1
   spreadAngle: 0
 --- !u!212 &9022808415403494755
