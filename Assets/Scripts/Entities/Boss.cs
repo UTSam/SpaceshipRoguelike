@@ -27,23 +27,13 @@ public class Boss : MonoBehaviour
     private void FireRandomWeapons()
     {
         int index = 0;
-        /*if (Phase < 2)
-        {*/
+
         do { index = Random.Range(0, weaponList.Count); }
         while (weaponList[index] == lastShotWeapon);//never fire the same weapon twice in a row
         weaponList[index].InitFireSequence();
 
         lastShotWeapon = weaponList[index];
-        /*}
-        else
-        {
-            List<BossWeapon> tmpList = new List<BossWeapon>(weaponList);
-            index = Random.Range(0, tmpList.Count);
-            tmpList[index].InitFireSequence();
-            tmpList.RemoveAt(index);
-            index = Random.Range(0, tmpList.Count);
-            tmpList[index].InitFireSequence();
-        }*/
+
         lastShotTimer = 0.0f;
     }
 
@@ -53,7 +43,6 @@ public class Boss : MonoBehaviour
         while (startingPosition.y - transform.position.y < 3.0f)
         {
             transform.position += new Vector3(0f, -0.02f, 0f);
-            //transform.position += new Vector3(0f, -0.5f, 0f);
             yield return null;
         }
 
