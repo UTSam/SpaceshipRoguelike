@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class weaponUIScript : MonoBehaviour
 {
-    public BasicWeapon weapon;
+    public GameObject weapon;
 
     public Text weaponNameTextZone;
     public Text currentBulletNumber;
@@ -26,7 +26,7 @@ public class weaponUIScript : MonoBehaviour
 
     public void Init()
     {
-        weaponNameTextZone.text = weapon.weaponName;
+        weaponNameTextZone.text = weapon.GetComponent<BasicWeapon>().weaponName;
         weaponImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
         shotCooldownBar.fillAmount = 0;
     }
@@ -34,13 +34,13 @@ public class weaponUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        maxBulletNumber = weapon.magazineSize; // At start the currentBulletNumberisMaxed /!\ Needs to be updated with modifiers
+        maxBulletNumber = weapon.GetComponent<BasicWeapon>().magazineSize; // At start the currentBulletNumberisMaxed /!\ Needs to be updated with modifiers
 
-        currentBulletNumber.text = ((int)weapon.currentBulletNumber).ToString();
-        bulletsBar.fillAmount = (float)weapon.currentBulletNumber / maxBulletNumber;
+        currentBulletNumber.text = ((int)weapon.GetComponent<BasicWeapon>().currentBulletNumber).ToString();
+        bulletsBar.fillAmount = (float)weapon.GetComponent<BasicWeapon>().currentBulletNumber / maxBulletNumber;
 
-        reloadBar.fillAmount = (float)weapon.reloadCooldown / (float)weapon.reloadTime;
+        reloadBar.fillAmount = (float)weapon.GetComponent<BasicWeapon>().reloadCooldown / (float)weapon.GetComponent<BasicWeapon>().reloadTime;
 
-        shotCooldownBar.fillAmount = (float)weapon.shotCooldown / (1 / (float)weapon.fireRate);
+        shotCooldownBar.fillAmount = (float)weapon.GetComponent<BasicWeapon>().shotCooldown / (1 / (float)weapon.GetComponent<BasicWeapon>().fireRate);
     }
 }

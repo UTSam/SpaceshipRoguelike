@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 8766771544827642076}
   - component: {fileID: 4892083800256483771}
   - component: {fileID: -4405900615451486299}
+  - component: {fileID: 4663111035381128284}
   m_Layer: 0
   m_Name: shotgun
   m_TagString: Untagged
@@ -133,6 +134,7 @@ MonoBehaviour:
   reloadTime: 3
   fireRate: 0.8
   maxModifierNumber: 1
+  equiped: 0
   bullet: {fileID: 1624858458768059282, guid: 86184ef4c04cb2f4da4965838843a99d, type: 3}
   bulletSpawnPoint: {fileID: 1080662680599254626}
   bulletDirection: {fileID: 7268254747983274911}
@@ -235,6 +237,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &4663111035381128284
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6868662918975605535}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.28000006, y: 0.090000026, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6922942790808771274
 GameObject:
   m_ObjectHideFlags: 0
