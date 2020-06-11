@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class Boss : MonoBehaviour
 {
     public List<BossWeapon> weaponList = new List<BossWeapon>();
-    public int Phase;
 
     public bool IsFiring = true;
     public float TimeBetweenShots = 1.0f;
@@ -18,30 +17,8 @@ public class Boss : MonoBehaviour
     private Vector3 startingPosition;
 
     [SerializeField] private CreditsText credits;
-
-    [SerializeField] private GameObject ShieldPrefab;
     [SerializeField] private GameObject DeathExplosionAnimation;
     [SerializeField] private GameObject FinalExplosionAnimation;
-    // Start is called before the first frame update
-    void Start()
-    {
-        startingPosition = transform.position;
-        BossWeapon[] arr = GetComponentsInChildren<BossWeapon>();
-        for (int i = 0; i < arr.Length; ++i)
-        {
-            weaponList.Add(arr[i]);
-        }
-        StartCoroutine(Entrance());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (lastShotTimer > TimeBetweenShots && IsFiring && IsReadyToFIre)
-            FireRandomWeapons();
-
-        lastShotTimer += Time.deltaTime;
-    }
     private void FireRandomWeapons()
     {
         int index = 0;
@@ -63,43 +40,6 @@ public class Boss : MonoBehaviour
             tmpList[index].InitFireSequence();
         }*/
         lastShotTimer = 0.0f;
-    }
-
-    public void SetPhase(int nextPhase)
-    {
-        if (nextPhase > Phase)
-        {
-            Phase = nextPhase;
-            StartCoroutine(InitNextPhaseRoutine());
-        }
-    }
-
-    private IEnumerator InitNextPhaseRoutine()
-    {
-        /*if (lastShotWeapon != null)
-             lastShotWeapon.StopShooting();
-
-         IsFiring = false;
-         StartCoroutine(ShieldDropCoroutine(2));
-         GetComponent<BossHealthComponent>().RestoreShield(int.MaxValue);
-         yield return new WaitForSeconds(3);
-         IsFiring = true;*/
-        yield return null;
-    }
-
-    private void LootShield()
-    {
-        GameObject shield = Instantiate(ShieldPrefab) as GameObject;
-        shield.transform.position = weaponList[Random.Range(0, weaponList.Count)].transform.position;
-    }
-
-    private IEnumerator ShieldDropCoroutine(int nb)
-    {
-        for (int i = 0; i < nb; i++)
-        {
-            LootShield();
-            yield return new WaitForSeconds(1);
-        }
     }
 
     private IEnumerator Entrance()
