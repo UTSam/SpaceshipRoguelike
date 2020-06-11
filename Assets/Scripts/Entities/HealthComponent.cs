@@ -40,9 +40,9 @@ public class HealthComponent : MonoBehaviour
             SceneManager.LoadScene("DeathScreen");
         else
         {
-            if (Random.value < 0.0f)
+            if (Random.value < 0.05f)
             {
-                GameObject pack = Instantiate(GVC.Instance.HealthPackPrefab) as GameObject;
+                GameObject pack = Instantiate(GVC.Instance.ShieldPackPrefab) as GameObject;
                 pack.transform.position = transform.position;
             }
             Destroy(this.gameObject);
@@ -58,7 +58,6 @@ public class HealthComponent : MonoBehaviour
             {
                 if (elem == ElementType.Elec)
                 {
-                    // Debug.Log("Damage to shield : " + damageValue * (1f + ElecWeakness));
                     Shield -= damageValue * (1f + ElecWeakness);
                 }
 

@@ -50,8 +50,10 @@ public class GVC : MonoBehaviour
 	public GameObject DungeonGO;
 	public GameObject StopWatchGO;
 	public GameObject HealthPackPrefab;
+	public GameObject ShieldPackPrefab;
 	public Minimap Minimap;
 	public GameObject Patrick;
+	public float PlayerSpeed = 10f;
 
 
 	public List<GameObject> enemies;
