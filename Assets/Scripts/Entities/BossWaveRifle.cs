@@ -37,10 +37,6 @@ public class BossWaveRifle : BossWeapon
         float angleOffset = 0;
         angleOffset = spreadAngle * 2f / (DefaultNbShotToFire - 1);
 
-       
-        /*    Vector3 lookPos = aimingPosition - Muzzle.position;
-        float canonAngle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(canonAngle - 90, Vector3.forward);*/
 
         GameObject projectile = Instantiate(ProjectilePrefab) as GameObject;
         projectile.transform.position = Muzzle.position;

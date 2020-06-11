@@ -16,7 +16,6 @@ public class BossWeapon : ShootingComponent
     public bool IsAiming;
     public bool IsRotating = false;
 
-    // Start is called before the first frame update
     protected void Start()
     {
         base.Start();
