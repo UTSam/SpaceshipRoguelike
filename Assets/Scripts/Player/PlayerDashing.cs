@@ -47,6 +47,8 @@ public class PlayerDashing : State
             ParticleSystem.MainModule newMain = dashAnimation.main;
             newMain.startRotation = -(player.transform.rotation.eulerAngles.z * Mathf.Deg2Rad);
             dashAnimation.Play();
+
+            if (player.GetComponent<SFX_Player>()) player.GetComponent<SFX_Player>().PlaySpecialAnimationAudio();
         }
     }
 
