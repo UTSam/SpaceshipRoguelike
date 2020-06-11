@@ -38,6 +38,5 @@ public class PlayerMovement : State
     public override void FixedTick()
     {
         rb.velocity = input * moveSpeed;
-        //rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 }

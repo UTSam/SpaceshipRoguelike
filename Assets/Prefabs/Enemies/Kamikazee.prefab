@@ -289,7 +289,7 @@ MonoBehaviour:
   heading: {x: 0, y: 0}
   perpendicular: {x: 0, y: 0}
   mass: 2
-  maxSpeed: 50
+  maxSpeed: 130
   maxForce: 2
   maxTurnRate: 2
   target: {fileID: 0}
