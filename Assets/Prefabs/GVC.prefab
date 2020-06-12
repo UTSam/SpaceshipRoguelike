@@ -61,7 +61,7 @@ MonoBehaviour:
     type: 3}
   Minimap: {fileID: 0}
   Patrick: {fileID: 8426461079039651973, guid: 579b763442b9a0a4aad283b4db4d6d9b, type: 3}
-  chest: {fileID: 6064578737114467422, guid: 96f1d2cc63b15024b98f44cd5ae0f6da, type: 3}
+  chest: {fileID: 4284920076356854779, guid: 13a83c259b9303e4b9f322e180aee8e2, type: 3}
   inventoryState: 0
   enemies:
   - {fileID: 7783866754064367463, guid: 8630312d311857947be45af15ce09fa9, type: 3}
