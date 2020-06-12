@@ -8,9 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4917534600768410693}
+  - component: {fileID: 2949797762174920254}
   - component: {fileID: 9056440272381968350}
   - component: {fileID: 486919878281004605}
+  - component: {fileID: 5034979832503588262}
   m_Layer: 0
   m_Name: lasergun
   m_TagString: Untagged
@@ -18,8 +19,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4917534600768410693
-Transform:
+--- !u!224 &2949797762174920254
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7397824098867827155}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 58922193575064431}
   - {fileID: 7160601296490574143}
@@ -35,6 +36,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.36, y: 0.09}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &9056440272381968350
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -97,12 +103,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43439aa458f187a41888370ebdbaea0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: 
+  weaponName: Lasergun
   magazineSize: 500
   currentBulletNumber: 0
   reloadTime: 2
   fireRate: 20
   maxModifierNumber: 2
+  equiped: 0
   bullet: {fileID: 7776950710900859174}
   bulletSpawnPoint: {fileID: 58922193575064431}
   bulletDirection: {fileID: 7160601296490574143}
@@ -110,6 +117,19 @@ MonoBehaviour:
   shotCooldown: 0
   fireSound: {fileID: 0}
   laserOverloadFactor: 10
+--- !u!65 &5034979832503588262
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7397824098867827155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3600001, y: 0.090000026, z: 0.19999999}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7776950710900859174
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,10 +156,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7776950710900859174}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.96, y: 0.09, z: 1.1}
+  m_LocalPosition: {x: 0.19, y: 0.005, z: 1.1}
   m_LocalScale: {x: 5.41, y: 3.01, z: 5.35}
   m_Children: []
-  m_Father: {fileID: 4917534600768410693}
+  m_Father: {fileID: 2949797762174920254}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &4115673137197496596
@@ -156,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lr: {fileID: 233277631358298890}
   laserLength: 10
-  DamageValue: 0
+  DamageValue: 1
   element: 2
 --- !u!120 &233277631358298890
 LineRenderer:
@@ -282,7 +302,7 @@ Transform:
   m_LocalPosition: {x: 3, y: 0.12, z: 0}
   m_LocalScale: {x: 0.0018200008, y: 0.0018200008, z: 0.00182}
   m_Children: []
-  m_Father: {fileID: 4917534600768410693}
+  m_Father: {fileID: 2949797762174920254}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8257394353830014313
@@ -309,9 +329,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8257394353830014313}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: -0.7071068}
-  m_LocalPosition: {x: 1.76, y: 0.09, z: 0}
+  m_LocalPosition: {x: 0.18, y: 0, z: 0}
   m_LocalScale: {x: -0.041999996, y: 0.00182, z: 0.00182}
   m_Children: []
-  m_Father: {fileID: 4917534600768410693}
+  m_Father: {fileID: 2949797762174920254}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

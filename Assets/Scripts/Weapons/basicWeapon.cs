@@ -16,6 +16,7 @@ public class BasicWeapon : MonoBehaviour
     public int reloadTime; // in seconds
     public float fireRate;
     public int maxModifierNumber;
+    public bool equiped = false;
 
     // Bullet object and spawn point
     public GameObject bullet;
@@ -29,29 +30,37 @@ public class BasicWeapon : MonoBehaviour
     // Triger variables
     protected bool isReloading = false;
 
+    // Point on the inventory hud state
+    protected GameObject inventoryState;
+
     [SerializeField] protected AudioSource fireSound;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
         currentBulletNumber = magazineSize;
+
+        inventoryState = GameObject.Find("Main");
+
+        Debug.Log(name);
     }
 
     // Update is called once per frame
     public void Update()
     {
-        Shoot();
+        if (equiped && !GVC.Instance.inventoryState)
+        {
+            // Reloads if the number of bullets is null or if the user ask for it, only if it is not already reloading or if its bullet number is max
+            Reload();
 
-        // Reloads if the number of bullets is null or if the user ask for it, only if it is not already reloading or if its bullet number is max
-        Reload();
+            /* Timer updates */
+            if (shotCooldown > 0)
+                shotCooldown -= Time.deltaTime;
 
-        /* Timer updates */
-        if (shotCooldown > 0)
-            shotCooldown -= Time.deltaTime;
-
-        if (reloadCooldown > 0)
-            reloadCooldown -= Time.deltaTime;
-        /* End timer updates */
+            if (reloadCooldown > 0)
+                reloadCooldown -= Time.deltaTime;
+            /* End timer updates */
+        }
     }
 
     public virtual void Shoot() {}
@@ -69,5 +78,34 @@ public class BasicWeapon : MonoBehaviour
             isReloading = true;
             reloadCooldown = reloadTime;
         }
+    }
+
+    public string GetWeaponData()
+    {
+        string s;
+        s = string.Empty;
+
+        s += "Name: ";
+        s += weaponName;
+        s += "\n";
+
+        s += "Magazine size: ";
+        s += magazineSize;
+        s += "\n";
+
+        s += "Reload time: ";
+        s += reloadTime;
+        s += "\n";
+
+        s += "Fire rate: ";
+        s += fireRate;
+        s += "\n\n";
+
+        return s;
+    }
+
+    public void SetEquiped(bool value)
+    {
+        equiped = value;
     }
 }

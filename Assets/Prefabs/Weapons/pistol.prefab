@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1419262299894538244}
   - component: {fileID: 4114445383978811286}
   - component: {fileID: 452344679094095738}
+  - component: {fileID: 8221283749286318820}
   m_Layer: 0
   m_Name: pistol
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1988548444873067933}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4608903454911773998}
   - {fileID: 6004938914152709728}
@@ -71,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1609128857
-  m_SortingLayer: -1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8af2d9edca099ff4194eaa8cc227ac15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -103,6 +104,7 @@ MonoBehaviour:
   reloadTime: 2
   fireRate: 1.4
   maxModifierNumber: 2
+  equiped: 0
   bullet: {fileID: 5397038310933703808, guid: c088ced9cc5678c44b063816286d420b, type: 3}
   bulletSpawnPoint: {fileID: 4608903454911773998}
   bulletDirection: {fileID: 6004938914152709728}
@@ -205,6 +207,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &8221283749286318820
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988548444873067933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3400001, y: 0.070000015, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4223762790464591507
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +262,7 @@ GameObject:
   m_Layer: 0
   m_Name: bulletSpawnPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
@@ -259,7 +274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7672953708480828670}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.6, y: 0, z: 0}
+  m_LocalPosition: {x: 0.171, y: 0, z: 0}
   m_LocalScale: {x: 0.08685715, y: 0.08685715, z: 0.08685715}
   m_Children: []
   m_Father: {fileID: 4744045781374650082}

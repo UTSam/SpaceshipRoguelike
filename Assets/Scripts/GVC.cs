@@ -53,12 +53,13 @@ public class GVC : MonoBehaviour
 	public GameObject ShieldPackPrefab;
 	public Minimap Minimap;
 	public GameObject Patrick;
+	public GameObject chest;
+	public bool inventoryState;
 	public float PlayerSpeed = 10f;
-
-
+  
 	public List<GameObject> enemies;
 
-	private void Awake()
+  private void Awake()
 	{
 		if (Instance != null && Instance != this)
 		{

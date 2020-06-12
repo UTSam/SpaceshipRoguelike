@@ -22,7 +22,7 @@ public class MachineGunWeapon : BasicWeapon
 
     public override void Shoot()
     {
-        if (Input.GetMouseButton(0) && shotCooldown <= 0 && !isReloading)
+        if (shotCooldown <= 0 && !isReloading)
         {
             shotCooldown = 1 / fireRate;
             currentBulletNumber--;

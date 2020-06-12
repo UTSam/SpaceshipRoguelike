@@ -52,22 +52,27 @@ public class Room : MonoBehaviour
         if (!playerEntered) return;
         if (openedDoors) return;
 
-        // TODO FIX: Performance heavy probably
         BasicMovingEnemy[] gameObjects = GetComponentsInChildren<BasicMovingEnemy>(true) as BasicMovingEnemy[];
 
         if (gameObjects.Length == 0)
         {
             this.OpenDoors();
             openedDoors = true;
-            SpawnPatrick();
+            SpawnItems();
         }
     }
 
-    private void SpawnPatrick()
+    private void SpawnItems()
     {
         if (spawnPatrick)
         {
             Instantiate(GVC.Instance.Patrick, this.globalPosition, Quaternion.identity, this.transform);
+        }
+
+        if (UnityEngine.Random.value < 0.2f)
+        {
+            GameObject pack = Instantiate(GVC.Instance.chest) as GameObject;
+            pack.transform.position = transform.position;
         }
     }
 
