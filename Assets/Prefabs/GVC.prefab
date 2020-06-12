@@ -59,6 +59,8 @@ MonoBehaviour:
   StopWatchGO: {fileID: 0}
   HealthPackPrefab: {fileID: 9057909179316814408, guid: b850272f70238c04fb835666df935454,
     type: 3}
+  ShieldPackPrefab: {fileID: 8178208326328112516, guid: 0435dd16ad2ff9649b2d6bdbfd513423,
+    type: 3}
   Minimap: {fileID: 0}
   Patrick: {fileID: 8426461079039651973, guid: 579b763442b9a0a4aad283b4db4d6d9b, type: 3}
   chest: {fileID: 4284920076356854779, guid: 13a83c259b9303e4b9f322e180aee8e2, type: 3}
