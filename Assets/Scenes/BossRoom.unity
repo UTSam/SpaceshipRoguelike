@@ -121,18 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &88057787 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1668456286662593263, guid: 457ff8de074067c409f91265c1d557b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 89802106}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ea10a40adbdd204bb6c11c0e5e01313, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &89802106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -203,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 2473366779738050854, guid: 457ff8de074067c409f91265c1d557b5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 457ff8de074067c409f91265c1d557b5, type: 3}
@@ -315,18 +303,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90605565}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &243108472 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3722550710825784959, guid: 457ff8de074067c409f91265c1d557b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 89802106}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ea10a40adbdd204bb6c11c0e5e01313, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &310207638
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,18 +488,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &414349241 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8697894419109961157, guid: 457ff8de074067c409f91265c1d557b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 89802106}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61e0c0b37c9dbe344ba10b49a329ffe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &476311867 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2473366779738050854, guid: 457ff8de074067c409f91265c1d557b5,
@@ -772,18 +736,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 786141602}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &992590602 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7278028189287950728, guid: 457ff8de074067c409f91265c1d557b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 89802106}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61e0c0b37c9dbe344ba10b49a329ffe5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1051386333
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1757,13 +1709,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponList:
-  - {fileID: 88057787}
-  - {fileID: 414349241}
-  - {fileID: 992590602}
-  - {fileID: 243108472}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   weaponUI: {fileID: 8983772288705229140, guid: f4cd57cdfb2de44479c8f13a53a809f3,
     type: 3}
   camera: {fileID: 1837194134}
+  weaponUIList: []
   uiSpace: 50
 --- !u!4 &2041865795
 Transform:
@@ -2216,16 +2169,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 348004227157461364, guid: 005abcff8e7acb341af7765fee8f717b,
-        type: 3}
-      propertyPath: DefaultNbShotToFire
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 348004227157461364, guid: 005abcff8e7acb341af7765fee8f717b,
-        type: 3}
-      propertyPath: IsAiming
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 348004227157461365, guid: 005abcff8e7acb341af7765fee8f717b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2350,7 +2293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3513483d3864d4a46b6cdc7bf6281b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 8272244653036306437, guid: f1b41f181536f88459ad9d3b666874f0,
+  ProjectilePrefab: {fileID: 1628551640954540026, guid: 099e87c3485ec374683c3e32c774c839,
     type: 3}
   Target: {fileID: 0}
   Muzzle: {fileID: 5487953889186295350}
