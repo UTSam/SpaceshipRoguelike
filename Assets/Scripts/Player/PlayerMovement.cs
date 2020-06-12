@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class PlayerMovement : State
 {
-    private float moveSpeed = 10;
     private Vector2 input;
 
     Rigidbody2D rb;
@@ -37,6 +36,6 @@ public class PlayerMovement : State
 
     public override void FixedTick()
     {
-        rb.velocity = input * moveSpeed;
+        rb.velocity = input * GVC.Instance.PlayerSpeed; ;
     }
 }
