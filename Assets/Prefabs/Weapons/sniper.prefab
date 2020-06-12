@@ -104,7 +104,7 @@ MonoBehaviour:
   fireRate: 1.5
   maxModifierNumber: 2
   equiped: 0
-  bullet: {fileID: 5397038310933703808, guid: c088ced9cc5678c44b063816286d420b, type: 3}
+  bullet: {fileID: 4543109013041258108, guid: a195a66a7b52ea7479f0d3dc30affb44, type: 3}
   bulletSpawnPoint: {fileID: 2998793412813201158}
   bulletDirection: {fileID: 3235454044910183930}
   reloadCooldown: 0

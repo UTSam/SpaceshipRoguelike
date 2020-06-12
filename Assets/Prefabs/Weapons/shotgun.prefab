@@ -132,7 +132,7 @@ MonoBehaviour:
   magazineSize: 5
   currentBulletNumber: 0
   reloadTime: 3
-  fireRate: 0.8
+  fireRate: 1.26
   maxModifierNumber: 1
   equiped: 0
   bullet: {fileID: 1624858458768059282, guid: 86184ef4c04cb2f4da4965838843a99d, type: 3}
