@@ -185,16 +185,13 @@ public class InfoUIScript : MonoBehaviour
                 {
                     // Instantiate and initialize element
                     GameObject elem = Instantiate(inventoryElementPrefab);
-                    GameObject weapon = list.transform.GetChild(0).gameObject;
-                    elem.GetComponent<InventoryElementScript>().SetElement(weapon);
+                    elem.GetComponent<InventoryElementScript>().SetElement(list.transform.GetChild(0).gameObject);
                     elem.transform.SetParent(this.transform);
-
+                    
                     //Set the element in the available active weapon slots
-                    //activeWeaponUIList[i].GetComponent<ActiveWeaponUIScript>().SetElement(elem);
-                    inventorySlotList[i].GetComponent<InventorySlotScript>().SetElement(elem);
-                    elem.SetActive(false);
+                    activeWeaponUIList[i].GetComponent<ActiveWeaponUIScript>().SetElement(elem);
 
-                    //Destroy(weapon);
+                    elem.SetActive(false);
                 }
             }
         }

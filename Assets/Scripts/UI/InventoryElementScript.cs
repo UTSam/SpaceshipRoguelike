@@ -12,15 +12,7 @@ public class InventoryElementScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        // Called if the element is set on the launch of the program
-        if (element != null)
-        {
-            element = Instantiate(element);
-            element.transform.SetParent(transform);
-            SetElement(element);
-        }
-            
+    {           
     }
 
     // Update is called once per frame
