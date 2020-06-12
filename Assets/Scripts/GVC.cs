@@ -52,7 +52,7 @@ public class GVC : MonoBehaviour
 	public GameObject HealthPackPrefab;
 	public GameObject ShieldPackPrefab;
 	public Minimap Minimap;
-	public GameObject Patrick
+	public GameObject Patrick;
 	public GameObject chest;
 	public bool inventoryState;
 	public float PlayerSpeed = 10f;
