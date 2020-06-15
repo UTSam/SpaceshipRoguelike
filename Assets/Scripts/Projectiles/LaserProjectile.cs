@@ -40,8 +40,6 @@ public class LaserProjectile : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponentInParent<HealthComponent>().Damage(DamageValue, element);
 
-                    Debug.Log("oui");
-
                     if (GetComponent<Animate>())
                     {
                         GetComponent<Animate>().DoAnimationOnHit();

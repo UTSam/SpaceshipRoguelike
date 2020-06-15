@@ -15,8 +15,6 @@ public class SFX_Player : MonoBehaviour
     [SerializeField] private AudioSource _onDestroy;
     [SerializeField] private AudioSource _onStart;
 
-
-
     public void PlaySpecialAnimationAudio()
     {
         if (_specialAnimationAudio != null) this._specialAnimationAudio.Play();
