@@ -3,7 +3,6 @@
       Samuel Boileau
 */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +16,6 @@ public class WeaponsHandler : MonoBehaviour
 
     public int uiSpace = 50;
 
-    // Start is called before the first frame update
     // Start is called before the first frame update
     void Start()
     {

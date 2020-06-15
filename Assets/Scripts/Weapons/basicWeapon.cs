@@ -41,8 +41,6 @@ public class BasicWeapon : MonoBehaviour
         currentBulletNumber = magazineSize;
 
         inventoryState = GameObject.Find("Main");
-
-        Debug.Log(name);
     }
 
     // Update is called once per frame

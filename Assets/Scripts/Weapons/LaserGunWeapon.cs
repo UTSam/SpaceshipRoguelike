@@ -3,21 +3,10 @@
       Samuel Boileau
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class LaserGunWeapon : BasicWeapon
 {
     public float laserOverloadFactor = 10;
-    private bool laserActive = false;
 
-    public override void Start()
-    {
-        base.Start();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         base.Update();
