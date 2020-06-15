@@ -1,8 +1,6 @@
 ﻿/*
     Authors:
-      Thibaut Rousselet
       Jelle van Urk
-      Robbert Ritsema
 */
 
 using System.Collections;
@@ -52,11 +50,6 @@ public class KamiKaze : BasicMovingEnemy
             }
             Destroy(this.gameObject);
         }
-    }
-
-    private void OnDestroy()
-    {
-        //DeathAnimation();
     }
 
     private void DeathAnimation()

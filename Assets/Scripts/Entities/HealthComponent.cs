@@ -64,7 +64,6 @@ public class HealthComponent : MonoBehaviour
                 else
                 {
                     Shield -= damageValue;
-                    //Debug.Log("Damage to shield : " + damageValue);
                 }
                 Shield = Mathf.Round(Shield);
 
@@ -84,12 +83,10 @@ public class HealthComponent : MonoBehaviour
                 if (elem == ElementType.Fire)
                 {
                     Health -= damageToLife * (1f + FireWeakeness);
-                    //Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
                 }
                 else
                 {
                     Health -= damageToLife;
-                    //Debug.Log("Damage to life : " + damageToLife);
                 }
 
                 if (damageToLife > 0f)
@@ -97,12 +94,10 @@ public class HealthComponent : MonoBehaviour
                     if (elem == ElementType.Fire)
                     {
                         Health -= damageToLife * (1f + FireWeakeness);
-                        //Debug.Log("Damage to life : " + damageToLife * (1f + FireWeakeness));
                     }
                     else
                     {
                         Health -= damageToLife;
-                        //Debug.Log("Damage to life : " + damageToLife);
                     }
 
                     Health = Mathf.Round(Health);
@@ -208,11 +203,9 @@ public class HealthComponent : MonoBehaviour
         Color color = this.GetComponent<SpriteRenderer>().color;
         for (int i =0; i< 5; i++)
         {
-            //this.GetComponent<SpriteRenderer>().enabled = false;
             color.a   = 0.5f;
             this.GetComponent<SpriteRenderer>().color = color;
             yield return new WaitForSeconds(0.1f);
-            //this.GetComponent<SpriteRenderer>().enabled = true;
             color.a = 1f;
             this.GetComponent<SpriteRenderer>().color = color;
             yield return new WaitForSeconds(0.1f);

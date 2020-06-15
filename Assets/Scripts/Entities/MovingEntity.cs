@@ -2,7 +2,6 @@
     Authors:
       Thibaut Rousselet
       Jelle van Urk
-      Robbert Ritsema
 */
 
 using System;

@@ -3,15 +3,7 @@
       Jelle van Urk
       Thibaut Rousselet
 */
-
-using System;
-using System.Runtime.CompilerServices;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-
-//[RequireComponent(typeof(BasicMovingEnemy))]
-
 public class SteeringBehaviours : MonoBehaviour
 {
     private BasicMovingEnemy host;
@@ -70,7 +62,6 @@ public class SteeringBehaviours : MonoBehaviour
         if (feelers == null)
         {
             Debug.LogError("Feeler manager prefab missing");
-            //UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 
@@ -122,7 +113,6 @@ public class SteeringBehaviours : MonoBehaviour
 
     private Vector2 Kamikazeee()
     {
-        //Vector2 desiredVelocity = (host.target.transform.position - host.transform.position).normalized *host.maxSpeed;
         Vector2 desiredVelocity = (host.target.GetPosition() - host.GetPosition()).normalized * host.maxSpeed;
         return (desiredVelocity - host.speed);
     }
@@ -229,6 +219,7 @@ public class SteeringBehaviours : MonoBehaviour
         if (this.Leader == null) return Vector2.zero;
 
         Vector2 WorldOffsetPos = Leader.GetPosition();
+
         //Calculate the heading of the leader and do this *-1 to get behind the leader.
         WorldOffsetPos += (Leader.heading.normalized * -1 * OffsetToleader);
 

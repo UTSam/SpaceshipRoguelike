@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+    Authors:
+      Thibaut Rousselet
+*/
+using System.Collections;
 using UnityEngine;
 
 public class ChestEffect : MonoBehaviour

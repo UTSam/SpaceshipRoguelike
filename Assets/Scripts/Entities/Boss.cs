@@ -25,7 +25,9 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject DeathExplosionAnimation;
     [SerializeField] private GameObject FinalExplosionAnimation;
 
-    // Start is called before the first frame update	
+    // Start is called before the first frame update
+    // Add all weapons that are attached to the prefab into an array which will be used to 
+    // pick a random weapon from upon fighting.
     void Start()
     {
         startingPosition = transform.position;
@@ -58,6 +60,7 @@ public class Boss : MonoBehaviour
         lastShotTimer = 0.0f;
     }
 
+    //Entrance to bossroom animation
     private IEnumerator Entrance()
     {
         GetComponent<BossHealthComponent>().isInvincible = true;
@@ -80,6 +83,7 @@ public class Boss : MonoBehaviour
         yield return null;
     }
 
+    //leaving the bossroom animation
     private IEnumerator LeaveScreen()
     {
         while (startingPosition.y - transform.position.y > 0.0f)

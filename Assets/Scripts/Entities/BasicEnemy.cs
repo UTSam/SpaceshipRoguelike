@@ -1,12 +1,8 @@
 ﻿/*
     Authors:
       Thibaut Rousselet
+      Jelle van Urk
 */
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class BasicEnemy : MovingEntity  {
 
     // Start is called before the first frame update
